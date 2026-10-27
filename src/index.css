@@ -1,1 +1,79 @@
 @import "tailwindcss";
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.arabic-font {
+  font-family: 'Amiri', 'Noto Sans Arabic', serif;
+  line-height: 2;
+}
+
+.tamil-font {
+  font-family: 'Noto Sans Tamil', sans-serif;
+}
+
+.malayalam-font {
+  font-family: 'Noto Sans Malayalam', sans-serif;
+}
+
+.hindi-font {
+  font-family: 'Noto Sans Devanagari', sans-serif;
+}
+
+.bengali-font {
+  font-family: 'Noto Sans Bengali', sans-serif;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(212, 175, 55, 0.3);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(212, 175, 55, 0.5);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse-gold {
+  0%, 100% { box-shadow: 0 0 20px rgba(212, 175, 55, 0.2); }
+  50% { box-shadow: 0 0 40px rgba(212, 175, 55, 0.4); }
+}
+
+main > div {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Tasbeeh button animation */
+button:active {
+  transform: scale(0.95);
+}
+
+/* RTL support */
+[dir="rtl"] {
+  text-align: right;
+}

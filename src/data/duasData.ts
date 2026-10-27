@@ -17,17 +17,34 @@ export interface Category {
   duas: Dua[];
 }
 
+export interface AsmaHusna {
+  number: number;
+  arabic: string;
+  transliteration: string;
+  translations: Record<string, string>;
+  benefit?: string;
+}
+
+export interface Prophet {
+  number: number;
+  arabic: string;
+  name: Record<string, string>;
+  era?: string;
+  quranicMentions?: number;
+  famousDua?: string;
+}
+
 export const languages = [
-  { code: 'en', name: 'English', native: 'English' },
-  { code: 'ar', name: 'Arabic', native: 'العربية' },
-  { code: 'ta', name: 'Tamil', native: 'தமிழ்' },
-  { code: 'ml', name: 'Malayalam', native: 'മലയാളം' },
-  { code: 'ur', name: 'Urdu', native: 'اردو' },
-  { code: 'hi', name: 'Hindi', native: 'हिंदी' },
-  { code: 'id', name: 'Indonesian', native: 'Bahasa Indonesia' },
-  { code: 'fr', name: 'French', native: 'Français' },
-  { code: 'tr', name: 'Turkish', native: 'Türkçe' },
-  { code: 'bn', name: 'Bengali', native: 'বাংলা' },
+  { code: 'en', name: 'English', font: '' },
+  { code: 'ar', name: 'العربية', font: 'arabic-font' },
+  { code: 'ta', name: 'தமிழ்', font: 'tamil-font' },
+  { code: 'ml', name: 'മലയാളം', font: 'malayalam-font' },
+  { code: 'ur', name: 'اردو', font: 'arabic-font' },
+  { code: 'hi', name: 'हिंदी', font: 'hindi-font' },
+  { code: 'id', name: 'Bahasa Indonesia', font: '' },
+  { code: 'fr', name: 'Français', font: '' },
+  { code: 'tr', name: 'Türkçe', font: '' },
+  { code: 'bn', name: 'বাংলা', font: 'bengali-font' },
 ];
 
 export const categories: Category[] = [
@@ -36,7 +53,7 @@ export const categories: Category[] = [
     name: {
       en: 'Morning & Evening Adhkar',
       ar: 'أذكار الصباح والمساء',
-      ta: 'காலை & மாலை அட்கார்',
+      ta: 'காலை & மாலை அஃஸ்கார்',
       ml: 'രാവിലെയും വൈകുന്നേരവും അദ്കാർ',
       ur: 'صبح و شام کے اذکار',
       hi: 'सुबह और शाम के अज़कार',
@@ -45,88 +62,67 @@ export const categories: Category[] = [
       tr: 'Sabah & Akşam Zikirleri',
       bn: 'সকাল ও সন্ধ্যার আযকার'
     },
-    icon: '☀️',
-    color: '#F59E0B',
+    icon: '🌅',
+    color: '#FFD700',
     duas: [
       {
         id: 'me-1',
-        arabic: 'أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ وَالْحَمْدُ لِلَّهِ لاَ إِلَهَ إِلاَّ اللَّهُ وَحْدَهُ لاَ شَرِيكَ لَهُ',
-        transliteration: 'Asbahnaa wa asbahal mulku lillaah, walhamdu lillaah, laa ilaaha illallaahu wahdahu laa shareeka lah',
+        arabic: 'أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ وَالْحَمْدُ لِلَّهِ لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ',
+        transliteration: 'Asbahna wa asbahal mulku lillah, walhamdu lillah, la ilaha illallahu wahdahu la sharika lah',
         translations: {
-          en: 'We have reached the morning and at this very time the whole kingdom belongs to Allah. All praise is due to Allah. None has the right to be worshipped except Allah alone, without partner.',
+          en: 'We have reached the morning and all sovereignty belongs to Allah. All praise is for Allah. None has the right to be worshipped except Allah alone, without partner.',
           ar: 'أصبحنا وأصبح الملك لله والحمد لله لا إله إلا الله وحده لا شريك له',
-          ta: 'நாங்கள் காலையை அடைந்தோம், அரசாங்கம் அல்லாஹ்வுக்கே. புகழ் அனைத்தும் அல்லாஹ்வுக்கே. அல்லாஹ்வைத் தவிர வணக்கத்திற்குரியவர் எவருமில்லை.',
-          ml: 'ഞങ്ങൾ പ്രഭാതത്തെ എത്തിച്ചേർന്നു, സർവ്വാധിപത്യവും അല്ലാഹുവിനാണ്. സ്തുതി അല്ലാഹുവിനാണ്. അല്ലാഹു അല്ലാതെ ആരാധ്യനില്ല.',
-          ur: 'ہم نے صبح کی اور تمام بادشاہت اللہ کے لیے ہے۔ تمام تعریف اللہ کے لیے ہے۔ اللہ کے سوا کوئی معبود نہیں۔',
-          hi: 'हमने सुबह की और सारी बादशाहत अल्लाह के लिए है। सारी तारीफ अल्लाह के लिए है। अल्लाह के सिवा कोई माबूद नहीं।',
-          id: 'Kami telah memasuki waktu pagi dan kerajaan milik Allah, segala puji bagi Allah. Tiada Tuhan selain Allah Yang Maha Esa.',
-          fr: 'Nous avons atteint le matin et la royauté appartient à Allah. Louange à Allah. Il n\'y a de dieu qu\'Allah Seul.',
-          tr: 'Sabaha ulaştık ve tüm mülk Allah\'ındır. Hamd Allah\'adır. Allah\'tan başka ilah yoktur.',
-          bn: 'আমরা সকালে পৌঁছেছি এবং সমস্ত রাজত্ব আল্লাহর। সমস্ত প্রশংসা আল্লাহর। আল্লাহ ছাড়া কোনো ইলাহ নেই।'
+          ta: 'நாங்கள் காலை அடைந்தோம், அனைத்து ஆட்சியும் அல்லாஹ்வுக்கே. எல்லா புகழும் அல்லாஹ்வுக்கே. இணையற்ற அல்லாஹ்வைத் தவிர வணக்கத்திற்குரியவர் இல்லை.',
+          ml: 'ഞങ്ങൾ പ്രഭാതത്തിലെത്തി, സർവ്വാധികാരവും അല്ലാഹുവിനാണ്. എല്ലാ സ്തുതിയും അല്ലാഹുവിനാണ്. അല്ലാഹു ഒഴികെ ആരാധനയർഹനായ ആരുമില്ല.',
+          ur: 'ہم نے صبح کی اور تمام بادشاہت اللہ کے لیے ہے۔ سب تعریفیں اللہ کے لیے ہیں۔ اللہ کے سوا کوئی معبود نہیں۔',
+          hi: 'हमने सुबह की और सभी बादशाहत अल्लाह के लिए है। सभी तारीफ़ अल्लाह के लिए है। अल्लाह के सिवा कोई माबूद नहीं।',
+          id: 'Kami telah memasuki waktu pagi dan kerajaan milik Allah, segala puji bagi Allah. Tiada tuhan selain Allah Yang Maha Esa.',
+          fr: 'Nous avons atteint le matin et toute souveraineté appartient à Allah. Toute louange est pour Allah. Nul ne mérite d\'être adoré sauf Allah Seul.',
+          tr: 'Sabaha kavuştuk ve tüm mülk Allah\'ındır. Hamd Allah\'adır. Allah\'tan başka ilah yoktur.',
+          bn: 'আমরা সকালবেলায় উপনীত হয়েছি এবং সমস্ত রাজত্ব আল্লাহর জন্য। সমস্ত প্রশংসা আল্লাহর জন্য। আল্লাহ ছাড়া কোনো ইলাহ নেই।'
         },
         reference: 'Muslim 4/2088',
         repeat: 1,
-        benefit: 'Protection throughout the day'
+        benefit: 'Protection from Shaytan until evening'
       },
       {
         id: 'me-2',
         arabic: 'اللَّهُمَّ بِكَ أَصْبَحْنَا وَبِكَ أَمْسَيْنَا وَبِكَ نَحْيَا وَبِكَ نَمُوتُ وَإِلَيْكَ النُّشُورُ',
-        transliteration: 'Allaahumma bika asbahnaa wa bika amsaynaa wa bika nahyaa wa bika namootu wa ilaykan-nushoor',
+        transliteration: 'Allahumma bika asbahna, wa bika amsayna, wa bika nahya, wa bika namutu, wa ilaykan-nushur',
         translations: {
-          en: 'O Allah, by You we have reached the morning and by You we have reached the evening, by You we live and by You we die, and to You is the resurrection.',
+          en: 'O Allah, by You we have reached the morning and by You we have reached the evening. By You we live and by You we die, and to You is the resurrection.',
           ar: 'اللهم بك أصبحنا وبك أمسينا وبك نحيا وبك نموت وإليك النشور',
-          ta: 'இறைவா! உன்னால் நாங்கள் காலையை அடைந்தோம், உன்னால் மாலையை அடைந்தோம், உன்னால் வாழ்கிறோம், உன்னால் இறக்கிறோம், உன்னிடமே மறுமலர்ச்சி.',
-          ml: 'അല്ലാഹുവേ, നിന്നാലാണ് ഞങ്ങൾ പ്രഭാതം പ്രാപിച്ചത്. നിന്നാലാണ് സന്ധ്യ. നിന്നാലാണ് ജീവൻ. നിന്നാലാണ് മരണം. നിങ്കലേക്കാണ് ഉയിർത്തെഴുന്നേൽപ്പ്.',
-          ur: 'اے اللہ! تجھ سے ہم نے صبح کی اور تجھ سے شام کی اور تجھ سے جیتے ہیں اور تجھ سے مرتے ہیں اور تیری طرف اٹھنا ہے۔',
-          hi: 'ऐ अल्लाह! तुझसे हमने सुबह की और तुझसे शाम की और तुझसे जीते हैं और तुझसे मरते हैं और तेरी तरफ उठना है।',
-          id: 'Ya Allah, dengan-Mu kami memasuki pagi, dengan-Mu kami memasuki petang, dengan-Mu kami hidup dan mati, kepada-Mu kebangkitan.',
-          fr: 'Ô Allah, par Toi nous atteignons le matin, par Toi le soir, par Toi nous vivons et mourons, et vers Toi est la résurrection.',
-          tr: 'Allah\'ım! Seninle sabaha ulaştık, seninle akşama ulaştık, seninle yaşıyor ve ölüyoruz, dönüş sanadır.',
-          bn: 'হে আল্লাহ! তোমার কারণে আমরা সকাল পেয়েছি, তোমার কারণে সন্ধ্যা পেয়েছি, তোমার কারণে বাঁচি ও মরি, তোমার দিকেই প্রত্যাবর্তন।'
+          ta: 'இறைவா! உம்மால் நாங்கள் காலை அடைந்தோம், உம்மால் மாலை அடைந்தோம். உம்மாலேயே வாழ்கிறோம், உம்மாலேயே இறக்கிறோம். உன்னிடமே மறுமையெழுச்சி.',
+          ml: 'അല്ലാഹുവേ, നിന്നാലാണ് ഞങ്ങൾ പ്രഭാതത്തിലെത്തിയത്. നിന്നാലാണ് ഞങ്ങൾ സന്ധ്യയിലെത്തിയത്. നിന്നാലാണ് ഞങ്ങൾ ജീവിക്കുന്നതും മരിക്കുന്നതും.',
+          ur: 'اے اللہ! تجھ سے ہم نے صبح کی اور تجھ سے شام کی۔ تجھ سے ہم جیتے ہیں اور تجھ پر مرتے ہیں اور تیری طرف لوٹنا ہے۔',
+          hi: 'ऐ अल्लाह! तुझसे हमने सुबह की और तुझसे शाम की। तुझसे हम जीते हैं और तुझ पर मरते हैं और तेरी तरफ लौटना है।',
+          id: 'Ya Allah, dengan-Mu kami memasuki pagi dan dengan-Mu kami memasuki petang. Dengan-Mu kami hidup dan dengan-Mu kami mati.',
+          fr: 'Ô Allah, par Toi nous avons atteint le matin et par Toi le soir. Par Toi nous vivons et par Toi nous mourons.',
+          tr: 'Allah\'ım, Seninle sabaha kavuştuk, Seninle akşama ulaştık. Seninle yaşıyor ve Seninle ölüyoruz.',
+          bn: 'হে আল্লাহ! তোমার কারণে আমরা সকালবেলায় পৌঁছেছি এবং তোমার কারণে সন্ধ্যায় পৌঁছেছি।'
         },
-        reference: 'At-Tirmidhi 5/466',
-        repeat: 1,
-        benefit: 'Gratitude and remembrance of Allah'
+        reference: 'Tirmidhi 5/466',
+        repeat: 1
       },
       {
         id: 'me-3',
         arabic: 'سُبْحَانَ اللَّهِ وَبِحَمْدِهِ عَدَدَ خَلْقِهِ وَرِضَا نَفْسِهِ وَزِنَةَ عَرْشِهِ وَمِدَادَ كَلِمَاتِهِ',
-        transliteration: 'Subhaanallaahi wa bihamdihi, \'adada khalqihi wa ridhaa nafsihi wa zinata \'arshihi wa midaada kalimaatihi',
+        transliteration: 'Subhanallahi wa bihamdihi, \'adada khalqihi, wa ridha nafsihi, wa zinata \'arshihi, wa midada kalimatihi',
         translations: {
-          en: 'Glory be to Allah and praise Him, according to the number of His creation, according to His Pleasure, according to the weight of His Throne, and according to the extent of His Words.',
+          en: 'Glory be to Allah and His is the praise, as many as His creation, as much as pleases Him, as much as the weight of His Throne, and as much as the ink of His words.',
           ar: 'سبحان الله وبحمده عدد خلقه ورضا نفسه وزنة عرشه ومداد كلماته',
-          ta: 'அல்லாஹ் பரிசுத்தம்! அவனது படைப்புகளின் எண்ணிக்கைக்கும், அவனது திருப்திக்கும், அவனது அறையின் எடைக்கும், அவனது வார்த்தைகளின் அளவுக்கும் புகழ் உரித்தாகுக.',
-          ml: 'അല്ലാഹു പരിശുദ്ധൻ. അവന്റെ സൃഷ്ടികളുടെ എണ്ണത്തിനും അവന്റെ തൃപ്തിക്കും അവന്റെ സിംഹാസനത്തിന്റെ ഭാരത്തിനും അവന്റെ വാക്കുകളുടെ അളവിനും സ്തുതി.',
-          ur: 'اللہ پاک ہے اور اس کی حمد ہے اس کی مخلوق کی تعداد کے برابر، اس کی رضا کے برابر، اس کے عرش کے وزن کے برابر، اور اس کے کلمات کی سیاہی کے برابر۔',
-          hi: 'अल्लाह पाक है और उसकी हम्द है उसकी मखलूक की तादाद के बराबर, उसकी रिज़ा के बराबर, उसके अर्श के वज़न के बराबर।',
-          id: 'Maha Suci Allah dan segala puji bagi-Nya, sebanyak bilangan ciptaan-Nya, keridhaan-Nya, timbangan Arasy-Nya, dan tinta kalimat-Nya.',
-          fr: 'Gloire à Allah et louange à Lui, autant que le nombre de Sa création, selon Son Agrément, selon le poids de Son Trône.',
-          tr: 'Allah\'ı tesbih eder ve hamd ederim, yaratıklarının sayısı kadar, rızası kadar, Arş\'ının ağırlığı kadar.',
-          bn: 'আল্লাহ পবিত্র এবং তাঁর প্রশংসা, তাঁর সৃষ্টির সংখ্যার সমান, তাঁর সন্তুষ্টির সমান, তাঁর আরশের ওজনের সমান।'
+          ta: 'அல்லாஹ் தூய்மையானவன், அவனுக்கு புகழ். அவன் படைப்புகளின் எண்ணிக்கைக்கு சமமாக, அவன் திருப்திக்கு சமமாக, அவன் அர்ஷின் எடைக்கு சமமாக.',
+          ml: 'അല്ലാഹു പരിശുദ്ധൻ, അവന് സ്തുതി. അവന്റെ സൃഷ്ടികളുടെ എണ്ണത്തിനനുസരിച്ച്, അവന്റെ തൃപ്തിക്കനുസരിച്ച്.',
+          ur: 'اللہ پاک ہے اور اس کی تعریف ہے، اس کی مخلوق کے عدد کے برابر، اس کی رضا کے برابر، اس کے عرش کے وزن کے برابر۔',
+          hi: 'अल्लाह पाक है और उसकी तारीफ है, उसकी मखलूक के अदद के बराबर, उसकी रिज़ा के बराबर।',
+          id: 'Maha Suci Allah dan segala puji bagi-Nya, sebanyak ciptaan-Nya, sebanyak keridhaan-Nya, seberat timbangan Arsy-Nya.',
+          fr: 'Gloire à Allah et louange à Lui, autant que Sa création, autant que Son agrément, autant que le poids de Son Trône.',
+          tr: 'Allah\'ı tenzih ederim ve O\'na hamd ederim, yaratıklarının sayısı kadar, rızası kadar, Arş\'ının ağırlığı kadar.',
+          bn: 'আল্লাহ পবিত্র এবং তাঁর প্রশংসা, তাঁর সৃষ্টির সংখ্যার সমান, তাঁর সন্তুষ্টির সমান।'
         },
         reference: 'Muslim 4/2090',
         repeat: 3,
-        benefit: 'Immense reward equivalent to all creation'
-      },
-      {
-        id: 'me-4',
-        arabic: 'اللَّهُمَّ إِنِّي أَسْأَلُكَ الْعَفْوَ وَالْعَافِيَةَ فِي الدُّنْيَا وَالآخِرَةِ',
-        transliteration: 'Allaahumma inni as\'alukal-\'afwa wal-\'aafiyata fid-dunyaa wal-aakhirah',
-        translations: {
-          en: 'O Allah, I ask You for pardon and well-being in this life and the next.',
-          ar: 'اللهم إني أسألك العفو والعافية في الدنيا والآخرة',
-          ta: 'இறைவா! இந்த உலகிலும் மறுமையிலும் மன்னிப்பையும் நல்வாழ்வையும் உன்னிடம் கேட்கிறேன்.',
-          ml: 'അല്ലാഹുവേ, ഈ ലോകത്തും പരലോകത്തും മാപ്പും സുഖവും ഞാൻ ചോദിക്കുന്നു.',
-          ur: 'اے اللہ! میں تجھ سے دنیا و آخرت میں عفو و عافیت مانگتا ہوں۔',
-          hi: 'ऐ अल्लाह! मैं तुझसे दुनिया और आखिरत में अफ्व व आफियत मांगता हूं।',
-          id: 'Ya Allah, aku memohon ampun dan kesejahteraan di dunia dan akhirat.',
-          fr: 'Ô Allah, je Te demande le pardon et le bien-être ici-bas et dans l\'au-delà.',
-          tr: 'Allah\'ım! Senden dünya ve ahirette af ve selamet istiyorum.',
-          bn: 'হে আল্লাহ! আমি তোমার কাছে দুনিয়া ও আখিরাতে ক্ষমা ও নিরাপত্তা চাই।'
-        },
-        reference: 'Ibn Majah 2/332',
-        repeat: 3,
-        benefit: 'Comprehensive well-being in both worlds'
+        benefit: 'One of the heaviest deeds on the Scale'
       }
     ]
   },
@@ -135,8 +131,8 @@ export const categories: Category[] = [
     name: {
       en: 'After Every Salah',
       ar: 'بعد كل صلاة',
-      ta: 'தொழுகைக்குப் பின்',
-      ml: 'ഓരോ നിസ്കാരത്തിന് ശേഷം',
+      ta: 'ஒவ்வொரு தொழுகைக்குப் பின்',
+      ml: 'ഓരോ നമസ്കാരത്തിന് ശേഷവും',
       ur: 'ہر نماز کے بعد',
       hi: 'हर नमाज़ के बाद',
       id: 'Setiap Setelah Shalat',
@@ -145,87 +141,84 @@ export const categories: Category[] = [
       bn: 'প্রতি নামাযের পরে'
     },
     icon: '🕌',
-    color: '#10B981',
+    color: '#4CAF50',
     duas: [
       {
         id: 'as-1',
-        arabic: 'أَسْتَغْفِرُ اللَّهَ (ثلاثاً) اللَّهُمَّ أَنْتَ السَّلاَمُ وَمِنْكَ السَّلاَمُ تَبَارَكْتَ يَا ذَا الْجَلاَلِ وَالإِكْرَامِ',
-        transliteration: 'Astaghfirullaah (3 times). Allaahumma Antas-Salaamu wa minkas-salaamu tabaarakta yaa thal-jalaali wal-ikraam.',
+        arabic: 'أَسْتَغْفِرُ اللَّهَ أَسْتَغْفِرُ اللَّهَ أَسْتَغْفِرُ اللَّهَ',
+        transliteration: 'Astaghfirullah, Astaghfirullah, Astaghfirullah',
         translations: {
-          en: 'I seek the forgiveness of Allah (3 times). O Allah, You are Peace and from You is peace. Blessed are You, O Owner of Majesty and Honour.',
-          ar: 'أستغفر الله (ثلاثاً) اللهم أنت السلام ومنك السلام تباركت يا ذا الجلال والإكرام',
-          ta: 'அல்லாஹ்விடம் மன்னிப்பு கேட்கிறேன் (3 முறை). இறைவா! நீயே சாந்தி, உன்னிடமிருந்தே சாந்தி. நீ மகிமைமிக்கவன்.',
-          ml: 'ഞാൻ അല്ലാഹുവിനോട് മാപ്പ് ചോദിക്കുന്നു (3 തവണ). അല്ലാഹുവേ, നീയാണ് സമാധാനം, നിന്നിൽ നിന്നാണ് സമാധാനം.',
-          ur: 'میں اللہ سے مغفرت مانگتا ہوں (3 بار)۔ اے اللہ! تو سلامتی ہے اور تجھ سے سلامتی ہے۔ تو بابرکت ہے اے جلال و اکرم والے۔',
-          hi: 'मैं अल्लाह से माफी मांगता हूं (3 बार)। ऐ अल्लाह! तू सलामती है और तुझसे सलामती है। तू बरकत वाला है।',
-          id: 'Aku memohon ampun Allah (3 kali). Ya Allah, Engkaulah As-Salam dan dari-Mu salam. Maha Suci Engkau wahai Dzat yang memiliki keagungan.',
-          fr: 'Je demande le pardon d\'Allah (3 fois). Ô Allah, Tu es la Paix et de Toi vient la paix. Béni sois-Tu, Ô Détenteur de Majesté.',
-          tr: 'Allah\'tan bağışlanma dilerim (3 kez). Allah\'ım! Sen Selam\'sın ve selamet Senden\'dir. Tebarekta ya Zelcelali vel ikram.',
-          bn: 'আমি আল্লাহর কাছে ক্ষমা চাই (৩ বার)। হে আল্লাহ! তুমিই শান্তি এবং তোমার কাছ থেকে শান্তি। তুমি বরকতময়।'
+          en: 'I seek forgiveness from Allah (3 times)',
+          ar: 'أستغفر الله',
+          ta: 'அல்லாஹ்விடம் மன்னிப்பு தேடுகிறேன்',
+          ml: 'ഞാൻ അല്ലാഹുവിനോട് പാപമോചനം തേടുന്നു',
+          ur: 'میں اللہ سے مغفرت مانگتا ہوں',
+          hi: 'मैं अल्लाह से माफ़ी मांगता हूं',
+          id: 'Aku memohon ampun kepada Allah',
+          fr: 'Je demande pardon à Allah',
+          tr: 'Allah\'tan bağışlanma diliyorum',
+          bn: 'আমি আল্লাহর কাছে ক্ষমা প্রার্থনা করছি'
         },
-        reference: 'Muslim 1/415',
-        repeat: 1,
-        benefit: 'Seeking peace and forgiveness after prayer'
+        reference: 'Muslim 1/414',
+        repeat: 3
       },
       {
         id: 'as-2',
-        arabic: 'اللَّهُمَّ أَعِنِّي عَلَى ذِكْرِكَ وَشُكْرِكَ وَحُسْنِ عِبَادَتِكَ',
-        transliteration: 'Allaahumma a\'inni \'alaa thikrika wa shukrika wa husni \'ibaadatik.',
+        arabic: 'اللَّهُمَّ أَنْتَ السَّلَامُ وَمِنْكَ السَّلَامُ تَبَارَكْتَ يَا ذَا الْجَلَالِ وَالْإِكْرَامِ',
+        transliteration: 'Allahumma antas-salam, wa minkas-salam, tabarakta ya dhal-jalali wal-ikram',
         translations: {
-          en: 'O Allah, help me to remember You, to give You thanks, and to perform Your worship in the best manner.',
-          ar: 'اللهم أعني على ذكرك وشكرك وحسن عبادتك',
-          ta: 'இறைவா! உன்னை நினைவு கூரவும், நன்றி செலுத்தவும், உன்னை அழகாக வணங்கவும் எனக்கு உதவுவாயாக.',
-          ml: 'അല്ലാഹുവേ, നിന്നെ ഓർക്കാനും നന്ദി പറയാനും സുന്ദരമായ ആരാധനക്കും എന്നെ സഹായിക്കണേ.',
-          ur: 'اے اللہ! مجھے تیرا ذکر، تیری شکرگزاری اور تیری بہترین عبادت کی توفیق عطا فرما۔',
-          hi: 'ऐ अल्लाह! मुझे तेरा जिक्र, तेरी शुक्रगुज़ारी और तेरी बेहतरीन इबादत की तौफीक अता फरमा।',
-          id: 'Ya Allah, bantulah aku untuk mengingat-Mu, bersyukur kepada-Mu, dan beribadah dengan baik.',
-          fr: 'Ô Allah, aide-moi à Te mentionner, à Te remercier et à T\'adorer de la meilleure manière.',
-          tr: 'Allah\'ım! Seni zikretmemde, şükretmemde ve güzel ibadet etmemde bana yardım et.',
-          bn: 'হে আল্লাহ! আমাকে তোমার স্মরণ, কৃতজ্ঞতা ও সুন্দর ইবাদতে সাহায্য করো।'
+          en: 'O Allah, You are Peace and from You is peace. Blessed are You, O Owner of Majesty and Honor.',
+          ar: 'اللهم أنت السلام ومنك السلام تباركت يا ذا الجلال والإكرام',
+          ta: 'இறைவா! நீயே சாந்தி, உன்னிடமிருந்தே சாந்தி. நீ மகத்தானவன், மகிமை மற்றும் கௌரவத்தின் உரிமையாளனே!',
+          ml: 'അല്ലാഹുവേ, നീ തന്നെ സമാധാനം, നിന്നിൽ നിന്നാണ് സമാധാനം. മഹത്വത്തിന്റെയും ബഹുമാനത്തിന്റെയും ഉടമയേ, നീ അനുഗ്രഹീതൻ.',
+          ur: 'اے اللہ! تو سلامتی ہے اور تجھ سے سلامتی ہے۔ تُو بابرکت ہے اے جلال اور اکرام والا۔',
+          hi: 'ऐ अल्लाह! तू सलामती है और तुझसे सलामती है। तू बरकत वाला है, ऐ जलाल और इकराम वाला।',
+          id: 'Ya Allah, Engkau Maha Damai dan dari-Mu kedamaian. Maha Berkah Engkau, Wahai Pemilik Keagungan dan Kemuliaan.',
+          fr: 'Ô Allah, Tu es la Paix et de Toi vient la paix. Béni sois-Tu, ô Détenteur de Majesté et d\'Honneur.',
+          tr: 'Allah\'ım, Sen Selam\'sın ve Senden\'dir selamet. Mübareksin ey Celal ve İkram Sahibi.',
+          bn: 'হে আল্লাহ! তুমিই শান্তি এবং তোমার কাছ থেকেই শান্তি। তুমি বরকতময়, হে মহিমা ও সম্মানের অধিকারী।'
         },
-        reference: 'Abu Dawud 2/86',
-        repeat: 1,
-        benefit: 'Divine assistance in worship'
+        reference: 'Muslim 1/415',
+        repeat: 1
       },
       {
         id: 'as-3',
-        arabic: 'آيَةُ الْكُرْسِيِّ: اللَّهُ لاَ إِلَهَ إِلاَّ هُوَ الْحَيُّ الْقَيُّومُ لاَ تَأْخُذُهُ سِنَةٌ وَلاَ نَوْمٌ',
-        transliteration: 'Allahu laa ilaaha illaa huwal-hayyul-qayyoom, laa ta\'khuthahu sinatun wa laa nawm.',
+        arabic: 'اللَّهُمَّ أَعِنِّي عَلَى ذِكْرِكَ وَشُكْرِكَ وَحُسْنِ عِبَادَتِكَ',
+        transliteration: 'Allahumma a\'inni \'ala dhikrika, wa shukrika, wa husni \'ibadatik',
         translations: {
-          en: 'Ayat al-Kursi: Allah! There is no god but He, the Living, the Self-Subsisting, the Eternal. No slumber can seize Him, nor sleep.',
-          ar: 'اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ ۚ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ',
-          ta: 'அல்லாஹ்! அவனைத் தவிர வணக்கத்திற்குரியவர் இல்லை. அவன் என்றும் வாழ்பவன், நிலைத்திருப்பவன். தூக்கமோ உறக்கமோ அவனைப் பீடிக்காது.',
-          ml: 'അല്ലാഹു, അവനല്ലാതെ ആരാധ്യനില്ല. ജീവനുള്ളവൻ, നിലനിൽപ്പുള്ളവൻ. ഉറക്കമോ തൂക്കമോ അവനെ ബാധിക്കില്ല.',
-          ur: 'اللہ! اس کے سوا کوئی معبود نہیں، زندہ ہے، قائم رہنے والا ہے۔ نہ اونگھ اسے آتی ہے نہ نیند۔',
-          hi: 'अल्लाह! उसके सिवा कोई माबूद नहीं, ज़िंदा है, क़ाइम रहने वाला है। न ऊंघ उसे आती है न नींद।',
-          id: 'Allah, tiada Tuhan selain Dia Yang Maha Hidup lagi Maha Berdiri Sendiri. Tidak mengantuk dan tidak tidur.',
-          fr: 'Allah! Pas de dieu à part Lui, le Vivant, l\'Immuable. Ni somnolence ni sommeil ne Le saisissent.',
-          tr: 'Allah! O\'ndan başka ilah yoktur. Diridir, kayyum dur. Ne uyuklama ne uyku O\'nu yakalayamaz.',
-          bn: 'আল্লাহ! তিনি ছাড়া কোনো ইলাহ নেই। তিনি চিরঞ্জীব, চিরস্থায়ী। তন্দ্রা বা নিদ্রা তাঁকে স্পর্শ করে না।'
+          en: 'O Allah, help me to remember You, to give You thanks, and to perform Your worship in the best manner.',
+          ar: 'اللهم أعني على ذكرك وشكرك وحسن عبادتك',
+          ta: 'இறைவா! உன்னை நினைவு கூரவும், நன்றி செலுத்தவும், உன் வணக்கத்தை சிறப்பாக செய்யவும் எனக்கு உதவுவாயாக!',
+          ml: 'അല്ലാഹുവേ, നിന്നെ ഓർക്കാനും നന്ദി കാണിക്കാനും നിന്റെ ആരാധന ഉത്തമമായി ചെയ്യാനും എന്നെ സഹായിക്കണമേ.',
+          ur: 'اے اللہ! میری مدد فرما تیرے ذکر پر، تیری شکر گزاری پر اور تیری بہترین عبادت پر۔',
+          hi: 'ऐ अल्लाह! मेरी मदद फरमा तेरे ज़िक्र पर, तेरी शुक्र गुज़ारी पर और तेरी बेहतरीन इबादत पर।',
+          id: 'Ya Allah, bantulah aku untuk mengingat-Mu, bersyukur kepada-Mu, dan beribadah kepada-Mu dengan sebaik-baiknya.',
+          fr: 'Ô Allah, aide-moi à Te mentionner, à Te remercier et à T\'adorer de la meilleure manière.',
+          tr: 'Allah\'ım, Seni zikretmemde, şükretmemde ve en güzel şekilde ibadet etmemde bana yardım et.',
+          bn: 'হে আল্লাহ! তোমাকে স্মরণ করতে, তোমার শুকরিয়া আদায় করতে এবং তোমার ইবাদত উত্তমরূপে আদায় করতে আমাকে সাহায্য করো।'
         },
-        reference: 'Quran 2:255',
-        repeat: 1,
-        benefit: 'Protection from Satan until next prayer'
+        reference: 'Abu Dawud 2/85',
+        repeat: 1
       },
       {
         id: 'as-4',
-        arabic: 'سُبْحَانَ اللَّهِ (33) الْحَمْدُ لِلَّهِ (33) اللَّهُ أَكْبَرُ (34)',
-        transliteration: 'Subhaanallaah (33 times). Alhamdu lillaah (33 times). Allaahu Akbar (34 times).',
+        arabic: 'آيَةُ الْكُرْسِيُّ: اللَّهُ لَا إِلَهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ',
+        transliteration: 'Allahu la ilaha illa huwal-hayyul-qayyum, la ta\'khudhuhu sinatun wa la nawm...',
         translations: {
-          en: 'Glory be to Allah (33 times). Praise be to Allah (33 times). Allah is the Greatest (34 times).',
-          ar: 'سبحان الله (٣٣) الحمد لله (٣٣) الله أكبر (٣٤)',
-          ta: 'அல்லாஹ் பரிசுத்தம் (33 முறை). அல்லாஹ்வுக்கே புகழ் (33 முறை). அல்லாஹ் மிகப் பெரியவன் (34 முறை).',
-          ml: 'അല്ലാഹു പരിശുദ്ധൻ (33). സ്തുതി അല്ലാഹുവിന് (33). അല്ലാഹു ഏറ്റവും വലിയവൻ (34).',
-          ur: 'اللہ پاک ہے (33 بار)۔ تمام تعریف اللہ کے لیے ہے (33 بار)۔ اللہ سب سے بڑا ہے (34 بار)۔',
-          hi: 'अल्लाह पाक है (33 बार)। सारी तारीफ अल्लाह के लिए है (33 बार)। अल्लाह सबसे बड़ा है (34 बार)।',
-          id: 'Maha Suci Allah (33 kali). Segala puji bagi Allah (33 kali). Allah Maha Besar (34 kali).',
-          fr: 'Gloire à Allah (33 fois). Louange à Allah (33 fois). Allah est le Plus Grand (34 fois).',
-          tr: 'Allah\'ı tesbih ederim (33 kez). Hamd Allah\'adır (33 kez). Allah en büyüktür (34 kez).',
-          bn: 'আল্লাহ পবিত্র (৩৩ বার)। প্রশংসা আল্লাহর (৩৩ বার)। আল্লাহ মহান (৩৪ বার)।'
+          en: 'Ayat al-Kursi: Allah! There is no god but He, the Living, the Self-subsisting, Eternal. No slumber can seize Him nor sleep...',
+          ar: 'اللَّهُ لَا إِلَهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ ۚ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ',
+          ta: 'அல்லாஹ்! அவனைத் தவிர வணக்கத்திற்குரியவர் இல்லை. அவன் நிரந்தர வாழ்வான், அனைத்தையும் தாங்குபவன். தூக்கமோ உறக்கமோ அவனைப் பீடிக்காது.',
+          ml: 'അല്ലാഹു, അവനല്ലാതെ ആരാധനാർഹനില്ല. അവൻ നിത്യജീവനുള്ളവൻ, സർവ്വവും നിലനിർത്തുന്നവൻ. ഉറക്കമോ നിദ്രയോ അവനെ ബാധിക്കില്ല.',
+          ur: 'اللہ! اس کے سوا کوئی معبود نہیں۔ وہ زندہ ہے، سب کا قائم رکھنے والا ہے۔ نہ اسے اونگھ آتی ہے نہ نیند۔',
+          hi: 'अल्लाह! उसके सिवा कोई माबूद नहीं। वह ज़िंदा है, सबको क़ायम रखने वाला है। न उसे ऊंघ आती है न नींद।',
+          id: 'Allah, tidak ada tuhan selain Dia Yang Maha Hidup, Yang terus-menerus mengurus makhluk-Nya. Tidak mengantuk dan tidak tidur.',
+          fr: 'Allah! Point de divinité à part Lui, le Vivant, Celui qui subsiste par Lui-même. Ni somnolence ni sommeil ne Le saisissent.',
+          tr: 'Allah, O\'ndan başka ilah yoktur. O, Hayy ve Kayyum\'dur. O\'nu ne uyuklama ne de uyku tutmaz.',
+          bn: 'আল্লাহ! তিনি ছাড়া কোনো ইলাহ নেই। তিনি চিরঞ্জীব, সর্বসত্তার ধারক। তন্দ্রা বা নিদ্রা তাঁকে স্পর্শ করে না।'
         },
-        reference: 'Muslim 1/415 (Tasbeeh Fatimah)',
+        reference: 'Quran 2:255',
         repeat: 1,
-        benefit: 'Forgiveness of sins even if like foam of the sea'
+        benefit: 'Protection from Shaytan until morning'
       }
     ]
   },
@@ -234,77 +227,76 @@ export const categories: Category[] = [
     name: {
       en: 'Sickness, Healing & Shifa',
       ar: 'المرض والشفاء',
-      ta: 'நோய் & குணமடைதல்',
+      ta: 'நோய் & குணப்படுத்துதல்',
       ml: 'രോഗവും ചികിത്സയും',
       ur: 'بیماری اور شفا',
       hi: 'बीमारी और शिफा',
       id: 'Penyakit & Kesembuhan',
       fr: 'Maladie & Guérison',
       tr: 'Hastalık & Şifa',
-      bn: 'অসুস্থতা ও সুস্থতা'
+      bn: 'অসুস্থতা ও আরোগ্য'
     },
-    icon: '🏥',
-    color: '#EF4444',
+    icon: '💊',
+    color: '#E91E63',
     duas: [
       {
         id: 'sh-1',
-        arabic: 'أَذْهِبِ الْبَأْسَ رَبَّ النَّاسِ وَاشْفِ أَنْتَ الشَّافِي لاَ شِفَاءَ إِلاَّ شِفَاؤُكَ شِفَاءً لاَ يُغَادِرُ سَقَمًا',
-        transliteration: 'Adhhibil-ba\'sa Rabban-naasi, wa\'shfi antash-Shaafee, laa shifaa\'a illaa shifaa\'uka, shifaa\'an laa yughaadiru saqamaan.',
+        arabic: 'أَذْهِبِ الْبَأْسَ رَبَّ النَّاسِ اشْفِ أَنْتَ الشَّافِي لَا شِفَاءَ إِلَّا شِفَاؤُكَ شِفَاءً لَا يُغَادِرُ سَقَمًا',
+        transliteration: 'Adhhibil-ba\'s, Rabban-nas, ishfi antash-shafi, la shifa\'a illa shifa\'uk, shifa\'an la yughadiru saqaman',
         translations: {
-          en: 'Remove the harm, O Lord of mankind, and grant healing, for You are the Healer. There is no healing but Your healing, a healing that leaves no illness behind.',
-          ar: 'أذهب البأس رب الناس واشف أنت الشافي لا شفاء إلا شفاؤك شفاء لا يغادر سقما',
-          ta: 'மனிதர்களின் இறைவா! தீமையை நீக்கு, குணமளிப்பவனே! குணமளிப்பாய்! உன் குணமன்றி வேறு குணமில்லை. அது எந்த நோயையும் விடாது குணமாக்கும்.',
-          ml: 'മനുഷ്യരുടെ രക്ഷിതാവേ, ദോഷം നീക്കം ചെയ്യുക. നീയാണ് ചികിത്സകൻ. നിന്റെ ചികിത്സയല്ലാതെ ചികിത്സയില്ല.',
-          ur: 'اے لوگوں کے رب! تکلیف دور فرما اور شفا عطا فرما۔ تو ہی شفا دینے والا ہے۔ تیری شفا کے سوا کوئی شفا نہیں جو بیماری کو بالکل ختم کر دے۔',
-          hi: 'ऐ लोगों के रब! तकलीफ दूर फरमा और शिफा अता फरमा। तू ही शिफा देने वाला है। तेरी शिफा के सिवा कोई शिफा नहीं।',
-          id: 'Hilangkanlah penderitaan, wahai Tuhan manusia, dan sembuhkanlah. Engkaulah Penyembuh, tiada kesembuhan selain kesembuhan-Mu.',
-          fr: 'Éloigne le mal, Ô Seigneur des gens, et guéris. Tu es le Guérisseur. Il n\'y a de guérison que Ta guérison.',
-          tr: 'Ey insanların Rabbi! Zararı gider ve şifa ver. Şifa verici Sensin. Senin şifandan başka şifa yoktur.',
-          bn: 'হে মানুষের রব! কষ্ট দূর করো এবং আরোগ্য দাও। তুমিই আরোগ্যদাতা। তোমার আরোগ্য ছাড়া কোনো আরোগ্য নেই।'
+          en: 'Remove the affliction, O Lord of mankind. Grant healing, for You are the Healer. There is no healing except Your healing, a healing that leaves no illness behind.',
+          ar: 'اذهب البأس رب الناس اشف أنت الشافي لا شفاء إلا شفاؤك شفاء لا يغادر سقما',
+          ta: 'துயரத்தை நீக்குவாயாக, மனிதர்களின் இறைவா! குணப்படுத்துவாயாக, நீயே குணப்படுத்துபவன். உன் குணப்படுத்துதலைத் தவிர வேறு குணப்படுத்துதல் இல்லை.',
+          ml: 'ദുരിതം നീക്കണമേ, മനുഷ്യരുടെ രക്ഷിതാവേ. സൗഖ്യം നൽകണമേ, നീ തന്നെയാണ് രോഗശാന്തി നൽകുന്നത്.',
+          ur: 'تکلیف دور فرما، اے لوگوں کے رب! شفا عطا فرما، تو ہی شفا دینے والا ہے۔ تیری شفا کے سوا کوئی شفا نہیں۔',
+          hi: 'तकलीफ़ दूर फरमा, ऐ लोगों के रब! शिफा अता फरमा, तू ही शिफा देने वाला है। तेरी शिफा के सिवा कोई शिफा नहीं।',
+          id: 'Hilangkan penderitaan, wahai Tuhan manusia. Berikan kesembuhan, Engkaulah Yang Menyembuhkan. Tiada kesembuhan kecuali kesembuhan-Mu.',
+          fr: 'Éloigne la souffrance, ô Seigneur des hommes. Accorde la guérison, Tu es le Guérisseur. Il n\'y a de guérison que Ta guérison.',
+          tr: 'Sikintiyi gider, ey insanların Rabbi! Şifa ver, şifa veren Sensin. Senin şifandan başka şifa yoktur.',
+          bn: 'কষ্ট দূর করো, হে মানুষদের রব! আরোগ্য দান করো, তুমিই আরোগ্যদাতা। তোমার আরোগ্য ছাড়া কোনো আরোগ্য নেই।'
         },
         reference: 'Bukhari 7/164, Muslim 4/1717',
         repeat: 3,
-        benefit: 'Complete healing from all ailments'
+        benefit: 'The master supplication for healing'
       },
       {
         id: 'sh-2',
-        arabic: 'بِسْمِ اللَّهِ (ثلاثاً) أَعُوذُ بِاللَّهِ وَقُدْرَتِهِ مِنْ شَرِّ مَا أَجِدُ وَأُحَاذِرُ',
-        transliteration: 'Bismillaah (3 times). A\'oothu billaahi wa qudratihi min sharri maa ajidu wa uhaathiru.',
+        arabic: 'اللَّهُمَّ رَبَّ النَّاسِ أَذْهِبِ الْبَأْسَ وَاشْفِ وَأَنْتَ شَافِي لَا شِفَاءَ إِلَّا شِفَاؤُكَ',
+        transliteration: 'Allahumma Rabban-nas, adhhibil-ba\'s, washfi wa antash-shafi, la shifa\'a illa shifa\'uk',
         translations: {
-          en: 'In the name of Allah (3 times). I seek refuge in Allah and in His Power from the evil of what I feel and worry about.',
-          ar: 'بسم الله (ثلاثاً) أعوذ بالله وقدرته من شر ما أجد وأحاذر',
-          ta: 'அல்லாஹ்வின் பெயரால் (3 முறை). நான் உணர்கிற, அஞ்சுகிற தீமையிலிருந்து அல்லாஹ்வின் திருப்பெயராலும் அவனது ஆற்றலாலும் புகல் தேடுகிறேன்.',
-          ml: 'അല്ലാഹുവിന്റെ നാമത്തിൽ (3 തവണ). ഞാൻ അനുഭവിക്കുന്നതിന്റെയും ഭയപ്പെടുന്നതിന്റെയും ദോഷത്തിൽ നിന്ന് അല്ലാഹുവിനെയും അവന്റെ ശക്തിയെയും ആശ്രയിക്കുന്നു.',
-          ur: 'اللہ کے نام سے (3 بار)۔ میں جو محسوس کرتا ہوں اور جس سے ڈرتا ہوں اس کے شر سے اللہ اور اس کی قدرت کی پناہ مانگتا ہوں۔',
-          hi: 'अल्लाह के नाम से (3 बार)। जो मैं महसूस करता हूं और जिससे डरता हूं उसके शर से अल्लाह और उसकी क़ुदरत की पनाह मांगता हूं।',
-          id: 'Dengan nama Allah (3 kali). Aku berlindung kepada Allah dan kekuasaan-Nya dari kejahatan yang aku rasakan dan aku khawatirkan.',
-          fr: 'Au nom d\'Allah (3 fois). Je cherche refuge en Allah et en Son pouvoir contre le mal que je ressens.',
-          tr: 'Allah\'ın adıyla (3 kez). Hissettiğim ve korktuğum şeyin şerrinden Allah\'a ve kudretine sığınırım.',
-          bn: 'আল্লাহর নামে (৩ বার)। আমি যা অনুভব করি ও ভয় পাই তার অনিষ্ট থেকে আল্লাহর ও তাঁর ক্ষমতার আশ্রয় চাই।'
+          en: 'O Allah, Lord of mankind, remove the affliction and grant healing. You are the Healer, there is no healing except Your healing.',
+          ar: 'اللهم رب الناس أذهب البأس واشف وأنت الشافي لا شفاء إلا شفاؤك',
+          ta: 'இறைவா, மனிதர்களின் இறைவா! துயரத்தை நீக்கு, குணப்படுத்து. நீயே குணப்படுத்துபவன்.',
+          ml: 'അല്ലാഹുവേ, മനുഷ്യരുടെ രക്ഷിതാവേ, ദുരിതം നീക്കി സൗഖ്യം നൽകണമേ.',
+          ur: 'اے اللہ! لوگوں کے رب! تکلیف دور فرما اور شفا عطا فرما۔ تو ہی شفا دینے والا ہے۔',
+          hi: 'ऐ अल्लाह! लोगों के रब! तकलीफ़ दूर फरमा और शिफा अता फरमा।',
+          id: 'Ya Allah, Tuhan manusia, hilangkan penderitaan dan berikan kesembuhan. Engkaulah Yang Menyembuhkan.',
+          fr: 'Ô Allah, Seigneur des hommes, éloigne la souffrance et accorde la guérison. Tu es le Guérisseur.',
+          tr: 'Allah\'ım, insanların Rabbi! Sikintiyi gider ve şifa ver. Şifa veren Sensin.',
+          bn: 'হে আল্লাহ! মানুষদের রব! কষ্ট দূর করো এবং আরোগ্য দান করো। তুমিই আরোগ্যদাতা।'
         },
-        reference: 'Muslim 4/1728',
-        repeat: 3,
-        benefit: 'Prophetic method of placing hand on painful area'
+        reference: 'Bukhari 7/164',
+        repeat: 3
       },
       {
         id: 'sh-3',
-        arabic: 'اللَّهُمَّ رَبَّ النَّاسِ أَذْهِبِ الْبَأْسَ اشْفِهِ وَأَنْتَ شَافِيهِ لاَ شِفَاءَ إِلاَّ شِفَاؤُكَ',
-        transliteration: 'Allaahumma Rabban-naasi, adhhibil-ba\'sa, ishfihi wa anta shaafihi, laa shifaa\'a illaa shifaa\'uka.',
+        arabic: 'بِسْمِ اللَّهِ أَرْقِيكَ مِنْ كُلِّ شَيْءٍ يُؤْذِيكَ مِنْ شَرِّ كُلِّ نَفْسٍ أَوْ عَيْنِ حَاسِدٍ اللَّهُ يَشْفِيكَ',
+        transliteration: 'Bismillahi arqik, min kulli shay\'in yu\'dhik, min sharri kulli nafsin aw \'ayni hasidin, Allahu yashfik',
         translations: {
-          en: 'O Allah, Lord of mankind, remove the harm. Heal him, for You are the Healer. There is no healing but Your healing.',
-          ar: 'اللهم رب الناس أذهب البأس اشفه وأنت شافيه لا شفاء إلا شفاؤك',
-          ta: 'இறைவா! மனிதர்களின் இறைவா! தீமையை நீக்கு. அவருக்கு குணமளிப்பாய்! நீயே குணமளிப்பவன்.',
-          ml: 'അല്ലാഹുവേ, മനുഷ്യരുടെ രക്ഷിതാവേ, ദോഷം നീക്കം ചെയ്യുക. അവനെ സുഖപ്പെടുത്തുക. നീയാണ് സുഖപ്പെടുത്തുന്നത്.',
-          ur: 'اے اللہ! اے لوگوں کے رب! تکلیف دور فرما۔ انہیں شفا عطا فرما۔ تو ہی شفا دینے والا ہے۔',
-          hi: 'ऐ अल्लाह! ऐ लोगों के रब! तकलीफ दूर फरमा। उन्हें शिफा अता फरमा। तू ही शिफा देने वाला है।',
-          id: 'Ya Allah, Tuhan manusia, hilangkanlah penderitaan. Sembuhkanlah dia, Engkaulah Penyembuh.',
-          fr: 'Ô Allah, Seigneur des gens, éloigne le mal. Guéris-le, Tu es le Guérisseur.',
-          tr: 'Allah\'ım! Ey insanların Rabbi! Zararı gider. Onu şifa ver, Şifa veren Sensin.',
-          bn: 'হে আল্লাহ! হে মানুষের রব! কষ্ট দূর করো। তাকে আরোগ্য দাও। তুমিই আরোগ্যদাতা।'
+          en: 'In the name of Allah I perform Ruqyah for you, from everything that harms you, from the evil of every soul or envious eye. May Allah heal you.',
+          ar: 'بسم الله أرقيك من كل شيء يؤذيك من شر كل نفس أو عين حاسد الله يشفيك',
+          ta: 'அல்லாஹ்வின் பெயரால் உனக்கு ருக்யா செய்கிறேன், உன்னைத் தீங்கு செய்யும் எல்லாவற்றிலிருந்தும், பொறாமைக் கண்ணின் தீமையிலிருந்தும். அல்லாஹ் உனக்கு குணமளிக்கட்டும்.',
+          ml: 'അല്ലാഹുവിന്റെ നാമത്തിൽ ഞാൻ നിനക്ക് രുഖ്‌യ ചെയ്യുന്നു, നിനക്ക് ദ്രോഹിക്കുന്ന എല്ലാറ്റിൽ നിന്നും.',
+          ur: 'اللہ کے نام سے میں تمہارے لیے رقیہ پڑھتا ہوں، ہر چیز سے جو تمہیں تکلیف دے، ہر نفس کے شر سے اور حسد کی نظر سے۔ اللہ تمہیں شفا دے۔',
+          hi: 'अल्लाह के नाम से मैं तुम्हारे लिए रुक़्या पढ़ता हूं, हर चीज़ से जो तुम्हें तकलीफ़ दे, हर नफ़्स के शर से।',
+          id: 'Dengan nama Allah aku meruqyahmu, dari segala sesuatu yang menyakitimu, dari kejahatan setiap jiwa atau mata yang dengki.',
+          fr: 'Au nom d\'Allah, je fais la Ruqyah pour toi, de tout ce qui te nuit, du mal de toute âme ou d\'un œil envieux.',
+          tr: 'Allah\'ın adıyla sana rukye yapıyorum, sana zarar veren her şeyden, her nefsin şerrinden ve haset gözden.',
+          bn: 'আল্লাহর নামে আমি তোমার জন্য রুকইয়া করছি, তোমাকে কষ্ট দেয় এমন সব কিছু থেকে।'
         },
-        reference: 'Bukhari 7/162',
+        reference: 'Muslim 4/1716',
         repeat: 3,
-        benefit: 'Recited by Prophet ﷺ for the sick'
+        benefit: 'Prophetic Ruqyah for the sick'
       }
     ]
   },
@@ -312,705 +304,389 @@ export const categories: Category[] = [
     id: 'death-condolence',
     name: {
       en: 'Death, Condolence & Graveyard',
-      ar: 'الموت والعزاء والمقبرة',
-      ta: 'மரணம் & அனுதாபம்',
+      ar: 'الموت والعزاء والقبور',
+      ta: 'மரணம் & இரங்கல்',
       ml: 'മരണവും അനുശോചനയും',
       ur: 'موت اور تعزیت',
       hi: 'मौत और ताज़ियत',
-      id: 'Kematian & Kondolensi',
+      id: 'Kematian & Belasungkawa',
       fr: 'Mort & Condoléances',
       tr: 'Ölüm & Taziye',
-      bn: 'মৃত্যু ও সান্ত্বনা'
+      bn: 'মৃত্যু ও শোক'
     },
     icon: '🕊️',
-    color: '#6B7280',
+    color: '#607D8B',
     duas: [
       {
         id: 'dc-1',
-        arabic: 'إِنَّا لِلَّهِ وَإِنَّا إِلَيْهِ رَاجِعُونَ اللَّهُمَّ أْجُرْنِي فِي مُصِيبَتِي وَأَخْلِفْ لِي خَيْرًا مِنْهَا',
-        transliteration: 'Innaa lillaahi wa innaa ilayhi raaji\'oon. Allaahumma ajurni fee museebati wa akhlif li khayran minhaa.',
+        arabic: 'إِنَّا لِلَّهِ وَإِنَّا إِلَيْهِ رَاجِعُونَ',
+        transliteration: 'Inna lillahi wa inna ilayhi raji\'un',
         translations: {
-          en: 'Indeed we belong to Allah, and indeed to Him we will return. O Allah, reward me in my affliction and replace it with something better.',
-          ar: 'إنا لله وإنا إليه راجعون اللهم أجرني في مصيبتي وأخلف لي خيرا منها',
-          ta: 'நிச்சயமாக நாங்கள் அல்லாஹ்வுக்கே சொந்தம், நிச்சயமாக அவனிடமே திரும்புவோம். இறைவா! என் சோதனையில் எனக்கு கூலி தந்து, அதைவிட நன்மையானதை எனக்கு மாற்றாகத் தருவாயாக.',
-          ml: 'ഞങ്ങൾ അല്ലാഹുവിനുള്ളവരാണ്, അവങ്കലേക്ക് മടങ്ങുന്നവരുമാണ്. അല്ലാഹുവേ, എന്റെ ദുരിതത്തിൽ പ്രതിഫലം തരുക, അതിനേക്കാൾ നല്ലത് പകരം തരുക.',
-          ur: 'بیشک ہم اللہ کے لیے ہیں اور بیشک ہمیں اسی کی طرف لوٹنا ہے۔ اے اللہ! میری مصیبت میں مجھے اجر عطا فرما اور اس کا بہتر بدلہ عطا فرما۔',
-          hi: 'बेशक हम अल्लाह के लिए हैं और बेशक हमें उसी की तरफ लौटना है। ऐ अल्लाह! मेरी मुसीबत में मुझे अज्र अता फरमा और उसका बेहतर बदला अता फरमा।',
-          id: 'Sesungguhnya kami milik Allah dan kepada-Nya kami kembali. Ya Allah, berilah aku pahala dalam musibahku dan gantilah dengan yang lebih baik.',
-          fr: 'Nous appartenons à Allah et c\'est vers Lui que nous retournerons. Ô Allah, récompense-moi dans mon épreuve et remplace-la par mieux.',
-          tr: 'Şüphesiz biz Allah\'ınız ve O\'na döneceğiz. Allah\'ım! Musibetimde bana mükafat ver ve onun yerine daha hayırlısını ver.',
-          bn: 'নিশ্চয় আমরা আল্লাহর জন্য এবং নিশ্চয় আমরা তাঁর দিকে প্রত্যাবর্তনকারী। হে আল্লাহ! আমার বিপদে আমাকে প্রতিদান দাও এবং তার চেয়ে উত্তম বিনিময় দাও।'
+          en: 'Indeed we belong to Allah, and indeed to Him we will return.',
+          ar: 'إنا لله وإنا إليه راجعون',
+          ta: 'நிச்சயமாக நாம் அல்லாஹ்வுக்கே சொந்தம், நிச்சயமாக நாம் அவனிடமே திரும்புவோம்.',
+          ml: 'തീർച്ചയായും ഞങ്ങൾ അല്ലാഹുവിന്റേതാണ്, തീർച്ചയായും ഞങ്ങൾ അവങ്കലേക്ക് മടങ്ങുന്നവരാണ്.',
+          ur: 'بیشک ہم اللہ ہی کے لیے ہیں اور بیشک ہم اسی کی طرف لوٹنے والے ہیں۔',
+          hi: 'बेशक हम अल्लाह ही के लिए हैं और बेशक हम उसी की तरफ लौटने वाले हैं।',
+          id: 'Sesungguhnya kami milik Allah dan sesungguhnya kepada-Nya kami akan kembali.',
+          fr: 'Nous appartenons à Allah et c\'est à Lui que nous retournerons.',
+          tr: 'Şüphesiz biz Allah\'ınız ve şüphesiz O\'na döneceğiz.',
+          bn: 'নিশ্চয়ই আমরা আল্লাহর জন্য এবং নিশ্চয়ই আমরা তাঁর দিকে ফিরে যাব।'
         },
-        reference: 'Muslim 2/632',
+        reference: 'Quran 2:156',
         repeat: 1,
-        benefit: 'Allah replaces loss with something better'
+        benefit: 'Recite upon hearing news of death'
       },
       {
         id: 'dc-2',
-        arabic: 'السَّلاَمُ عَلَيْكُمْ أَهْلَ الدِّيَارِ مِنَ الْمُؤْمِنِينَ وَالْمُسْلِمِينَ وَإِنَّا إِنْ شَاءَ اللَّهُ بِكُمْ لاَحِقُونَ',
-        transliteration: 'As-salaamu \'alaykum ahlad-diyaari minal-mu\'miniina wal-muslimeen, wa innaa in shaa\' Allaahu bikum laahiqoon.',
-        translations: {
-          en: 'Peace be upon you, O people of the dwellings, believers and Muslims. We, if Allah wills, shall join you.',
-          ar: 'السلام عليكم أهل الديار من المؤمنين والمسلمين وإنا إن شاء الله بكم لاحقون',
-          ta: 'முஃமின்களின் வீட்டாரே! உங்கள் மீது சாந்தி உண்டாகட்டும். நாங்களும் அல்லாஹ் நாடினால் உங்களைச் சேர்வோம்.',
-          ml: 'വിശ്വാസികളുടെ വാസസ്ഥലക്കാരേ, നിങ്ങൾക്ക് സമാധാനമുണ്ടാകട്ടെ. അല്ലാഹു ഇച്ഛിച്ചാൽ ഞങ്ങളും നിങ്ങളെ ചേരും.',
-          ur: 'اے مومنوں اور مسلمانوں کے گھروالو! تم پر سلامتی ہو۔ اور ان شاء اللہ ہم بھی تم سے آملیں گے۔',
-          hi: 'ऐ मोमिनों और मुसलमानों के घर वालो! तुम पर सलामती हो। और इनशाअल्लाह हम भी तुमसे आ मिलेंगे।',
-          id: 'Keselamatan atas kalian, wahai penghuni negeri dari kalangan mukminin dan muslimin. Dan kami, insya Allah, akan menyusul kalian.',
-          fr: 'Paix sur vous, ô gens des demeures, croyants et musulmans. Et nous, si Allah veut, vous rejoindrons.',
-          tr: 'Ey müminlerin ve müslümanların yurt sakinleri! Selam sizin üzerine. İnşaallah biz de size katılacağız.',
-          bn: 'হে মুমিন ও মুসলিমদের আবাসবাসী! তোমাদের উপর শান্তি। ইনশাআল্লাহ আমরাও তোমাদের সাথে মিলিত হব।'
-        },
-        reference: 'Muslim 2/671',
-        repeat: 1,
-        benefit: 'Greeting when entering the cemetery'
-      },
-      {
-        id: 'dc-3',
         arabic: 'اللَّهُمَّ اغْفِرْ لَهُ وَارْحَمْهُ وَعَافِهِ وَاعْفُ عَنْهُ وَأَكْرِمْ نُزُلَهُ',
-        transliteration: 'Allaahummaghfir lahu warhamhu wa \'aafihi wa\'fu \'anhu wa akrim nuzulahu.',
+        transliteration: 'Allahummaghfir lahu warhamhu, wa \'afihi wa\'fu \'anh, wa akrim nuzulahu',
         translations: {
           en: 'O Allah, forgive him, have mercy on him, grant him well-being, pardon him, and honor his reception.',
           ar: 'اللهم اغفر له وارحمه وعافه واعف عنه وأكرم نزله',
-          ta: 'இறைவா! அவருக்கு மன்னித்தருள், அவர் மீது கருணை காட்டு, அவருக்கு நல்வாழ்வளித்து, அவரை மன்னித்து, அவரது வருகையை கௌரவப்படுத்து.',
-          ml: 'അല്ലാഹുവേ, അവനെ മാപ്പുനൽകുക, അവനോട് കരുണ കാണിക്കുക, അവന് സുഖം നൽകുക, അവനെ പൊറുക്കുക.',
-          ur: 'اے اللہ! اسے بخش دے، اس پر رحم فرما، اسے عافیت دے، اسے معاف فرما اور اس کی مہمان نوازی کو عزت عطا فرما۔',
-          hi: 'ऐ अल्लाह! इसे बख्श दे, इस पर रहम फरमा, इसे आफियत दे, इसे माफ फरमा।',
-          id: 'Ya Allah, ampunilah dia, rahmatilah dia, sehatkan dia, maafkan dia, dan muliakan kedatangannya.',
-          fr: 'Ô Allah, pardonne-lui, aie pitié de lui, accorde-lui le bien-être, absous-le.',
-          tr: 'Allah\'ım! Onu bağışla, ona rahmet et, ona afiyet ver, onu affet.',
-          bn: 'হে আল্লাহ! তাকে ক্ষমা করো, তার প্রতি দয়া করো, তাকে নিরাপত্তা দাও, তাকে মাফ করো।'
+          ta: 'இறைவா! அவருக்கு மன்னிப்பளிப்பாயாக, அவர் மீது இரக்கம் காட்டுவாயாக, அவருக்கு நலமளிப்பாயாக.',
+          ml: 'അല്ലാഹുവേ, അവനോട് പൊറുക്കണമേ, അവനോട് ദയ കാണിക്കണമേ, അവന് സുഖം നൽകണമേ.',
+          ur: 'اے اللہ! اسے بخش دے، اس پر رحم فرما، اسے عافیت دے اور اسے معاف فرما۔',
+          hi: 'ऐ अल्लाह! इसे बख्श दे, इस पर रहम फरमा, इसे आफ़ियत दे और इसे माफ़ फरमा।',
+          id: 'Ya Allah, ampunilah dia, rahmatilah dia, berikan keselamatan kepadanya.',
+          fr: 'Ô Allah, pardonne-lui, aie pitié de lui, accorde-lui le bien-être.',
+          tr: 'Allah\'ım! Onu bağışla, ona merhamet et, ona afiyet ver.',
+          bn: 'হে আল্লাহ! তাকে ক্ষমা করো, তার প্রতি দয়া করো, তাকে নিরাপত্তা দাও।'
         },
         reference: 'Muslim 2/663',
         repeat: 1,
-        benefit: 'Dua for deceased Muslim at Janazah'
+        benefit: 'Dua for deceased Muslim'
+      },
+      {
+        id: 'dc-3',
+        arabic: 'السَّلَامُ عَلَيْكُمْ أَهْلَ الدِّيَارِ مِنَ الْمُؤْمِنِينَ وَالْمُسْلِمِينَ وَإِنَّا إِنْ شَاءَ اللَّهُ بِكُمْ لَاحِقُونَ',
+        transliteration: 'As-salamu \'alaykum ahlad-diyari, minal-mu\'minina wal-muslimin, wa inna in sha\'a Allahu bikum lahiqun',
+        translations: {
+          en: 'Peace be upon you, O people of the dwellings, believers and Muslims. We shall, if Allah wills, join you.',
+          ar: 'السلام عليكم أهل الديار من المؤمنين والمسلمين وإنا إن شاء الله بكم لاحقون',
+          ta: 'அஸ்ஸலாமு அலைக்கும், ஈமான்கொண்ட மக்களே! மு\'மின்களே! முஸ்லிம்களே! நாங்களும் இன்ஷாஅல்லாஹ் உங்களோடு சேருவோம்.',
+          ml: 'സമാധാനം നിങ്ങളുടെ മേലുള്ളൂ, വിശ്വാസികളായ വീട്ടുകാരേ. ഇൻശാഅള്ളാഹ് ഞങ്ങളും നിങ്ങളോട് ചേരും.',
+          ur: 'سلامتی ہو تم پر، اے مومن اور مسلم گھر والو! ان شاء اللہ ہم بھی تم سے آ ملیں گے۔',
+          hi: 'सलामती हो तुम पर, ऐ मोमिन और मुस्लिम घर वालो! इंशाअल्लाह हम भी तुमसे आ मिलेंगे।',
+          id: 'Keselamatan atas kalian, wahai penghuni kubur dari kalangan mukminin dan muslimin. Kami insya Allah akan menyusul kalian.',
+          fr: 'Paix sur vous, ô gens de ces demeures, croyants et musulmans. Nous vous rejoindrons, si Allah le veut.',
+          tr: 'Selam olsun size, ey mümin ve Müslüman diyar ehli! İnşaallah biz de size katılacağız.',
+          bn: 'সালাম তোমাদের প্রতি, হে মুমিন ও মুসলিম বাসিন্দাগণ! ইনশাআল্লাহ আমরাও তোমাদের সাথে মিলিত হব।'
+        },
+        reference: 'Muslim 2/671',
+        repeat: 1,
+        benefit: 'When entering a cemetery'
       }
     ]
   },
   {
-    id: 'rabbana-duas',
+    id: 'rabbana',
     name: {
-      en: '40 Rabbana Duas (Quran)',
-      ar: '٤٠ دعاء ربنا',
-      ta: '40 ரப்பனா துஆக்கள்',
+      en: '40 Rabbana Duas (Qur\'an)',
+      ar: '٤٠ دعاء ربنا من القرآن',
+      ta: '40 ரப்பானா துஆக்கள்',
       ml: '40 റബ്ബനാ ദുആകൾ',
-      ur: '۴۰ ربنا دعائیں',
-      hi: '४० रब्बना दुआएं',
+      ur: '۴۰ ربانا دعائیں',
+      hi: '40 रब्बाना दुआएं',
       id: '40 Doa Rabbana',
       fr: '40 Duas Rabbana',
       tr: '40 Rabbana Duası',
-      bn: '৪০ রব্বানা দোয়া'
+      bn: '৪০ রাব্বানা দোয়া'
     },
     icon: '📖',
-    color: '#8B5CF6',
+    color: '#9C27B0',
     duas: [
       {
         id: 'rb-1',
-        arabic: 'رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ',
-        transliteration: 'Rabbanaa aatinaa fid-dunyaa hasanatan wa fil-aakhirati hasanatan wa qinaa \'adhaaban-naar.',
+        arabic: 'رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ',
+        transliteration: 'Rabbana atina fid-dunya hasanatan wa fil-akhirati hasanatan wa qina \'adhaban-nar',
         translations: {
           en: 'Our Lord, give us in this world that which is good and in the Hereafter that which is good, and protect us from the punishment of the Fire.',
           ar: 'ربنا آتنا في الدنيا حسنة وفي الآخرة حسنة وقنا عذاب النار',
-          ta: 'எங்கள் இறைவா! இந்த உலகில் நன்மையையும், மறுமையில் நன்மையையும் தந்தருள். நரக வேதனையிலிருந்து காத்தருள்.',
-          ml: 'ഞങ്ങളുടെ രക്ഷിതാവേ, ഈ ലോകത്ത് നന്മയും പരലോകത്ത് നന്മയും തരുക. നരകശിക്ഷയിൽ നിന്ന് ഞങ്ങളെ രക്ഷിക്കുക.',
-          ur: 'اے ہمارے رب! ہمیں دنیا میں بھی بھلائی عطا فرما اور آخرت میں بھی بھلائی عطا فرما اور ہمیں آزارِ جہنم سے بچا۔',
-          hi: 'ऐ हमारे रब! हमें दुनिया में भी भलाई अता फरमा और आखिरत में भी भलाई अता फरमा और हमें आज़ाब-ए-जहन्नम से बचा।',
-          id: 'Ya Tuhan kami, berilah kami kebaikan di dunia dan kebaikan di akhirat, dan lindungilah kami dari siksa neraka.',
-          fr: 'Notre Seigneur, accorde-nous le bien ici-bas et le bien dans l\'au-delà, et protège-nous du châtiment du Feu.',
+          ta: 'எங்கள் இறைவா! இந்த உலகில் நன்மையையும், மறுமையில் நன்மையையும் அருள்வாயாக! நரக வேதனையிலிருந்து காப்பாற்றுவாயாக!',
+          ml: 'ഞങ്ങളുടെ രക്ഷിതാവേ, ലോകത്ത് നന്മയും പരലോകത്ത് നന്മയും നൽകണമേ. നരകശിക്ഷയിൽ നിന്ന് ഞങ്ങളെ രക്ഷിക്കണമേ.',
+          ur: 'اے ہمارے رب! ہمیں دنیا میں بھی بھلائی دے اور آخرت میں بھی بھلائی دے اور آگ کے عذاب سے بچا۔',
+          hi: 'ऐ हमारे रब! हमें दुनिया में भी भलाई दे और आख़िरत में भी भलाई दे और आग के अज़ाब से बचा।',
+          id: 'Ya Tuhan kami, berilah kami kebaikan di dunia dan kebaikan di akhirat, dan lindungilah kami dari azab neraka.',
+          fr: 'Notre Seigneur, accorde-nous le bien dans ce monde et le bien dans l\'au-delà, et protège-nous du châtiment du Feu.',
           tr: 'Rabbimiz! Bize dünyada da iyilik ver, ahirette de iyilik ver ve bizi ateş azabından koru.',
-          bn: 'হে আমাদের রব! দুনিয়াতেও ভালো দাও এবং আখিরাতেও ভালো দাও এবং জাহান্নামের আযাব থেকে রক্ষা করো।'
+          bn: 'হে আমাদের রব! আমাদের দুনিয়াতেও কল্যাণ দাও এবং আখিরাতেও কল্যাণ দাও এবং জাহান্নামের আযাব থেকে রক্ষা করো।'
         },
         reference: 'Quran 2:201',
         repeat: 1,
-        benefit: 'Most comprehensive dua for all good'
+        benefit: 'Most comprehensive Quranic dua'
       },
       {
         id: 'rb-2',
-        arabic: 'رَبَّنَا لاَ تُؤَاخِذْنَا إِن نَّسِينَا أَوْ أَخْطَأْنَا',
-        transliteration: 'Rabbanaa laa tu-aakhithnaa in naseenaa aw akhta\'naa.',
+        arabic: 'رَبَّنَا لَا تُؤَاخِذْنَا إِنْ نَسِينَا أَوْ أَخْطَأْنَا',
+        transliteration: 'Rabbana la tu\'akhidhna in nasina aw akhta\'na',
         translations: {
           en: 'Our Lord, do not impose blame upon us if we have forgotten or erred.',
           ar: 'ربنا لا تؤاخذنا إن نسينا أو أخطأنا',
-          ta: 'எங்கள் இறைவா! நாங்கள் மறந்துவிட்டாலோ பிழைத்துவிட்டாலோ எங்களைக் குற்றவாளிகளாக்காதே.',
-          ml: 'ഞങ്ങളുടെ രക്ഷിതാവേ, ഞങ്ങൾ മറന്നാലും പിഴച്ചാലും ഞങ്ങളെ ശിക്ഷിക്കരുതേ.',
-          ur: 'اے ہمارے رب! اگر ہم بھول جائیں یا غلطی کریں تو ہمیں پکڑ نہ فرما۔',
-          hi: 'ऐ हमारे रब! अगर हम भूल जाएं या गलती करें तो हमें पकड़ न फरमा।',
+          ta: 'எங்கள் இறைவா! நாங்கள் மறந்துவிட்டால் அல்லது பிழை செய்தால் எங்களைக் குற்றம் சாட்டாதே!',
+          ml: 'ഞങ്ങളുടെ രക്ഷിതാവേ, ഞങ്ങൾ മറന്നാലും തെറ്റു ചെയ്താലും ഞങ്ങളെ ശിക്ഷിക്കരുതേ.',
+          ur: 'اے ہمارے رب! اگر ہم بھول جائیں یا غلطی کریں تو ہمیں پکڑ نہ۔',
+          hi: 'ऐ हमारे रब! अगर हम भूल जाएं या गलती करें तो हमें पकड़ मत।',
           id: 'Ya Tuhan kami, janganlah Engkau hukum kami jika kami lupa atau kami salah.',
           fr: 'Notre Seigneur, ne nous châtie pas si nous oublions ou commettons une erreur.',
-          tr: 'Rabbimiz! Unutursak veya hata yaparsak bizi sorumlu tutma.',
-          bn: 'হে আমাদের রব! আমরা ভুলে গেলে বা ভুল করলে আমাদের পাকড়াও করো না।'
+          tr: 'Rabbimiz! Eğer unutursak veya hata yaparsak bizi sorumlu tutma.',
+          bn: 'হে আমাদের রব! যদি আমরা ভুলে যাই বা ভুল করি তবে আমাদের পাকড়াও করো না।'
         },
         reference: 'Quran 2:286',
-        repeat: 1,
-        benefit: 'Allah accepted this dua for the Ummah'
+        repeat: 1
       },
       {
         id: 'rb-3',
-        arabic: 'رَبَّنَا لاَ تُزِغْ قُلُوبَنَا بَعْدَ إِذْ هَدَيْتَنَا وَهَبْ لَنَا مِن لَّدُنكَ رَحْمَةً',
-        transliteration: 'Rabbanaa laa tuzigh quloobanaa ba\'da ith hadaytanaa wa hab lanaa min ladunka rahmah.',
+        arabic: 'رَبَّنَا لَا تُزِغْ قُلُوبَنَا بَعْدَ إِذْ هَدَيْتَنَا',
+        transliteration: 'Rabbana la tuzigh qulubana ba\'da idh hadaytana',
         translations: {
-          en: 'Our Lord, let not our hearts deviate after You have guided us, and grant us mercy from Yourself.',
-          ar: 'ربنا لا تزغ قلوبنا بعد إذ هديتنا وهب لنا من لدنك رحمة',
-          ta: 'எங்கள் இறைவா! நீ எங்களை நேர்வழிப்படுத்திய பின் எங்கள் உள்ளங்களை வழிதடம் புறச் செய்யாதே. உன்னிடமிருந்து கிருபை தந்தருள்.',
-          ml: 'ഞങ്ങളുടെ രക്ഷിതാവേ, നീ ഞങ്ങളെ നേർവഴി നടത്തിയ ശേഷം ഞങ്ങളുടെ ഹൃദയങ്ങളെ വഴിതെറ്റിക്കരുതേ.',
-          ur: 'اے ہمارے رب! جب تو نے ہمیں ہدایت دی تو ہمارے دلوں کو ٹیڑھا نہ کر اور اپنے پاس سے ہم پر رحمت نازل فرما۔',
-          hi: 'ऐ हमारे रब! जब तू ने हमें हिदायत दी तो हमारे दिलों को टेढ़ा न कर और अपने पास से हम पर रहमत नाज़िल फरमा।',
-          id: 'Ya Tuhan kami, janganlah Engkau jadikan hati kami condong kepada kesesatan setelah Engkau beri petunjuk.',
-          fr: 'Notre Seigneur, ne laisse pas nos cœurs dévier après que Tu nous aies guidés.',
+          en: 'Our Lord, do not let our hearts deviate after You have guided us.',
+          ar: 'ربنا لا تزغ قلوبنا بعد إذ هديتنا',
+          ta: 'எங்கள் இறைவா! நீ எங்களை நேர்வழிப்படுத்திய பின் எங்கள் இருதயங்களை வழி கேட்கச் செய்யாதே!',
+          ml: 'ഞങ്ങളുടെ രക്ഷിതാവേ, നീ ഞങ്ങളെ നേർവഴി കാണിച്ച ശേഷം ഞങ്ങളുടെ ഹൃദയങ്ങൾ വഴിമാറരുതേ.',
+          ur: 'اے ہمارے رب! جب تو نے ہمیں ہدایت دی تو ہمارے دلوں کو ٹیڑھا نہ کر۔',
+          hi: 'ऐ हमारे रब! जब तू ने हमें हिदायत दी तो हमारे दिलों को टेढ़ा न कर।',
+          id: 'Ya Tuhan kami, janganlah Engkau palingkan hati kami setelah Engkau beri petunjuk.',
+          fr: 'Notre Seigneur, ne détourne pas nos cœurs après que Tu nous aies guidés.',
           tr: 'Rabbimiz! Bizi hidayete erdirdikten sonra kalplerimizi eğriltme.',
-          bn: 'হে আমাদের রব! তুমি আমাদের হেদায়েত দেওয়ার পর আমাদের অন্তরকে পথভ্রষ্ট করো না।'
+          bn: 'হে আমাদের রব! তুমি আমাদের হেদায়েত দেওয়ার পর আমাদের অন্তরকে বিচ্যুত করো না।'
         },
         reference: 'Quran 3:8',
-        repeat: 1,
-        benefit: 'Protection from deviation after guidance'
+        repeat: 1
       },
       {
         id: 'rb-4',
         arabic: 'رَبَّنَا إِنَّنَا آمَنَّا فَاغْفِرْ لَنَا ذُنُوبَنَا وَقِنَا عَذَابَ النَّارِ',
-        transliteration: 'Rabbanaa innanaa aamannaa faghfir lanaa thunoobanaa wa qinaa \'adhaaban-naar.',
+        transliteration: 'Rabbana innana amanna faghfir lana dhunubana wa qina \'adhaban-nar',
         translations: {
           en: 'Our Lord, indeed we have believed, so forgive us our sins and protect us from the punishment of the Fire.',
           ar: 'ربنا إننا آمنا فاغفر لنا ذنوبنا وقنا عذاب النار',
-          ta: 'எங்கள் இறைவா! நிச்சயமாக நாங்கள் நம்பிக்கை கொண்டோம். எனவே எங்கள் பாவங்களை மன்னித்து நரக வேதனையிலிருந்து காத்தருள்.',
-          ml: 'ഞങ്ങളുടെ രക്ഷിതാവേ, ഞങ്ങൾ വിശ്വസിച്ചിരിക്കുന്നു. ഞങ്ങളുടെ പാപങ്ങൾ മാപ്പുനൽകുക, നരകശിക്ഷയിൽ നിന്ന് രക്ഷിക്കുക.',
-          ur: 'اے ہمارے رب! ہم ایمان لائے ہیں تو ہمارے گناہ بخش دے اور ہمیں آگ کے عذاب سے بچا۔',
-          hi: 'ऐ हमारे रब! हम ईमान लाए हैं तो हमारे गुनाह बख्श दे और हमें आग के अज़ाब से बचा।',
-          id: 'Ya Tuhan kami, sesungguhnya kami telah beriman, maka ampunilah dosa-dosa kami dan lindungilah kami dari siksa neraka.',
-          fr: 'Notre Seigneur, nous avons cru, pardonne-nous nos péchés et protège-nous du châtiment du Feu.',
-          tr: 'Rabbimiz! Biz iman ettik, günahlarımızı bağışla ve bizi ateş azabından koru.',
-          bn: 'হে আমাদের রব! আমরা ঈমান এনেছি, আমাদের গুনাহ মাফ করো এবং জাহান্নামের আযাব থেকে রক্ষা করো।'
+          ta: 'எங்கள் இறைவா! நிச்சயமாக நாங்கள் ஈமான் கொண்டோம், எனவே எங்கள் பாவங்களை மன்னிப்பாயாக!',
+          ml: 'ഞങ്ങളുടെ രക്ഷിതാവേ, ഞങ്ങൾ വിശ്വസിച്ചിരിക്കുന്നു. ഞങ്ങളുടെ പാപങ്ങൾ പൊറുക്കണമേ.',
+          ur: 'اے ہمارے رب! ہم ایمان لائے ہیں، ہماری خطائیں بخش دے اور آگ کے عذاب سے بچا۔',
+          hi: 'ऐ हमारे रब! हम ईमान लाए हैं, हमारी खताएं बख्श दे और आग के अज़ाब से बचा।',
+          id: 'Ya Tuhan kami, sesungguhnya kami telah beriman, maka ampunilah dosa-dosa kami.',
+          fr: 'Notre Seigneur, nous avons cru, pardonne-nous nos péchés.',
+          tr: 'Rabbimiz! Biz iman ettik, günahlarımızı bağışla.',
+          bn: 'হে আমাদের রব! আমরা ঈমান এনেছি, আমাদের গুনাহ মাফ করো।'
         },
         reference: 'Quran 3:16',
-        repeat: 1,
-        benefit: 'Dua of the believers for forgiveness'
+        repeat: 1
       }
     ]
   },
   {
-    id: 'asmaul-husna',
-    name: {
-      en: '99 Names of Allah (Asmaul Husna)',
-      ar: 'أسماء الله الحسنى',
-      ta: 'அல்லாஹ்வின் 99 பெயர்கள்',
-      ml: 'അല്ലാഹുവിന്റെ 99 നാമങ്ങൾ',
-      ur: 'اللہ کے ۹۹ نام',
-      hi: 'अल्लाह के ९९ नाम',
-      id: '99 Nama Allah',
-      fr: '99 Noms d\'Allah',
-      tr: 'Allah\'ın 99 İsmi',
-      bn: 'আল্লাহর ৯৯ নাম'
-    },
-    icon: '✨',
-    color: '#D4AF37',
-    duas: [
-      { id: 'ah-1', arabic: 'اللَّهُ', transliteration: 'Allah', translations: { en: 'Allah - The One and Only God', ar: 'الله - الإله الواحد', ta: 'அல்லாஹ் - ஒரே இறைவன்', ml: 'അല്ലാഹു - ഏക ദൈവം', ur: 'اللہ - واحد و یکتا خدا', hi: 'अल्लाह - एकमात्र खुदा', id: 'Allah - Tuhan Yang Maha Esa', fr: 'Allah - Le Dieu Unique', tr: 'Allah - Tek ve Bir İlah', bn: 'আল্লাহ - একমাত্র ইলাহ' }, reference: 'The Supreme Name', repeat: 1, benefit: 'The greatest name of Allah' },
-      { id: 'ah-2', arabic: 'الرَّحْمَنُ', transliteration: 'Ar-Rahman', translations: { en: 'The Most Gracious', ar: 'الرحمن', ta: 'மிகவும் கருணையுள்ளவன்', ml: 'അതികാരുണികൻ', ur: 'بہت مہربان', hi: 'बहुत मेहरबान', id: 'Yang Maha Pengasih', fr: 'Le Tout Miséricordieux', tr: 'Rahman - Çok Merhametli', bn: 'পরম করুণাময়' }, reference: 'Quran 1:3', repeat: 1, benefit: 'Recite for mercy' },
-      { id: 'ah-3', arabic: 'الرَّحِيمُ', transliteration: 'Ar-Raheem', translations: { en: 'The Most Merciful', ar: 'الرحيم', ta: 'மிகவும் இரக்கமுள்ளவன்', ml: 'അതിദയാലു', ur: 'بہت رحم کرنے والا', hi: 'बहुत रहम करने वाला', id: 'Yang Maha Penyayang', fr: 'Le Très Miséricordieux', tr: 'Rahim - Çok Merhamet Eden', bn: 'অতি দয়ালু' }, reference: 'Quran 1:3', repeat: 1, benefit: 'Recite for compassion' },
-      { id: 'ah-4', arabic: 'الْمَلِكُ', transliteration: 'Al-Malik', translations: { en: 'The King', ar: 'الملك', ta: 'அரசன்', ml: 'രാജാവ്', ur: 'بادشاہ', hi: 'बादशाह', id: 'Yang Maha Merajai', fr: 'Le Roi', tr: 'Melik - Hükümdar', bn: 'বাদশাহ' }, reference: 'Quran 59:23', repeat: 1, benefit: 'Recite for honor and dignity' },
-      { id: 'ah-5', arabic: 'الْقُدُّوسُ', transliteration: 'Al-Quddus', translations: { en: 'The Most Holy', ar: 'القدوس', ta: 'பரிசுத்தமானவன்', ml: 'പരിശുദ്ധൻ', ur: 'پاک', hi: 'पाक', id: 'Yang Maha Suci', fr: 'Le Très Saint', tr: 'Kuddus - Çok Kutsal', bn: 'পবিত্রতম' }, reference: 'Quran 59:23', repeat: 1, benefit: 'Recite for purity of heart' },
-      { id: 'ah-6', arabic: 'السَّلاَمُ', transliteration: 'As-Salam', translations: { en: 'The Source of Peace', ar: 'السلام', ta: 'சாந்தியளிப்பவன்', ml: 'സമാധാനത്തിന്റെ ഉറവിടം', ur: 'سلامتی والا', hi: 'सलामती वाला', id: 'Yang Maha Memberi Kesejahteraan', fr: 'La Source de Paix', tr: 'Selam - Barış Kaynağı', bn: 'শান্তিদাতা' }, reference: 'Quran 59:23', repeat: 1, benefit: 'Recite for peace' },
-      { id: 'ah-7', arabic: 'الْمُؤْمِنُ', transliteration: 'Al-Mu\'min', translations: { en: 'The Guardian of Faith', ar: 'المؤمن', ta: 'நம்பிக்கை காப்பவன்', ml: 'വിശ്വാസ സംരക്ഷകൻ', ur: 'ایمان دینے والا', hi: 'ईमान देने वाला', id: 'Yang Maha Memberi Keamanan', fr: 'Le Gardien de la Foi', tr: 'Mü\'min - Güven Veren', bn: 'বিশ্বাস রক্ষাকারী' }, reference: 'Quran 59:23', repeat: 1, benefit: 'Recite for faith and security' },
-      { id: 'ah-8', arabic: 'الْمُهَيْمِنُ', transliteration: 'Al-Muhaymin', translations: { en: 'The Protector', ar: 'المهيمن', ta: 'பாதுகாப்பவன்', ml: 'സംരക്ഷകൻ', ur: 'نگران', hi: 'निगरान', id: 'Yang Maha Memelihara', fr: 'Le Protecteur', tr: 'Müheymin - Koruyucu', bn: 'রক্ষাকর্তা' }, reference: 'Quran 59:23', repeat: 1, benefit: 'Recite for protection' },
-      { id: 'ah-9', arabic: 'الْعَزِيزُ', transliteration: 'Al-Aziz', translations: { en: 'The Almighty', ar: 'العزيز', ta: 'வல்லமை மிகுந்தவன்', ml: 'സർവ്വശക്തൻ', ur: 'زبردست', hi: 'ज़बरदस्त', id: 'Yang Maha Perkasa', fr: 'Le Tout Puissant', tr: 'Aziz - Üstün Güçlü', bn: 'পরাক্রমশালী' }, reference: 'Quran 59:23', repeat: 1, benefit: 'Recite for strength and honor' },
-      { id: 'ah-10', arabic: 'الْجَبَّارُ', transliteration: 'Al-Jabbar', translations: { en: 'The Compeller', ar: 'الجبار', ta: 'வலுமை மிகுத்தவன்', ml: 'നിർബന്ധകൻ', ur: 'زبردست کرنے والا', hi: 'जबरदस्त करने वाला', id: 'Yang Maha Memaksa', fr: 'Le Contraignant', tr: 'Cebbar - Mutlak Güç', bn: 'প্রবল' }, reference: 'Quran 59:23', repeat: 1, benefit: 'Recite for mending broken hearts' }
-    ]
-  },
-  {
-    id: 'asmaul-anbiya',
-    name: {
-      en: '25 Prophets (Asmaul Anbiya)',
-      ar: '٢٥ نبيًا',
-      ta: '25 நபிமார்கள்',
-      ml: '25 നബിമാർ',
-      ur: '۲۵ انبیاء',
-      hi: '२५ नबी',
-      id: '25 Nabi',
-      fr: '25 Prophètes',
-      tr: '25 Peygamber',
-      bn: '২৫ নবী'
-    },
-    icon: '🌙',
-    color: '#0EA5E9',
-    duas: [
-      { id: 'an-1', arabic: 'آدَمُ عَلَيْهِ السَّلاَمُ', transliteration: 'Adam (Alayhis Salam)', translations: { en: 'Adam (AS) - First Prophet, Father of Humanity', ar: 'آدم عليه السلام - أول نبي وأبو البشرية', ta: 'ஆதம் (அலை) - முதல் நபி, மனிதகுலத்தின் தந்தை', ml: 'ആദം (അ) - ആദ്യ നബി, മനുഷ്യരാശിയുടെ പിതാവ്', ur: 'آدم علیہ السلام - پہلے نبی، انسانیت کے والد', hi: 'आदम (अ.स.) - पहले नबी, इंसानियत के वालिद', id: 'Adam AS - Nabi Pertama, Bapak Umat Manusia', fr: 'Adam (psl) - Premier Prophète, Père de l\'humanité', tr: 'Âdem (as) - İlk Peygamber, İnsanlığın Babası', bn: 'আদম (আ.) - প্রথম নবী, মানবজাতির পিতা' }, reference: 'Quran 2:31-39', repeat: 1, benefit: 'First of all prophets' },
-      { id: 'an-2', arabic: 'نُوحٌ عَلَيْهِ السَّلاَمُ', transliteration: 'Nuh (Alayhis Salam)', translations: { en: 'Noah (AS) - Preached for 950 years', ar: 'نوح عليه السلام - دعا ٩٥٠ سنة', ta: 'நூஹ் (அலை) - 950 ஆண்டுகள் பிரச்சாரம் செய்தார்', ml: 'നൂഹ് (അ) - 950 വർഷം പ്രചരിപ്പിച്ചു', ur: 'نوح علیہ السلام - ۹۵۰ سال دعوت دی', hi: 'नूह (अ.स.) - ९५० साल दावत दी', id: 'Nuh AS - Berdakwah 950 tahun', fr: 'Noé (psl) - A prêché pendant 950 ans', tr: 'Nuh (as) - 950 yıl davet etti', bn: 'নূহ (আ.) - ৯৫০ বছর দাওয়াত দিয়েছিলেন' }, reference: 'Quran 71:1-28', repeat: 1, benefit: 'Example of patience' },
-      { id: 'an-3', arabic: 'إِبْرَاهِيمُ عَلَيْهِ السَّلاَمُ', transliteration: 'Ibrahim (Alayhis Salam)', translations: { en: 'Abraham (AS) - Friend of Allah (Khalilullah)', ar: 'إبراهيم عليه السلام - خليل الله', ta: 'இப்ராஹீம் (அலை) - அல்லாஹ்வின் நண்பர்', ml: 'ഇബ്രാഹീം (അ) - അല്ലാഹുവിന്റെ സുഹൃത്ത്', ur: 'ابراہیم علیہ السلام - خلیل اللہ', hi: 'इब्राहीम (अ.स.) - खलीलुल्लाह', id: 'Ibrahim AS - Kekasih Allah', fr: 'Abraham (psl) - L\'Ami d\'Allah', tr: 'İbrahim (as) - Halilullah', bn: 'ইব্রাহীম (আ.) - খলীলুল্লাহ' }, reference: 'Quran 2:124-141', repeat: 1, benefit: 'Father of Prophets' },
-      { id: 'an-4', arabic: 'مُوسَى عَلَيْهِ السَّلاَمُ', transliteration: 'Musa (Alayhis Salam)', translations: { en: 'Moses (AS) - Spoke directly to Allah', ar: 'موسى عليه السلام - كلم الله', ta: 'மூஸா (அலை) - அல்லாஹ்வுடன் நேரடியாக பேசினார்', ml: 'മൂസാ (അ) - അല്ലാഹുവോട് നേരിട്ട് സംസാരിച്ചു', ur: 'موسی علیہ السلام - کلیم اللہ', hi: 'मूसा (अ.स.) - कलीमुल्लाह', id: 'Musa AS - Yang Bicara Langsung dengan Allah', fr: 'Moïse (psl) - A parlé directement à Allah', tr: 'Musa (as) - Kelimullah', bn: 'মূসা (আ.) - কলীমুল্লাহ' }, reference: 'Quran 7:103-171', repeat: 1, benefit: 'Most mentioned prophet in Quran' },
-      { id: 'an-5', arabic: 'عِيسَى عَلَيْهِ السَّلاَمُ', transliteration: 'Isa (Alayhis Salam)', translations: { en: 'Jesus (AS) - Spirit of Allah, born miraculously', ar: 'عيسى عليه السلام - روح الله', ta: 'ஈஸா (அலை) - அல்லாஹ்வின் ஆவி', ml: 'ഈസാ (അ) - അല്ലാഹുവിന്റെ ആത്മാവ്', ur: 'عیسی علیہ السلام - روح اللہ', hi: 'ईसा (अ.स.) - रूहुल्लाह', id: 'Isa AS - Ruh Allah', fr: 'Jésus (psl) - Esprit d\'Allah', tr: 'İsa (as) - Ruhullah', bn: 'ঈসা (আ.) - রূহুল্লাহ' }, reference: 'Quran 3:45-59', repeat: 1, benefit: 'Will return before Day of Judgment' },
-      { id: 'an-6', arabic: 'مُحَمَّدٌ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ', transliteration: 'Muhammad (Sallallahu Alayhi Wasallam)', translations: { en: 'Muhammad ﷺ - The Final Messenger, Seal of Prophets', ar: 'محمد صلى الله عليه وسلم - خاتم الأنبياء', ta: 'முஹம்மது ﷺ - கடைசி தூதர்', ml: 'മുഹമ്മദ് ﷺ - അവസാന ദൂതൻ', ur: 'محمد صلی اللہ علیہ وسلم - خاتم النبیین', hi: 'मुहम्मद ﷺ - आखरी रसूल', id: 'Muhammad ﷺ - Utusan Terakhir', fr: 'Muhammad ﷺ - Le Dernier Messager', tr: 'Muhammed ﷺ - Son Peygamber', bn: 'মুহাম্মদ ﷺ - শেষ রাসূল' }, reference: 'Quran 33:40', repeat: 1, benefit: 'Mercy for all worlds' }
-    ]
-  },
-  {
-    id: 'salawat',
-    name: {
-      en: 'All Types of Salawat',
-      ar: 'جميع الصلوات',
-      ta: 'அனைத்து சலவாத்கள்',
-      ml: 'എല്ലാ സലവാത്തുകളും',
-      ur: 'تمام صلوات',
-      hi: 'सभी सलवात',
-      id: 'Semua Shalawat',
-      fr: 'Toutes les Salawat',
-      tr: 'Tüm Salavatlar',
-      bn: 'সকল সালাওয়াত'
-    },
-    icon: '💚',
-    color: '#059669',
-    duas: [
-      {
-        id: 'sw-1',
-        arabic: 'اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ كَمَا صَلَّيْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ إِنَّكَ حَمِيدٌ مَجِيدٌ',
-        transliteration: 'Allaahumma salli \'alaa Muhammadin wa \'alaa aali Muhammad, kamaa sallayta \'alaa Ibraaheema wa \'alaa aali Ibraaheem, innaka hameedun majeed.',
-        translations: {
-          en: 'O Allah, send blessings upon Muhammad and the family of Muhammad, as You sent blessings upon Ibrahim and the family of Ibrahim. You are Praiseworthy and Glorious.',
-          ar: 'اللهم صل على محمد وعلى آل محمد كما صليت على إبراهيم وعلى آل إبراهيم إنك حميد مجيد',
-          ta: 'இறைவா! முஹம்மது மீதும் முஹம்மது குடும்பத்தார் மீதும் அருள் புரிவாயாக! இப்ராஹீம் மீதும் இப்ராஹீம் குடும்பத்தார் மீதும் அருள் புரிந்தது போல.',
-          ml: 'അല്ലാഹുവേ, മുഹമ്മദിന്റെയും മുഹമ്മദിന്റെ കുടുംബത്തിന്റെയും മേൽ അനുഗ്രഹം ചൊരിയുക.',
-          ur: 'اے اللہ! محمد ﷺ اور آلِ محمد پر رحمت نازل فرما جیسے تو نے ابراہیم اور آلِ ابراہیم پر رحمت نازل فرمائی۔',
-          hi: 'ऐ अल्लाह! मुहम्मद ﷺ और आले मुहम्मद पर रहमत नाज़िल फरमा जैसे तू ने इब्राहीम और आले इब्राहीम पर रहमत नाज़िल फरमाई।',
-          id: 'Ya Allah, limpahkanlah shalawat kepada Muhammad dan keluarga Muhammad sebagaimana Engkau limpahkan kepada Ibrahim dan keluarga Ibrahim.',
-          fr: 'Ô Allah, envoie Tes bénédictions sur Muhammad et la famille de Muhammad, comme Tu les as envoyées sur Ibrahim et la famille d\'Ibrahim.',
-          tr: 'Allah\'ım! Muhammed\'e ve Muhammed ailesine rahmet et, İbrahim\'e ve İbrahim ailesine rahmet ettiğin gibi.',
-          bn: 'হে আল্লাহ! মুহাম্মদ ﷺ ও আল-ই মুহাম্মদের উপর রহমত নাযিল করো যেমন তুমি ইব্রাহীম ও আল-ই ইব্রাহীমের উপর নাযিল করেছিলে।'
-        },
-        reference: 'Bukhari - Salawat Ibrahimiyyah',
-        repeat: 1,
-        benefit: 'The most complete form of Salawat, recited in every prayer'
-      },
-      {
-        id: 'sw-2',
-        arabic: 'اللَّهُمَّ صَلِّ عَلَى سَيِّدِنَا مُحَمَّدٍ صَلَاةً تُنْجِينَا بِهَا مِنْ جَمِيعِ الأَهْوَالِ وَالآفَاتِ',
-        transliteration: 'Allaahumma salli \'alaa sayyidinaa Muhammadin salaatun tunjeenaa bihaa min jamee\'il-ahwaali wal-aafaat.',
-        translations: {
-          en: 'O Allah, send blessings upon our Master Muhammad, a blessing that saves us from all fears and calamities.',
-          ar: 'اللهم صل على سيدنا محمد صلاة تنجينا بها من جميع الأهوال والآفات',
-          ta: 'இறைவா! எங்கள் தலைவர் முஹம்மது மீது அருள் புரிவாயாக! அந்த அருள் எங்களை அனைத்து அச்சங்களிலிருந்தும் ஆபத்துகளிலிருந்தும் காப்பாற்றட்டும்.',
-          ml: 'അല്ലാഹുവേ, ഞങ്ങളുടെ നായകൻ മുഹമ്മദിന്റെ മേൽ അനുഗ്രഹം ചൊരിയുക. അത് ഞങ്ങളെ എല്ലാ ഭയങ്ങളിൽ നിന്നും ആപത്തുകളിൽ നിന്നും രക്ഷിക്കട്ടെ.',
-          ur: 'اے اللہ! ہمارے آقا محمد ﷺ پر ایسی رحمت نازل فرما جس سے ہم تمام خوفوں اور آفات سے نجات پائیں۔',
-          hi: 'ऐ अल्लाह! हमारे आका मुहम्मद ﷺ पर ऐसी रहमत नाज़िल फरमा जिससे हम सभी खौफ़ों और आफ़तों से निजात पाएं।',
-          id: 'Ya Allah, limpahkanlah shalawat kepada Tuan kami Muhammad, shalawat yang menyelamatkan kami dari segala ketakutan dan bencana.',
-          fr: 'Ô Allah, envoie des bénédictions sur notre Maître Muhammad, une bénédiction qui nous sauve de toutes les peurs et calamités.',
-          tr: 'Allah\'ım! Efendimiz Muhammed\'e öyle bir salat kıl ki, onunla tüm korkulardan ve afetlerden kurtulalım.',
-          bn: 'হে আল্লাহ! আমাদের প্রভু মুহাম্মদের ﷺ উপর এমন সালাওয়াত নাযিল করো যা আমাদের সকল ভয় ও বিপদ থেকে রক্ষা করবে।'
-        },
-        reference: 'Salawat al-Tunjina/Munjiyah',
-        repeat: 1,
-        benefit: 'Salawat of deliverance from all calamities'
-      },
-      {
-        id: 'sw-3',
-        arabic: 'اللَّهُمَّ صَلِّ عَلَى سَيِّدِنَا مُحَمَّدٍ عَدَدَ نِعَمِ اللَّهِ وَفَضْلِهِ وَكَرَمِهِ',
-        transliteration: 'Allaahumma salli \'alaa sayyidinaa Muhammadin \'adada ni\'amillaahi wa fadlihi wa karamihi.',
-        translations: {
-          en: 'O Allah, send blessings upon our Master Muhammad, as many as the blessings, grace, and generosity of Allah.',
-          ar: 'اللهم صل على سيدنا محمد عدد نعم الله وفضله وكرمه',
-          ta: 'இறைவா! எங்கள் தலைவர் முஹம்மது மீது அல்லாஹ்வின் அருட்கொடைகளின் எண்ணிக்கைக்கு சமமாக அருள் புரிவாயாக.',
-          ml: 'അല്ലാഹുവേ, ഞങ്ങളുടെ നായകൻ മുഹമ്മദിന്റെ മേൽ അല്ലാഹുവിന്റെ അനുഗ്രഹങ്ങളുടെ എണ്ണത്തിൽ അനുഗ്രഹം ചൊരിയുക.',
-          ur: 'اے اللہ! ہمارے آقا محمد ﷺ پر اللہ کی نعمتوں، فضل اور کرم کی تعداد کے برابر رحمت نازل فرما۔',
-          hi: 'ऐ अल्लाह! हमारे आका मुहम्मद ﷺ पर अल्लाह की नेमतों, फज़्ल और करम की तादाद के बराबर रहमत नाज़िल फरमा।',
-          id: 'Ya Allah, limpahkanlah shalawat kepada Tuan kami Muhammad sebanyak nikmat, karunia, dan kemurahan Allah.',
-          fr: 'Ô Allah, envoie des bénédictions sur notre Maître Muhammad, autant que les bénédictions, la grâce et la générosité d\'Allah.',
-          tr: 'Allah\'ım! Efendimiz Muhammed\'e Allah\'ın nimetleri, fazlı ve keremi sayısı kadar salat kıl.',
-          bn: 'হে আল্লাহ! আমাদের প্রভু মুহাম্মদের ﷺ উপর আল্লাহর নেয়ামত, ফযল ও করমের সংখ্যার সমান সালাওয়াত নাযিল করো।'
-        },
-        reference: 'Salawat al-Nariyyah',
-        repeat: 1,
-        benefit: 'Salawat of infinite reward'
-      },
-      {
-        id: 'sw-4',
-        arabic: 'اللَّهُمَّ صَلِّ عَلَى سَيِّدِنَا مُحَمَّدٍ طِبِّ الْقُلُوبِ وَدَوَائِهَا',
-        transliteration: 'Allaahumma salli \'alaa sayyidinaa Muhammadin tibbul-quloobi wa dawaa-ihaa.',
-        translations: {
-          en: 'O Allah, send blessings upon our Master Muhammad, the medicine of hearts and their cure.',
-          ar: 'اللهم صل على سيدنا محمد طب القلوب ودوائها',
-          ta: 'இறைவா! எங்கள் தலைவர் முஹம்மது மீது அருள் புரிவாயாக! அவர் இருதயங்களின் மருந்து மற்றும் குணப்படுத்துபவர்.',
-          ml: 'അല്ലാഹുവേ, ഞങ്ങളുടെ നായകൻ മുഹമ്മദിന്റെ മേൽ അനുഗ്രഹം ചൊരിയുക. അദ്ദേഹം ഹൃദയങ്ങളുടെ ഔഷധമാണ്.',
-          ur: 'اے اللہ! ہمارے آقا محمد ﷺ پر رحمت نازل فرما جو دلوں کی دوا اور شفا ہیں۔',
-          hi: 'ऐ अल्लाह! हमारे आका मुहम्मद ﷺ पर रहमत नाज़िल फरमा जो दिलों की दवा और शिफा हैं।',
-          id: 'Ya Allah, limpahkanlah shalawat kepada Tuan kami Muhammad, obat hati dan penyembuhnya.',
-          fr: 'Ô Allah, envoie des bénédictions sur notre Maître Muhammad, le remède des cœurs et leur guérison.',
-          tr: 'Allah\'ım! Efendimiz Muhammed\'e salat kıl, O kalplerin ilacı ve şifasıdır.',
-          bn: 'হে আল্লাহ! আমাদের প্রভু মুহাম্মদের ﷺ উপর সালাওয়াত নাযিল করো, তিনি অন্তরের ঔষধ ও আরোগ্য।'
-        },
-        reference: 'Salawat Tibb al-Quloob',
-        repeat: 1,
-        benefit: 'Healing of the heart and spiritual diseases'
-      }
-    ]
-  },
-  {
-    id: 'burdah',
-    name: {
-      en: 'Qasida al-Burdah',
-      ar: 'قصيدة البردة',
-      ta: 'கஸீதா புர்தா',
-      ml: 'ഖസീദതുൽ ബുർദ',
-      ur: 'قصیدہ بردہ',
-      hi: 'क़सीदा बुर्दा',
-      id: 'Qasidah Burdah',
-      fr: 'Qasida al-Burdah',
-      tr: 'Kaside-i Bürde',
-      bn: 'কাসীদা বুরদা'
-    },
-    icon: '🧣',
-    color: '#7C3AED',
-    duas: [
-      {
-        id: 'br-1',
-        arabic: 'أَمِنْ تَذَكُّرِ جِيرَانٍ بِذِي سَلَمِ *** مَزَجْتَ دَمْعًا جَرَى مِنْ مُقْلَةٍ بِدَمِ',
-        transliteration: 'A min tazakkuri jeeranin bi thi salam *** mazajta dam\'an jara min muqlatin bi dami',
-        translations: {
-          en: 'Is it from the remembrance of neighbors at Dhi Salam that you have mixed tears flowing from an eye with blood?',
-          ar: 'أمن تذكر جيران بذي سلم مزجت دمعا جرى من مقلة بدم',
-          ta: 'தி ஸலமில் அண்டை வீட்டாரை நினைவதால் உங்கள் கண்ணீர் இரத்தத்துடன் கலந்ததா?',
-          ml: 'ധി സലമിലെ അയൽക്കാരുടെ ഓർമ്മയാൽ നിങ്ങളുടെ കണ്ണുനീർ രക്തവുമായി കലർന്നോ?',
-          ur: 'کیا ذی سلم کے پڑوسیوں کی یاد سے آپ نے آنکھ سے آنسو بہائے جو خون سے مل گئے؟',
-          hi: 'क्या ज़ी सलम के पड़ोसियों की याद से आपने आंख से आंसू बहाए जो खून से मिल गए?',
-          id: 'Apakah karena mengingat tetangga di Dhi Salam engkau mencampur air mata yang mengalir dari mata dengan darah?',
-          fr: 'Est-ce du souvenir des voisins à Dhi Salam que tu as mêlé des larmes coulant d\'un œil avec du sang?',
-          tr: 'Dhi Selam\'daki komşuları hatırlamaktan dolayı gözünden akan gözyaşını kanla mı karıştırdın?',
-          bn: 'ধি সালামের প্রতিবেশীদের স্মরণ থেকে কি তুমি চোখ থেকে অশ্রু প্রবাহিত করেছ যা রক্তের সাথে মিশেছে?'
-        },
-        reference: 'Imam al-Busiri - Verse 1',
-        repeat: 1,
-        benefit: 'Opening of the famous Qasida praising Prophet ﷺ'
-      },
-      {
-        id: 'br-2',
-        arabic: 'مُحَمَّدٌ سَيِّدُ الْكَوْنَيْنِ وَالثَّقَلَيْنِ *** وَالْفَرِيقَيْنِ مِنْ عُرْبٍ وَمِنْ عَجَمِ',
-        transliteration: 'Muhammadun sayyidul-kawnayni wath-thaqalayni *** wal-fareeqayni min \'urbin wa min \'ajami',
-        translations: {
-          en: 'Muhammad is the Master of both worlds and of the two creations, and of the two groups, Arabs and non-Arabs.',
-          ar: 'محمد سيد الكونين والثقلين والفريقين من عرب ومن عجم',
-          ta: 'முஹம்மது ﷺ இரு உலகங்களின் தலைவர், இரு படைப்புகளின் தலைவர், அரபு மற்றும் அரபு அல்லாதோரின் தலைவர்.',
-          ml: 'മുഹമ്മദ് ﷺ രണ്ട് ലോകങ്ങളുടെയും നേതാവാണ്.',
-          ur: 'محمد ﷺ دونوں جہانوں کے سردار ہیں، عرب و عجم کے سردار ہیں۔',
-          hi: 'मुहम्मद ﷺ दोनों जहानों के सरदार हैं, अरब व अजम के सरदार हैं।',
-          id: 'Muhammad ﷺ adalah pemimpin dua dunia dan dua makhluk, Arab dan non-Arab.',
-          fr: 'Muhammad ﷺ est le Maître des deux mondes, des Arabes et des non-Arabes.',
-          tr: 'Muhammed ﷺ iki dünyanın, Arap ve Arap olmayanların efendisidir.',
-          bn: 'মুহাম্মদ ﷺ দুই জাহানের, আরব ও অনারবের নেতা।'
-        },
-        reference: 'Imam al-Busiri - Verse on the Prophet\'s supremacy',
-        repeat: 1,
-        benefit: 'Praising the supreme status of Prophet ﷺ'
-      }
-    ]
-  },
-  {
-    id: 'rathib',
-    name: {
-      en: 'Rathib al-Haddad & al-Attas',
-      ar: 'الرتيب الحداد والعتاس',
-      ta: 'ராதீப் அல்-ஹத்தாத் & அல்-அத்தாஸ்',
-      ml: 'റാതിബുൽ ഹദ്ദാദ് & അൽ അത്താസ്',
-      ur: 'رتیب الحداد و العتاس',
-      hi: 'रतीब अल-हद्दाद व अल-अत्तास',
-      id: 'Ratib al-Haddad & al-Attas',
-      fr: 'Rathib al-Haddad & al-Attas',
-      tr: 'Ratib el-Haddad & el-Attas',
-      bn: 'রাতিব আল-হাদ্দাদ ও আল-আত্তাস'
-    },
-    icon: '🛡️',
-    color: '#DC2626',
-    duas: [
-      {
-        id: 'rt-1',
-        arabic: 'يَا رَبِّ صَلِّ وَسَلِّمْ دَائِمًا أَبَدًا عَلَى حَبِيبِكَ خَيْرِ الْخَلْقِ كُلِّهِمِ',
-        transliteration: 'Yaa Rabbi salli wa sallim daa\'iman abadan \'alaa habeebika khayril-khalqi kullihim.',
-        translations: {
-          en: 'O my Lord, send blessings and peace always and forever upon Your beloved, the best of all creation.',
-          ar: 'يا رب صل وسلم دائما ابدا على حبيبك خير الخلق كلهم',
-          ta: 'இறைவா! உமது நேசர் மீதும், படைப்புகளில் சிறந்தவர் மீதும் என்றென்றும் அருளும் சாந்தியும் பொழிவாயாக!',
-          ml: 'രക്ഷിതാവേ, നിന്റെ പ്രിയങ്കരന്റെ മേൽ എന്നെന്നേക്കും അനുഗ്രഹവും സമാധാനവും ചൊരിയുക.',
-          ur: 'اے میرے رب! اپنے محبوب ﷺ پر جو تمام مخلوق سے بہتر ہیں، ہمیشہ درود و سلام نازل فرما۔',
-          hi: 'ऐ मेरे रब! अपने महबूब ﷺ पर जो सभी मखलूक से बेहतर हैं, हमेशा दरूद व सलाम नाज़िल फरमा।',
-          id: 'Ya Tuhanku, limpahkanlah shalawat dan salam selamanya atas kekasih-Mu, sebaik-baik makhluk.',
-          fr: 'Ô mon Seigneur, envoie des bénédictions et la paix toujours et à jamais sur Ton bien-aimé, le meilleur de toute la création.',
-          tr: 'Ya Rabbi! Habibin\'e, tüm yaratıkların en hayırlısına daima ve ebeden salat ve selam kıl.',
-          bn: 'হে আমার রব! তোমার প্রিয়তম ﷺ-এর উপর, সমস্ত সৃষ্টির সর্বোত্তমের উপর চিরকাল সালাওয়াত ও সালাম নাযিল করো।'
-        },
-        reference: 'Rathib al-Haddad - Opening',
-        repeat: 3,
-        benefit: 'Opening of Rathib al-Haddad, fortress of daily remembrance'
-      },
-      {
-        id: 'rt-2',
-        arabic: 'حَسْبِيَ اللَّهُ لاَ إِلَهَ إِلاَّ هُوَ عَلَيْهِ تَوَكَّلْتُ وَهُوَ رَبُّ الْعَرْشِ الْعَظِيمِ',
-        transliteration: 'Hasbiyallaahu laa ilaaha illaa huwa \'alayhi tawakkaltu wa huwa Rabbul-\'arshil-\'atheem.',
-        translations: {
-          en: 'Allah is sufficient for me. There is no god but Him. Upon Him I rely, and He is the Lord of the Mighty Throne.',
-          ar: 'حسبي الله لا إله إلا هو عليه توكلت وهو رب العرش العظيم',
-          ta: 'அல்லாஹ்வே எனக்குப் போதுமானவர். அவனைத் தவிர வணக்கத்திற்குரியவர் இல்லை. அவனையே நான் நம்புகிறேன். அவன் மகத்தான அறையின் இறைவன்.',
-          ml: 'അല്ലാഹു എനിക്ക് മതി. അവനല്ലാതെ ആരാധ്യനില്ല. അവനെയാണ് ഞാൻ ആശ്രയിക്കുന്നത്. അവൻ മഹത്തായ സിംഹാസനത്തിന്റെ രക്ഷിതാവ്.',
-          ur: 'اللہ میرے لیے کافی ہے۔ اس کے سوا کوئی معبود نہیں۔ میں اسی پر بھروسہ کرتا ہوں اور وہ عرش عظیم کا رب ہے۔',
-          hi: 'अल्लाह मेरे लिए काफी है। उसके सिवा कोई माबूद नहीं। मैं उसी पर भरोसा करता हूं और वह अर्श-ए-अज़ीम का रब है।',
-          id: 'Cukuplah Allah bagiku. Tiada Tuhan selain Dia. Kepada-Nya aku bertawakkal, Dia Tuhan Arsy yang agung.',
-          fr: 'Allah me suffit. Il n\'y a de dieu que Lui. Je me fie à Lui, Il est le Seigneur du Trône immense.',
-          tr: 'Allah bana yeter. O\'ndan başka ilah yoktur. O\'na tevekkül ettim. O büyük Arş\'ın Rabbidir.',
-          bn: 'আল্লাহ আমার জন্য যথেষ্ট। তিনি ছাড়া কোনো ইলাহ নেই। আমি তাঁর উপর ভরসা করি। তিনি মহান আরশের রব।'
-        },
-        reference: 'Quran 9:129, Rathib al-Haddad',
-        repeat: 7,
-        benefit: 'Divine sufficiency and protection'
-      }
-    ]
-  },
-  {
-    id: 'yaseen',
-    name: {
-      en: 'Surah Yaseen & Dua',
-      ar: 'سورة يس والدعاء',
-      ta: 'ஸூரா யாசீன் & துஆ',
-      ml: 'സൂറത്ത് യാസീൻ & ദുആ',
-      ur: 'سورہ یسین اور دعا',
-      hi: 'सूरह यासीन और दुआ',
-      id: 'Surah Yasin & Doa',
-      fr: 'Sourate Yasin & Dua',
-      tr: 'Yasin Suresi & Dua',
-      bn: 'সূরা ইয়াসীন ও দোয়া'
-    },
-    icon: '📗',
-    color: '#16A34A',
-    duas: [
-      {
-        id: 'ys-1',
-        arabic: 'يس * وَالْقُرْآنِ الْحَكِيمِ * إِنَّكَ لَمِنَ الْمُرْسَلِينَ * عَلَى صِرَاطٍ مُسْتَقِيمٍ',
-        transliteration: 'Yaa Seen. Wal-Qur-aanil-Hakeem. Innaka laminal-mursaleen. \'Alaa siraatim-mustaqeem.',
-        translations: {
-          en: 'Ya-Sin. By the Wise Quran. Indeed you are one of the messengers. Upon a straight path.',
-          ar: 'يس والقرآن الحكيم إنك لمن المرسلين على صراط مستقيم',
-          ta: 'யாசீன். ஞானமிக்க குர்ஆனைக் கொண்டு சத்தியமாக! நிச்சயமாக நீர் தூதர்களில் ஒருவர். நேர்வழியில் இருக்கிறீர்.',
-          ml: 'യാസീൻ. ജ്ഞാനമുറുള്ള ഖുർആൻ ആണ. തീർച്ചയായും നീ ദൂതന്മാരിൽ ഒരാളാണ്. നേർവഴിയിൽ.',
-          ur: 'یٰس۔ حکمت والے قرآن کی قسم! بے شک آپ رسولوں میں سے ہیں۔ سیدھے راستے پر۔',
-          hi: 'यासीन। हिक्मत वाले कुरआन की कसम! बेशक आप रसूलों में से हैं। सीधे रास्ते पर।',
-          id: 'Yaasin. Demi Al-Quran yang penuh hikmah. Sesungguhnya engkau termasuk salah seorang rasul. Di atas jalan yang lurus.',
-          fr: 'Ya-Sin. Par le Quran sage. Tu es certes du nombre des messagers. Sur un chemin droit.',
-          tr: 'Ya-Sin. Hikmetli Kur\'an\'a yemin olsun. Şüphesiz sen gönderilmiş peygamberlerdensin. Dosdoğru bir yol üzerinde.',
-          bn: 'ইয়াসীন। প্রজ্ঞাময় কুরআনের কসম। নিশ্চয় তুমি রাসূলগণের একজন। সরল পথে।'
-        },
-        reference: 'Quran 36:1-4',
-        repeat: 1,
-        benefit: 'The Heart of the Quran - recite for the sick and deceased'
-      }
-    ]
-  },
-  {
-    id: 'everyday-duas',
+    id: 'everyday',
     name: {
       en: 'Everyday Duas',
       ar: 'أدعية يومية',
       ta: 'தினசரி துஆக்கள்',
-      ml: 'ദൈനംദിന ദുആകൾ',
+      ml: 'ദിനംപ്രതി ദുആകൾ',
       ur: 'روزمرہ دعائیں',
       hi: 'रोज़मर्रा की दुआएं',
       id: 'Doa Sehari-hari',
-      fr: 'Duas Quotidiennes',
+      fr: 'Invocations Quotidiennes',
       tr: 'Günlük Dualar',
       bn: 'প্রতিদিনের দোয়া'
     },
     icon: '🏠',
-    color: '#F97316',
+    color: '#FF9800',
     duas: [
       {
         id: 'ed-1',
         arabic: 'بِسْمِ اللَّهِ وَلَجْنَا وَبِسْمِ اللَّهِ خَرَجْنَا وَعَلَى اللَّهِ رَبِّنَا تَوَكَّلْنَا',
-        transliteration: 'Bismillaahi walajnaa wa bismillaahi kharajnaa wa \'alallaahi Rabbinaa tawakkalnaa.',
+        transliteration: 'Bismillahi walajna, wa bismillahi kharajna, wa \'alallahi rabbina tawakkalna',
         translations: {
-          en: 'In the name of Allah we enter, in the name of Allah we leave, and upon Allah our Lord we rely.',
+          en: 'In the name of Allah we enter, in the name of Allah we leave, and upon our Lord we rely.',
           ar: 'بسم الله ولجنا وبسم الله خرجنا وعلى الله ربنا توكلنا',
-          ta: 'அல்லாஹ்வின் பெயரால் நுழைகிறோம், அல்லாஹ்வின் பெயரால் வெளியேறுகிறோம், அல்லாஹ்வின் மீதே நம்பிக்கை வைக்கிறோம்.',
-          ml: 'അല്ലാഹുവിന്റെ നാമത്തിൽ ഞങ്ങൾ പ്രവേശിക്കുന്നു, അല്ലാഹുവിന്റെ നാമത്തിൽ പുറപ്പെടുന്നു, അല്ലാഹുവിന്റെ മേൽ ആശ്രയിക്കുന്നു.',
-          ur: 'اللہ کے نام سے ہم داخل ہوتے ہیں، اللہ کے نام سے خارج ہوتے ہیں، اور اللہ پر بھروسہ کرتے ہیں۔',
-          hi: 'अल्लाह के नाम से हम दाखिल होते हैं, अल्लाह के नाम से खारिज होते हैं, और अल्लाह पर भरोसा करते हैं।',
-          id: 'Dengan nama Allah kami masuk, dengan nama Allah kami keluar, dan kepada Allah Tuhan kami bertawakkal.',
-          fr: 'Au nom d\'Allah nous entrons, au nom d\'Allah nous sortons, et sur Allah notre Seigneur nous nous fions.',
-          tr: 'Allah\'ın adıyla gireriz, Allah\'ın adıyla çıkarız ve Allah\'a tevekkül ederiz.',
-          bn: 'আল্লাহর নামে আমরা প্রবেশ করি, আল্লাহর নামে আমরা বের হই এবং আল্লাহর উপর ভরসা করি।'
+          ta: 'அல்லாஹ்வின் பெயரால் நுழைகிறோம், அல்லாஹ்வின் பெயரால் வெளியேறுகிறோம், எங்கள் இறைவனாகிய அல்லாஹ்வின் மீதே நாங்கள் நம்பிக்கை வைக்கிறோம்.',
+          ml: 'അല്ലാഹുവിന്റെ നാമത്തിൽ ഞങ്ങൾ പ്രവേശിക്കുന്നു, അല്ലാഹുവിന്റെ നാമത്തിൽ ഞങ്ങൾ പുറപ്പെടുന്നു.',
+          ur: 'اللہ کے نام سے ہم داخل ہوتے ہیں اور اللہ کے نام سے خارج ہوتے ہیں اور اللہ پر بھروسہ کرتے ہیں۔',
+          hi: 'अल्लाह के नाम से हम दाखिल होते हैं और अल्लाह के नाम से खारिज होते हैं और अल्लाह पर भरोसा करते हैं।',
+          id: 'Dengan nama Allah kami masuk, dengan nama Allah kami keluar, dan kepada Allah Tuhan kami kami bertawakkal.',
+          fr: 'Au nom d\'Allah nous entrons, au nom d\'Allah nous sortons, et sur Allah notre Seigneur nous nous remettons.',
+          tr: 'Allah\'ın adıyla giriyoruz, Allah\'ın adıyla çıkıyoruz ve Allah\'a tevekkül ediyoruz.',
+          bn: 'আল্লাহর নামে আমরা প্রবেশ করি এবং আল্লাহর নামে আমরা বের হই এবং আল্লাহর উপর ভরসা করি।'
         },
-        reference: 'Abu Dawud 4/326',
+        reference: 'Abu Dawud 4/325',
         repeat: 1,
-        benefit: 'Entering and leaving the home'
+        benefit: 'Entering/leaving home'
       },
       {
         id: 'ed-2',
         arabic: 'اللَّهُمَّ إِنِّي أَسْأَلُكَ خَيْرَ الْمَوْلِجِ وَخَيْرَ الْمَخْرَجِ',
-        transliteration: 'Allaahumma inni as\'aluka khayral-mawliji wa khayral-makhraji.',
+        transliteration: 'Allahumma inni as\'aluka khayral-mawliji wa khayral-makhraji',
         translations: {
           en: 'O Allah, I ask You for the best of entering and the best of leaving.',
           ar: 'اللهم إني أسألك خير المدخل وخير المخرج',
-          ta: 'இறைவா! நுழைவதில் நன்மையையும், வெளியேறுவதில் நன்மையையும் உன்னிடம் கேட்கிறேன்.',
-          ml: 'അല്ലാഹുവേ, പ്രവേശനത്തിന്റെയും നിർഗമനത്തിന്റെയും നന്മ ഞാൻ ചോദിക്കുന്നു.',
-          ur: 'اے اللہ! میں تجھ سے داخل ہونے اور نکلنے کی بھلائی مانگتا ہوں۔',
-          hi: 'ऐ अल्लाह! मैं तुझसे दाखिल होने और निकलने की भलाई मांगता हूं।',
-          id: 'Ya Allah, aku memohon kebaikan masuk dan kebaikan keluar.',
-          fr: 'Ô Allah, je Te demande le meilleur en entrant et le meilleur en sortant.',
-          tr: 'Allah\'ım! Senden girişin ve çıkışın hayırlısını istiyorum.',
-          bn: 'হে আল্লাহ! আমি তোমার কাছে প্রবেশ ও প্রস্থানের উত্তম চাই।'
+          ta: 'இறைவா! சிறந்த நுழைவையும் சிறந்த வெளியேற்றத்தையும் உன்னிடம் கேட்கிறேன்.',
+          ml: 'അല്ലാഹുവേ, ഏറ്റവും നല്ല പ്രവേശനവും ഏറ്റവും നല്ല പുറപ്പാടും ഞാൻ നിന്നോട് ചോദിക്കുന്നു.',
+          ur: 'اے اللہ! میں تجھ سے بہترین داخلے اور بہترین خروج مانگتا ہوں۔',
+          hi: 'ऐ अल्लाह! मैं तुझसे बेहतरीन दाखिले और बेहतरीन खारिज की दुआ मांगता हूं।',
+          id: 'Ya Allah, aku memohon kepada-Mu kebaikan masuk dan kebaikan keluar.',
+          fr: 'Ô Allah, je Te demande le meilleur des entrées et le meilleur des sorties.',
+          tr: 'Allah\'ım! Senden en hayırlı giriş ve en hayırlı çıkışı istiyorum.',
+          bn: 'হে আল্লাহ! আমি তোমার কাছে উত্তম প্রবেশ ও উত্তম নির্গমন প্রার্থনা করছি।'
         },
-        reference: 'Abu Dawud 4/326',
-        repeat: 1,
-        benefit: 'Leaving the home'
+        reference: 'Abu Dawud 4/325',
+        repeat: 1
       },
       {
         id: 'ed-3',
-        arabic: 'اللَّهُمَّ اغْفِرْ لِي ذَنْبِي وَطَهِّرْ قَلْبِي وَحَصِّنْ فَرْجِي',
-        transliteration: 'Allaahummaghfir lii thambi wa tahhir qalbi wa hassein farji.',
+        arabic: 'بِسْمِ اللَّهِ',
+        transliteration: 'Bismillah',
         translations: {
-          en: 'O Allah, forgive my sin, purify my heart, and guard my chastity.',
-          ar: 'اللهم اغفر لي ذنبي وطهر قلبي وحصن فرجي',
-          ta: 'இறைவா! என் பாவத்தை மன்னித்து, என் இருதயத்தை தூய்மைப்படுத்தி, என் கற்பை காத்தருள்.',
-          ml: 'അല്ലാഹുവേ, എന്റെ പാപം മാപ്പുനൽകുക, എന്റെ ഹൃദയം ശുദ്ധീകരിക്കുക.',
-          ur: 'اے اللہ! میرے گناہ بخش دے، میرے دل کو پاک کر اور میری شرمگاہ کی حفاظت فرما۔',
-          hi: 'ऐ अल्लाह! मेरे गुनाह बख्श दे, मेरे दिल को पाक कर और मेरी शर्मगाह की हिफाज़त फरमा।',
-          id: 'Ya Allah, ampunilah dosaku, sucikan hatiku, dan jagalah kemaluanku.',
-          fr: 'Ô Allah, pardonne mon péché, purifie mon cœur et protège ma chasteté.',
-          tr: 'Allah\'ım! Günahımı bağışla, kalbimi temizle ve iffetimi koru.',
-          bn: 'হে আল্লাহ! আমার গুনাহ মাফ করো, আমার অন্তর পবিত্র করো এবং আমার লজ্জাস্থান রক্ষা করো।'
+          en: 'In the name of Allah (before eating)',
+          ar: 'بسم الله',
+          ta: 'அல்லாஹ்வின் பெயரால் (உணவிற்கு முன்)',
+          ml: 'അല്ലാഹുവിന്റെ നാമത്തിൽ (ഭക്ഷണത്തിന് മുമ്പ്)',
+          ur: 'اللہ کے نام سے (کھانے سے پہلے)',
+          hi: 'अल्लाह के नाम से (खाने से पहले)',
+          id: 'Dengan nama Allah (sebelum makan)',
+          fr: 'Au nom d\'Allah (avant de manger)',
+          tr: 'Allah\'ın adıyla (yemekten önce)',
+          bn: 'আল্লাহর নামে (খাওয়ার আগে)'
         },
-        reference: 'At-Tirmidhi 5/480',
+        reference: 'Abu Dawud 3/347',
         repeat: 1,
-        benefit: 'Entering the bathroom/restroom'
+        benefit: 'Before eating'
       },
       {
         id: 'ed-4',
-        arabic: 'بِسْمِ اللَّهِ الَّذِي لاَ يَضُرُّ مَعَ اسْمِهِ شَيْءٌ فِي الأَرْضِ وَلاَ فِي السَّمَاءِ وَهُوَ السَّمِيعُ الْعَلِيمُ',
-        transliteration: 'Bismillaahil-lathee laa yadurru ma\'as-mihi shay\'un fil-ardi wa laa fis-samaa\'i wa huwas-Samee\'ul-\'Aleem.',
+        arabic: 'الْحَمْدُ لِلَّهِ الَّذِي أَطْعَمَنِي هَذَا وَرَزَقَنِيهِ مِنْ غَيْرِ حَوْلٍ مِنِّي وَلَا قُوَّةٍ',
+        transliteration: 'Alhamdu lillahil-ladhi at\'amani hadha wa razaqanihi min ghayri hawlin minni wa la quwwah',
         translations: {
-          en: 'In the name of Allah, with whose name nothing can harm on earth nor in the heaven, and He is the All-Hearing, the All-Knowing.',
-          ar: 'بسم الله الذي لا يضر مع اسمه شيء في الأرض ولا في السماء وهو السميع العليم',
-          ta: 'பூமியிலும் வானத்திலும் எதுவும் தீங்கு விளைவிக்க முடியாத அல்லாஹ்வின் பெயரால். அவனே செவியேற்பவன், அறிபவன்.',
-          ml: 'അല്ലാഹുവിന്റെ നാമത്തിൽ, അവന്റെ നാമത്തോടുകൂടി ഭൂമിയിലും ആകാശത്തും ഒരു ദോഷവും ഉണ്ടാകില്ല.',
-          ur: 'اللہ کے نام سے جس کے نام کے ساتھ زمین و آسمان میں کوئی چیز نقصان نہیں دے سکتی۔ وہ سننے والا جاننے والا ہے۔',
-          hi: 'अल्लाह के नाम से जिसके नाम के साथ ज़मीन और आसमान में कोई चीज़ नुकसान नहीं दे सकती। वह सुनने वाला जानने वाला है।',
-          id: 'Dengan nama Allah yang bersama nama-Nya tidak ada sesuatu pun yang membahayakan di bumi dan di langit.',
-          fr: 'Au nom d\'Allah, avec le nom duquel rien ne peut nuire sur terre ni dans le ciel.',
-          tr: 'Allah\'ın adıyla ki, O\'nun adıyla birlikte yer ve gökte hiçbir şey zarar veremez.',
-          bn: 'আল্লাহর নামে যাঁর নামের সাথে পৃথিবী ও আকাশে কিছুই ক্ষতি করতে পারে না।'
+          en: 'All praise is for Allah who fed me this and provided it without any power or might from me.',
+          ar: 'الحمد لله الذي أطعمني هذا ورزقنيه من غير حول مني ولا قوة',
+          ta: 'எனக்கு இதை உணவளித்தும், என் சக்தி இல்லாமல் எனக்கு அருளியும் அல்லாஹ்வுக்கே எல்லா புகழும்.',
+          ml: 'എനിക്ക് ഇത് ഭക്ഷിപ്പിക്കുകയും എന്റെ ശക്തിയില്ലാതെ നൽകുകയും ചെയ്ത അല്ലാഹുവിന് സ്തുതി.',
+          ur: 'تمام تعریفیں اللہ کے لیے ہیں جس نے مجھے یہ کھلایا اور میری طاقت کے بغیر روزی دی۔',
+          hi: 'सब तारीफ़ अल्लाह के लिए है जिसने मुझे यह खिलाया और मेरी ताक़त के बिना रोज़ी दी।',
+          id: 'Segala puji bagi Allah yang telah memberiku makan ini dan memberikannya rezeki tanpa daya dan kekuatan dariku.',
+          fr: 'Louange à Allah qui m\'a nourri de ceci et m\'en a pourvu sans aucune force ni puissance de ma part.',
+          tr: 'Bana bunu yediren ve benim gücüm olmadan bana rızık veren Allah\'a hamdolsun.',
+          bn: 'সমস্ত প্রশংসা আল্লাহর যিনি আমাকে এটি খাওয়িয়েছেন এবং আমার শক্তি ছাড়াই আমাকে রিযিক দিয়েছেন।'
         },
-        reference: 'Abu Dawud 4/323',
-        repeat: 3,
-        benefit: 'Protection from all harm - morning and evening'
-      },
-      {
-        id: 'ed-5',
-        arabic: 'اللَّهُمَّ بَارِكْ لَنَا فِيمَا رَزَقْتَنَا وَقِنَا عَذَابَ النَّارِ بِسْمِ اللَّهِ',
-        transliteration: 'Allaahumma baarik lanaa feemaa razaqtanaa wa qinaa \'adhaaban-naar. Bismillaah.',
-        translations: {
-          en: 'O Allah, bless us in what You have provided us and protect us from the punishment of the Fire. In the name of Allah.',
-          ar: 'اللهم بارك لنا فيما رزقتنا وقنا عذاب النار بسم الله',
-          ta: 'இறைவா! நீ எங்களுக்கு அளித்த உணவில் அருள் புரிவாயாக! நரக வேதனையிலிருந்து காத்தருள்!',
-          ml: 'അല്ലാഹുവേ, നീ ഞങ്ങൾക്ക് നൽകിയതിൽ അനുഗ്രഹിക്കുക. നരകശിക്ഷയിൽ നിന്ന് രക്ഷിക്കുക.',
-          ur: 'اے اللہ! جو تو نے ہمیں رزق دیا ہے اس میں برکت عطا فرما اور آگ کے عذاب سے بچا۔',
-          hi: 'ऐ अल्लाह! जो तू ने हमें रिज़्क दिया है उसमें बरकत अता फरमा और आग के अज़ाब से बचा।',
-          id: 'Ya Allah, berkahilah kami dalam rezeki yang Engkau berikan dan lindungilah kami dari siksa neraka.',
-          fr: 'Ô Allah, bénis-nous dans ce que Tu nous as fourni et protège-nous du châtiment du Feu.',
-          tr: 'Allah\'ım! Bize verdiğin rızıkta bereket ver ve bizi ateş azabından koru.',
-          bn: 'হে আল্লাহ! তুমি আমাদের যে রিযিক দিয়েছ তাতে বরকত দাও এবং জাহান্নামের আযাব থেকে রক্ষা করো।'
-        },
-        reference: 'Before eating food',
+        reference: 'Tirmidhi 4/345',
         repeat: 1,
-        benefit: 'Blessing in food and sustenance'
-      },
-      {
-        id: 'ed-6',
-        arabic: 'اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْهَمِّ وَالْحَزَنِ وَالْعَجْزِ وَالْكَسَلِ',
-        transliteration: 'Allaahumma inni a\'oothu bika minal-hammi wal-hazani wal-\'ajzi wal-kasali.',
-        translations: {
-          en: 'O Allah, I seek refuge in You from anxiety, grief, weakness, and laziness.',
-          ar: 'اللهم إني أعوذ بك من الهم والحزن والعجز والكسل',
-          ta: 'இறைவா! கவலை, துக்கம், பலவீனம், சோம்பல் ஆகியவற்றிலிருந்து உன்னிடம் புகல் தேடுகிறேன்.',
-          ml: 'അല്ലാഹുവേ, വ്യാകുലത, ദുഃഖം, ദൗർബല്യം, മടിയും എന്നിവയിൽ നിന്ന് ഞാൻ നിന്നെ ആശ്രയിക്കുന്നു.',
-          ur: 'اے اللہ! میں تجھ سے فکر، غم، کمزوری اور سستی کی پناہ مانگتا ہوں۔',
-          hi: 'ऐ अल्लाह! मैं तुझसे फिक्र, गम, कमज़ोरी और सुस्ती की पनाह मांगता हूं।',
-          id: 'Ya Allah, aku berlindung kepada-Mu dari kecemasan, kesedihan, kelemahan, dan kemalasan.',
-          fr: 'Ô Allah, je cherche refuge en Toi contre l\'anxiété, le chagrin, la faiblesse et la paresse.',
-          tr: 'Allah\'ım! Endişe, keder, acizlik ve tembellikten Sana sığınırım.',
-          bn: 'হে আল্লাহ! আমি তোমার কাছে চিন্তা, দুঃখ, দুর্বলতা ও অলসতা থেকে আশ্রয় চাই।'
-        },
-        reference: 'Bukhari 7/158',
-        repeat: 1,
-        benefit: 'Relief from anxiety and depression'
-      },
-      {
-        id: 'ed-7',
-        arabic: 'اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْمَأْثَمِ وَالْمَغْرَمِ',
-        transliteration: 'Allaahumma inni a\'oothu bika minal-ma\'thami wal-maghrami.',
-        translations: {
-          en: 'O Allah, I seek refuge in You from sin and from debt.',
-          ar: 'اللهم إني أعوذ بك من المأثم والمغرم',
-          ta: 'இறைவா! பாவத்திலிருந்தும் கடனிலிருந்தும் உன்னிடம் புகல் தேடுகிறேன்.',
-          ml: 'അല്ലാഹുവേ, പാപത്തിൽ നിന്നും കടത്തിൽ നിന്നും ഞാൻ നിന്നെ ആശ്രയിക്കുന്നു.',
-          ur: 'اے اللہ! میں تجھ سے گناہ اور قرض کی پناہ مانگتا ہوں۔',
-          hi: 'ऐ अल्लाह! मैं तुझसे गुनाह और कर्ज़ की पनाह मांगता हूं।',
-          id: 'Ya Allah, aku berlindung kepada-Mu dari dosa dan hutang.',
-          fr: 'Ô Allah, je cherche refuge en Toi contre le péché et la dette.',
-          tr: 'Allah\'ım! Günah ve borçtan Sana sığınırım.',
-          bn: 'হে আল্লাহ! আমি তোমার কাছে গুনাহ ও ঋণ থেকে আশ্রয় চাই।'
-        },
-        reference: 'Bukhari 1/202',
-        repeat: 1,
-        benefit: 'Freedom from debts and financial burden'
-      },
-      {
-        id: 'ed-8',
-        arabic: 'رَبِّ اشْرَحْ لِي صَدْرِي وَيَسِّرْ لِي أَمْرِي',
-        transliteration: 'Rabbish-rah lii sadri wa yassir lii amri.',
-        translations: {
-          en: 'My Lord, expand my chest and ease my task for me.',
-          ar: 'رب اشرح لي صدري ويسر لي أمري',
-          ta: 'இறைவா! என் மார்பை விரிவாக்குவாயாக! என் காரியத்தை எளிதாக்குவாயாக!',
-          ml: 'രക്ഷിതാവേ, എന്റെ ഹൃദയം വികസിപ്പിക്കുക, എന്റെ കാര്യം എളുപ്പമാക്കുക.',
-          ur: 'اے میرے رب! میرا سینہ کھول دے اور میرا کام آسان کر دے۔',
-          hi: 'ऐ मेरे रब! मेरा सीना खोल दे और मेरा काम आसान कर दे।',
-          id: 'Ya Tuhanku, lapangkanlah dadaku dan mudahkanlah urusanku.',
-          fr: 'Mon Seigneur, ouvre-moi la poitrine et facilite ma tâche.',
-          tr: 'Rabbim! Göğsümü genişlet ve işimi kolaylaştır.',
-          bn: 'হে আমার রব! আমার বক্ষ প্রশস্ত করো এবং আমার কাজ সহজ করো।'
-        },
-        reference: 'Quran 20:25-26 (Dua of Musa AS)',
-        repeat: 1,
-        benefit: 'For exams, knowledge, and confidence'
+        benefit: 'After eating'
       }
     ]
   },
   {
     id: 'travel',
     name: {
-      en: 'Travel (Safar) Duas',
-      ar: 'أدعية السفر',
-      ta: 'பயண துஆக்கள்',
-      ml: 'യാത്രാ ദുആകൾ',
-      ur: 'سفر کی دعائیں',
-      hi: 'सफर की दुआएं',
-      id: 'Doa Perjalanan',
-      fr: 'Duas de Voyage',
-      tr: 'Seyahat Duaları',
-      bn: 'সফরের দোয়া'
+      en: 'Travel & Journey',
+      ar: 'السفر والرحلة',
+      ta: 'பயணம்',
+      ml: 'യാത്ര',
+      ur: 'سفر',
+      hi: 'सफ़र',
+      id: 'Perjalanan',
+      fr: 'Voyage',
+      tr: 'Yolculuk',
+      bn: 'ভ্রমণ'
     },
     icon: '✈️',
-    color: '#0891B2',
+    color: '#00BCD4',
     duas: [
       {
         id: 'tr-1',
         arabic: 'سُبْحَانَ الَّذِي سَخَّرَ لَنَا هَذَا وَمَا كُنَّا لَهُ مُقْرِنِينَ وَإِنَّا إِلَى رَبِّنَا لَمُنْقَلِبُونَ',
-        transliteration: 'Subhaanal-lathee sakh-khara lanaa haadhaa wa maa kunnaa lahu muqrineen, wa innaa ilaa Rabbinaa lamunqaliboon.',
+        transliteration: 'Subhanal-ladhi sakhkhara lana hadha wa ma kunna lahu muqrinin, wa inna ila rabbina lamunqalibun',
         translations: {
-          en: 'Glory be to Him Who has subjected this to us, and we could never have it by our efforts. And verily, to our Lord we indeed must return.',
+          en: 'Glory be to Him who has subjected this to us, and we could never have it by our efforts. And we shall return to our Lord.',
           ar: 'سبحان الذي سخر لنا هذا وما كنا له مقرنين وإنا إلى ربنا لمنقلبون',
-          ta: 'இதை நமக்கு வசப்படுத்தியவன் பரிசுத்தம்! இல்லாவிட்டால் நம்மால் இதை அடைய முடியாது. நிச்சயமாக நாம் நம் இறைவனிடமே திரும்புவோம்.',
-          ml: 'ഇത് ഞങ്ങൾക്ക് വശത്താക്കിയവൻ പരിശുദ്ധൻ. ഞങ്ങൾ ഞങ്ങളുടെ രക്ഷിതാവിങ്കലേക്ക് മടങ്ങുന്നവരാണ്.',
-          ur: 'پاک ہے وہ جس نے اسے ہمارے مسخر کر دیا ورنہ ہم اس کے قابو نہ تھے۔ اور بے شک ہم اپنے رب کی طرف لوٹنے والے ہیں۔',
-          hi: 'पाक है जिसने इसे हमारे मुसख्खर कर दिया। बेशक हम अपने रब की तरफ लौटने वाले हैं।',
-          id: 'Maha Suci Dzat yang telah menundukkan ini untuk kami, dan sesungguhnya kami akan kembali kepada Tuhan kami.',
-          fr: 'Gloire à Celui qui nous a soumis cela, et c\'est vers notre Seigneur que nous retournerons.',
-          tr: 'Bunu bize musahhar kılanı tesbih ederim. Şüphesiz Rabbimize döneceğiz.',
-          bn: 'পবিত্র তিনি যিনি এটাকে আমাদের বশীভূত করেছেন। নিশ্চয় আমরা আমাদের রবের দিকে ফিরে যাব।'
+          ta: 'இதை நமக்கு வசப்படுத்தியவன் எவ்வளவு மகத்துவமானவன்! நாம் நம் இறைவனிடமே திரும்புவோம்.',
+          ml: 'ഇത് നമുക്ക് അനുസരണമാക്കിയവൻ എത്ര മഹാനാണ്. നമ്മുടെ രക്ഷിതാവിങ്കലേക്ക് നാം മടങ്ങുന്നവരാണ്.',
+          ur: 'پاک ہے وہ جس نے اسے ہمارے لیے مسخر کر دیا اور ہم اس کے قابو نہ تھے اور ہم اپنے رب کی طرف لوٹنے والے ہیں۔',
+          hi: 'पाक है वह जिसने इसे हमारे लिए मुसाख्ख़र कर दिया और हम इसके काबू न थे और हम अपने रब की तरफ लौटने वाले हैं।',
+          id: 'Maha Suci Allah yang telah menundukkan semua ini bagi kami padahal kami sebelumnya tidak mampu menguasainya.',
+          fr: 'Gloire à Celui qui nous a soumis ceci, car nous n\'en étions pas capables. Et c\'est vers notre Seigneur que nous retournerons.',
+          tr: 'Bunu bize boyun eğdiren Allah ne kadar yücedir. Biz buna güç yetiremezdik ve Rabbimize döneceğiz.',
+          bn: 'পবিত্র তিনি যিনি এটিকে আমাদের জন্য বশীভূত করেছেন এবং আমরা এর ক্ষমতা রাখতাম না।'
         },
-        reference: 'Muslim 2/998',
+        reference: 'Muslim 2/980',
         repeat: 1,
-        benefit: 'Dua when boarding a vehicle'
+        benefit: 'Dua for travel/vehicle'
+      }
+    ]
+  },
+  {
+    id: 'anxiety-depression',
+    name: {
+      en: 'Anxiety & Depression Relief',
+      ar: 'الهم والحزن',
+      ta: 'கவலை & மன அழுத்தம்',
+      ml: 'ആകുലത & വിഷാദം',
+      ur: 'فکر اور غم',
+      hi: 'चिंता और अवसाद',
+      id: 'Kecemasan & Depresi',
+      fr: 'Anxiété & Dépression',
+      tr: 'Endişe & Depresyon',
+      bn: 'উদ্বেগ ও বিষণ্নতা'
+    },
+    icon: '🤲',
+    color: '#3F51B5',
+    duas: [
+      {
+        id: 'ad-1',
+        arabic: 'اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْهَمِّ وَالْحَزَنِ وَالْعَجْزِ وَالْكَسَلِ وَالْبُخْلِ وَالْجُبْنِ',
+        transliteration: 'Allahumma inni a\'udhu bika minal-hammi wal-hazan, wal-\'ajzi wal-kasal, wal-bukhli wal-jubn',
+        translations: {
+          en: 'O Allah, I seek refuge in You from anxiety and grief, from incapacity and laziness, from miserliness and cowardice.',
+          ar: 'اللهم إني أعوذ بك من الهم والحزن والعجز والكسل والبخل والجبن',
+          ta: 'இறைவா! கவலை, துக்கம், இயலாமை, சோம்பல், கஞ்சத்தனம், கோழைத்தனம் ஆகியவற்றிலிருந்து உன்னிடம் புகலளிக்கிறேன்.',
+          ml: 'അല്ലാഹുവേ, ആകുലതയിൽ നിന്നും ദുഃഖത്തിൽ നിന്നും അശക്തിയിൽ നിന്നും മടിയരിൽ നിന്നും ഞാൻ നിന്നോട് അഭയം തേടുന്നു.',
+          ur: 'اے اللہ! فکر، غم، کمزوری، سستی، کنجوسی اور بزدلی سے میں تیری پناہ مانگتا ہوں۔',
+          hi: 'ऐ अल्लाह! फ़िक्र, ग़म, कमज़ोरी, सुस्ती, कंजूसी और बज़दिली से मैं तेरी पनाह मांगता हूं।',
+          id: 'Ya Allah, aku berlindung kepada-Mu dari kecemasan dan kesedihan, dari kelemahan dan kemalasan.',
+          fr: 'Ô Allah, je cherche refuge auprès de Toi contre l\'anxiété et le chagrin, l\'incapacité et la paresse.',
+          tr: 'Allah\'ım! Endişe ve kederden, acizlik ve tembellikten Senin sığınağına sığınırım.',
+          bn: 'হে আল্লাহ! চিন্তা, দুঃখ, অক্ষমতা, অলসতা, কৃপণতা ও কাপুরুষতা থেকে আমি তোমার আশ্রয় চাই।'
+        },
+        reference: 'Bukhari 7/158',
+        repeat: 3,
+        benefit: 'Prophetic protection from anxiety'
+      }
+    ]
+  },
+  {
+    id: 'debts-rizq',
+    name: {
+      en: 'Debts & Financial Ease',
+      ar: 'الديون وسعة الرزق',
+      ta: 'கடன் & ரிஸ்க்',
+      ml: 'കടം & റിസ്ഖ്',
+      ur: 'قرض اور رزق',
+      hi: 'कर्ज़ और रिज़्क़',
+      id: 'Hutang & Kelapangan Rezeki',
+      fr: 'Dettes & Subsistance',
+      tr: 'Borç & Rızık',
+      bn: 'ঋণ ও রিযিক'
+    },
+    icon: '💰',
+    color: '#FFC107',
+    duas: [
+      {
+        id: 'dr-1',
+        arabic: 'اللَّهُمَّ اكْفِنِي بِحَلَالِكَ عَنْ حَرَامِكَ وَأَغْنِنِي بِفَضْلِكَ عَمَّنْ سِوَاكَ',
+        transliteration: 'Allahummak-fini bihalalika \'an haramik, wa agh-nini bifadlika \'amman siwak',
+        translations: {
+          en: 'O Allah, suffice me with Your lawful against Your forbidden, and make me independent of all others besides You by Your grace.',
+          ar: 'اللهم اكفني بحلالك عن حرامك وأغنني بفضلك عمن سواك',
+          ta: 'இறைவா! உன் அனுமதிக்கப்பட்டவற்றால் உன் தடுக்கப்பட்டவற்றிலிருந்து எனக்குப் போதுமாக்குவாயாக!',
+          ml: 'അല്ലാഹുവേ, നിന്റെ ഹലാലുകൊണ്ട് നിന്റെ ഹറാമിൽ നിന്ന് എന്നെ മതിയാക്കണമേ.',
+          ur: 'اے اللہ! اپنی حلال چیزوں سے مجھے اپنی حرام چیزوں سے بے نیاز کر دے اور اپنے فضل سے اپنے سوا سب سے بے نیاز کر دے۔',
+          hi: 'ऐ अल्लाह! अपनी हलाल चीज़ों से मुझे अपनी हराम चीज़ों से बेनियाज़ कर दे।',
+          id: 'Ya Allah, cukupilah aku dengan kehalalan-Mu dari keharaman-Mu, dan kayakanlah aku dengan karunia-Mu dari selain-Mu.',
+          fr: 'Ô Allah, suffis-moi par Ton licite contre Ton interdit, et rends-moi indépendant de tous sauf Toi par Ta grâce.',
+          tr: 'Allah\'ım! Helalınla haramından beni koru ve lütfunla Senden başkasına muhtaç etme.',
+          bn: 'হে আল্লাহ! তোমার হালাল দিয়ে তোমার হারাম থেকে আমাকে যথেষ্ট করো।'
+        },
+        reference: 'Tirmidhi 5/526',
+        repeat: 3,
+        benefit: 'For debt relief and rizq'
       }
     ]
   },
@@ -1018,38 +694,97 @@ export const categories: Category[] = [
     id: 'parents-family',
     name: {
       en: 'Parents & Family',
-      ar: 'الوالدان والعائلة',
+      ar: 'الوالدين والأسرة',
       ta: 'பெற்றோர் & குடும்பம்',
       ml: 'മാതാപിതാക്കൾ & കുടുംബം',
       ur: 'والدین اور خاندان',
-      hi: 'वालिदैन और खानदान',
+      hi: 'माता-पिता और परिवार',
       id: 'Orang Tua & Keluarga',
       fr: 'Parents & Famille',
-      tr: 'Anne Baba & Aile',
+      tr: 'Anne-Baba & Aile',
       bn: 'পিতা-মাতা ও পরিবার'
     },
     icon: '👨‍👩‍👧‍👦',
-    color: '#E11D48',
+    color: '#8BC34A',
     duas: [
       {
         id: 'pf-1',
         arabic: 'رَبِّ ارْحَمْهُمَا كَمَا رَبَّيَانِي صَغِيرًا',
-        transliteration: 'Rabbirhamhuma kamaa rabbayaan sagheeraa.',
+        transliteration: 'Rabbirhamhuma kama rabbayani saghira',
         translations: {
           en: 'My Lord, have mercy upon them as they brought me up when I was small.',
           ar: 'رب ارحمهما كما ربياني صغيرا',
-          ta: 'இறைவா! நான் சிறுவனாக இருந்தபோது என்னை வளர்த்த அவர்கள் மீது கருணை காத்தருள்.',
-          ml: 'രക്ഷിതാവേ, ഞാൻ ചെറുപ്പമായിരിക്കെ എന്നെ വളർത്തിയ അവരോട് കരുണ കാണിക്കണേ.',
+          ta: 'இறைவா! நான் சிறுவனாயிருந்தபோது என்னை வளர்த்தது போல் அவர்களுக்கு இரக்கம் காட்டுவாயாக!',
+          ml: 'രക്ഷിതാവേ, ഞാൻ ചെറുപ്പമായിരിക്കെ എന്നെ വളർത്തിയതുപോലെ അവരോട് ദയ കാണിക്കണമേ.',
           ur: 'اے میرے رب! ان دونوں پر رحم فرما جیسے انہوں نے مجھے بچپن میں پالا۔',
           hi: 'ऐ मेरे रब! उन दोनों पर रहम फरमा जैसे उन्होंने मुझे बचपन में पाला।',
-          id: 'Ya Tuhanku, sayangilah keduanya sebagaimana mereka telah mendidikku waktu kecil.',
-          fr: 'Mon Seigneur, aie pitié d\'eux comme ils m\'ont élevé quand j\'étais petit.',
-          tr: 'Rabbim! Küçüklüğümde beni yetiştirdikleri gibi onlara rahmet et.',
-          bn: 'হে আমার রব! তাদের প্রতি দয়া করো যেমন তারা আমাকে ছোটবেলায় লালন-পালন করেছে।'
+          id: 'Ya Tuhanku, sayangilah keduanya sebagaimana keduanya telah mendidikku waktu kecil.',
+          fr: 'Mon Seigneur, fais-leur miséricorde comme ils m\'ont élevé lorsque j\'étais petit.',
+          tr: 'Rabbim! Onlara merhamet et, tıpkı beni küçükken yetiştirdikleri gibi.',
+          bn: 'হে আমার রব! তাদের প্রতি দয়া করো যেমন তারা আমাকে ছোটবেলায় লালন-পালন করেছেন।'
         },
         reference: 'Quran 17:24',
         repeat: 1,
-        benefit: 'Dua for parents - immense reward'
+        benefit: 'For parents'
+      }
+    ]
+  },
+  {
+    id: 'knowledge-exams',
+    name: {
+      en: 'Knowledge & Exams',
+      ar: 'العلم والامتحانات',
+      ta: 'கல்வி & தேர்வுகள்',
+      ml: 'വിദ്യ & പരീക്ഷകൾ',
+      ur: 'علم اور امتحان',
+      hi: 'ज्ञान और परीक्षा',
+      id: 'Ilmu & Ujian',
+      fr: 'Savoir & Examens',
+      tr: 'İlim & Sınavlar',
+      bn: 'জ্ঞান ও পরীক্ষা'
+    },
+    icon: '📚',
+    color: '#009688',
+    duas: [
+      {
+        id: 'ke-1',
+        arabic: 'رَبِّ زِدْنِي عِلْمًا',
+        transliteration: 'Rabbi zidni \'ilma',
+        translations: {
+          en: 'My Lord, increase me in knowledge.',
+          ar: 'رب زدني علما',
+          ta: 'இறைவா! எனக்கு அறிவை அதிகரிப்பாயாக!',
+          ml: 'രക്ഷിതാവേ, എനിക്ക് വിദ്യ വർധിപ്പിക്കണമേ.',
+          ur: 'اے میرے رب! میرے علم میں اضافہ فرما۔',
+          hi: 'ऐ मेरे रब! मेरे इल्म में इज़ाफ़ा फरमा।',
+          id: 'Ya Tuhanku, tambahkanlah ilmu kepadaku.',
+          fr: 'Mon Seigneur, augmente-moi en savoir.',
+          tr: 'Rabbim! İlmimi artır.',
+          bn: 'হে আমার রব! আমার জ্ঞান বৃদ্ধি করো।'
+        },
+        reference: 'Quran 20:114',
+        repeat: 3,
+        benefit: 'For increase in knowledge'
+      },
+      {
+        id: 'ke-2',
+        arabic: 'اللَّهُمَّ لَا سَهْلَ إِلَّا مَا جَعَلْتَهُ سَهْلًا وَأَنْتَ تَجْعَلُ الْحَزْنَ إِذَا شِئْتَ سَهْلًا',
+        transliteration: 'Allahumma la sahla illa ma ja\'altahu sahla, wa anta taj\'alul-hazna idha shi\'ta sahla',
+        translations: {
+          en: 'O Allah, nothing is easy except what You make easy. And You make difficulty easy if You will.',
+          ar: 'اللهم لا سهل إلا ما جعلته سهلا وأنت تجعل الحزن إذا شئت سهلا',
+          ta: 'இறைவா! நீ எளிதாக்குவதைத் தவிர எளிதானது இல்லை. நீ நாடினால் கடினமானதை எளிதாக்குவாய்.',
+          ml: 'അല്ലാഹുവേ, നീ എളുപ്പമാക്കിയതല്ലാതെ എളുപ്പമില്ല. നീ ഉദ്ദേശിച്ചാൽ നീ പ്രയാസത്തെ എളുപ്പമാക്കും.',
+          ur: 'اے اللہ! جو تو آسان کر دے اس کے سوا کچھ آسان نہیں اور تو جب چاہے مشکل کو آسان کر دیتا ہے۔',
+          hi: 'ऐ अल्लाह! जो तू आसान कर दे उसके सिवा कुछ आसान नहीं और तू जब चाहे मुश्किल को आसान कर देता है।',
+          id: 'Ya Allah, tidak ada yang mudah kecuali apa yang Engkau jadikan mudah. Dan Engkau menjadikan kesulitan itu mudah jika Engkau kehendaki.',
+          fr: 'Ô Allah, rien n\'est facile sauf ce que Tu rends facile. Et Tu rends la difficulté facile si Tu le veux.',
+          tr: 'Allah\'ım! Senin kolay kıldığın dışında kolay olan hiçbir şey yoktur. Dilersen zorluğu kolay kılarsın.',
+          bn: 'হে আল্লাহ! তুমি যা সহজ করো তার বাইরে কিছুই সহজ নয়। তুমি চাইলে কষ্টকে সহজ করে দাও।'
+        },
+        reference: 'Ibn Hibban 2427',
+        repeat: 1,
+        benefit: 'Before exams or difficult tasks'
       }
     ]
   },
@@ -1059,154 +794,36 @@ export const categories: Category[] = [
       en: 'Rain & Thunder',
       ar: 'المطر والرعد',
       ta: 'மழை & இடி',
-      ml: 'മഴയും ഇടിയും',
-      ur: 'بارش اور گرج',
-      hi: 'बारिश और गरज',
+      ml: 'മഴ & ഇടി',
+      ur: 'بارش اور بجلی',
+      hi: 'बारिश और बिजली',
       id: 'Hujan & Petir',
       fr: 'Pluie & Tonnerre',
-      tr: 'Yağmur & Gök Gürültüsü',
+      tr: 'Yağmur & Yıldırım',
       bn: 'বৃষ্টি ও বজ্রপাত'
     },
     icon: '🌧️',
-    color: '#2563EB',
+    color: '#03A9F4',
     duas: [
       {
-        id: 'ra-1',
+        id: 'rt-1',
         arabic: 'اللَّهُمَّ صَيِّبًا نَافِعًا',
-        transliteration: 'Allaahumma sayyiban naafi\'aa.',
+        transliteration: 'Allahumma sayyiban nafi\'a',
         translations: {
-          en: 'O Allah, (send) beneficial rain.',
+          en: 'O Allah, (bring) beneficial rain.',
           ar: 'اللهم صيبا نافعا',
-          ta: 'இறைவா! பயனுள்ள மழையைத் தந்தருள்.',
-          ml: 'അല്ലാഹുവേ, ഗുണകരമായ മഴ തരണമേ.',
+          ta: 'இறைவா! நன்மை பயக்கும் மழையை அருள்வாயாக!',
+          ml: 'അല്ലാഹുവേ, ഗുണകരമായ മഴ നൽകണമേ.',
           ur: 'اے اللہ! فائدے والی بارش نازل فرما۔',
-          hi: 'ऐ अल्लाह! फायदे वाली बारिश नाज़िल फरमा।',
+          hi: 'ऐ अल्लाह! फायदेमंद बारिश नाज़िल फरमा।',
           id: 'Ya Allah, turunkanlah hujan yang bermanfaat.',
-          fr: 'Ô Allah, (envoie) une pluie bénéfique.',
+          fr: 'Ô Allah, (fais tomber) une pluie bénéfique.',
           tr: 'Allah\'ım! Faydalı yağmur indir.',
           bn: 'হে আল্লাহ! উপকারী বৃষ্টি দাও।'
         },
         reference: 'Bukhari 1/224',
         repeat: 1,
-        benefit: 'When it starts raining'
-      },
-      {
-        id: 'ra-2',
-        arabic: 'سُبْحَانَ الَّذِي يُسَبِّحُ الرَّعْدُ بِحَمْدِهِ وَالْمَلاَئِكَةُ مِنْ خِيفَتِهِ',
-        transliteration: 'Subhaanal-lathee yusabbihur-ra\'du bihamdihi wal-malaa\'ikatu min khee fatihi.',
-        translations: {
-          en: 'Glory be to Him Whom thunder glorifies with His praise, and the angels too, out of fear of Him.',
-          ar: 'سبحان الذي يسبح الرعد بحمده والملائكة من خيفته',
-          ta: 'இடி முழக்கம் அவனது புகழை ஓதிப் பரிசுத்தமாக்குகிறது. வானவர்களும் அவனுக்கு அஞ்சி பரிசுத்தமாக்குகிறார்கள்.',
-          ml: 'ഇടിമുഴക്കം അവന്റെ സ്തുതിയോടെ പരിശുദ്ധമാക്കുന്നവൻ പരിശുദ്ധൻ. ഭയത്താൽ മാലാഖമാരും.',
-          ur: 'پاک ہے وہ جس کی تسبیح بجلی کرتی ہے اس کی حمد کے ساتھ اور فرشتے بھی اس کے خوف سے۔',
-          hi: 'पाक है जिसकी तसबीह बिजली करती है उसकी हम्द के साथ और फरिश्ते भी उसके खौफ से।',
-          id: 'Maha Suci Dzat yang guruh bertasbih dengan memuji-Nya, dan para malaikat juga karena takut kepada-Nya.',
-          fr: 'Gloire à Celui que le tonnerre glorifie par Sa louange, et les anges aussi par crainte de Lui.',
-          tr: 'Gök gürültüsü O\'nu hamd ile tesbih eder, melekler de korkularından. O\'nu tesbih ederiz.',
-          bn: 'পবিত্র তিনি যাকে বজ্রধ্বনি তাঁর প্রশংসাসহ তাসবীহ করে এবং ফেরেশতাগণও তাঁর ভয়ে।'
-        },
-        reference: 'Muwatta Malik 2/992',
-        repeat: 1,
-        benefit: 'When hearing thunder'
-      }
-    ]
-  },
-  {
-    id: 'anxiety-depression',
-    name: {
-      en: 'Anxiety & Depression Relief',
-      ar: 'القلق والاكتئاب',
-      ta: 'கவலை & மனச்சோர்வு',
-      ml: 'ആകുലത & വിഷാദം',
-      ur: 'ذہنی دباؤ اور پریشانی',
-      hi: 'चिंता और अवसाद',
-      id: 'Kecemasan & Depresi',
-      fr: 'Anxiété & Dépression',
-      tr: 'Kaygı & Depresyon',
-      bn: 'উদ্বেগ ও বিষণ্নতা'
-    },
-    icon: '🧘',
-    color: '#7C3AED',
-    duas: [
-      {
-        id: 'ad-1',
-        arabic: 'لاَ إِلَهَ إِلاَّ اللَّهُ الْعَظِيمُ الْحَلِيمُ لاَ إِلَهَ إِلاَّ اللَّهُ رَبُّ الْعَرْشِ الْعَظِيمِ لاَ إِلَهَ إِلاَّ اللَّهُ رَبُّ السَّمَوَاتِ وَرَبُّ الأَرْضِ وَرَبُّ الْعَرْشِ الْكَرِيمِ',
-        transliteration: 'Laa ilaaha illallaahul-\'Atheemul-Haleem. Laa ilaaha illallaahu Rabbul-\'Arshil-\'Atheem. Laa ilaaha illallaahu Rabbus-samaawaati wa Rabbul-ardi wa Rabbul-\'Arshil-Kareem.',
-        translations: {
-          en: 'There is no god but Allah, the Mighty, the Forbearing. There is no god but Allah, Lord of the Mighty Throne. There is no god but Allah, Lord of the heavens and Lord of the earth, and Lord of the Noble Throne.',
-          ar: 'لا إله إلا الله العظيم الحليم لا إله إلا الله رب العرش العظيم لا إله إلا الله رب السماوات ورب الأرض ورب العرش الكريم',
-          ta: 'அல்லாஹ்வைத் தவிர வணக்கத்திற்குரியவர் இல்லை, மகத்தானவன், பொறுமையுள்ளவன். அல்லாஹ்வைத் தவிர வணக்கத்திற்குரியவர் இல்லை, மகத்தான அறையின் இறைவன்.',
-          ml: 'അല്ലാഹു അല്ലാതെ ആരാധ്യനില്ല, മഹാനും സഹനശീലനുമായവൻ. അല്ലാഹു അല്ലാതെ ആരാധ്യനില്ല, മഹത്തായ സിംഹാസനത്തിന്റെ രക്ഷിതാവ്.',
-          ur: 'اللہ کے سوا کوئی معبود نہیں، بڑا اور حلم والا۔ اللہ کے سوا کوئی معبود نہیں، عرش عظیم کا رب۔',
-          hi: 'अल्लाह के सिवा कोई माबूद नहीं, बड़ा और हलीम। अल्लाह के सिवा कोई माबूद नहीं, अर्श-ए-अज़ीम का रब।',
-          id: 'Tiada Tuhan selain Allah Yang Maha Agung dan Maha Penyantun. Tiada Tuhan selain Allah, Tuhan Arsy yang agung.',
-          fr: 'Il n\'y a de dieu qu\'Allah, le Grand, le Clément. Il n\'y a de dieu qu\'Allah, Seigneur du Trône immense.',
-          tr: 'Allah\'tan başka ilah yoktur, Ulvi ve Halim. Allah\'tan başka ilah yoktur, Büyük Arş\'ın Rabbi.',
-          bn: 'আল্লাহ ছাড়া কোনো ইলাহ নেই, মহান ও সহনশীল। আল্লাহ ছাড়া কোনো ইলাহ নেই, মহান আরশের রব।'
-        },
-        reference: 'Bukhari 7/154',
-        repeat: 1,
-        benefit: 'The Prophet\'s ﷺ dua for distress and anxiety'
-      },
-      {
-        id: 'ad-2',
-        arabic: 'اللَّهُمَّ إِنِّي عَبْدُكَ ابْنُ عَبْدِكَ ابْنُ أَمَتِكَ نَاصِيَتِي بِيَدِكَ مَاضٍ فِيَّ حُكْمُكَ عَدْلٌ فِيَّ قَضَاؤُكَ',
-        transliteration: 'Allaahumma inni \'abduka, ibnu \'abdika, ibnu amatika, naasiyati biyadika, maadin fiyya hukmuka, \'adlun fiyya qadaa\'uka.',
-        translations: {
-          en: 'O Allah, I am Your slave, son of Your slave, son of Your maidservant. My forelock is in Your hand. Your command is effective upon me, Your decree upon me is just.',
-          ar: 'اللهم إني عبدك ابن عبدك ابن أمتك ناصيتي بيدك ماض في حكمك عدل في قضاؤك',
-          ta: 'இறைவா! நான் உமது அடிமை, உமது அடிமையின் மகன், உமது அடிமையின் மகளின் மகன். என் முன்னழகு உமது கையில். உமது கட்டளை என் மீது நிறைவேறும்.',
-          ml: 'അല്ലാഹുവേ, ഞാൻ നിന്റെ ദാസൻ, നിന്റെ ദാസന്റെ മകൻ. എന്റെ മുൻഭാഗം നിന്റെ കൈയിലാണ്.',
-          ur: 'اے اللہ! میں تیرا بندہ ہوں، تیرے بندے کا بیٹا، تیری بندی کا بیٹا۔ میری پیشانی تیرے ہاتھ میں ہے۔',
-          hi: 'ऐ अल्लाह! मैं तेरा बंदा हूं, तेरे बंदे का बेटा, तेरी बांदी का बेटा। मेरी पेशानी तेरे हाथ में है।',
-          id: 'Ya Allah, sesungguhnya aku hamba-Mu, anak hamba-Mu, anak hamba sahayamu. Ubun-ubunku di tangan-Mu.',
-          fr: 'Ô Allah, je suis Ton serviteur, fils de Ton serviteur, fils de Ta servante. Mon front est dans Ta main.',
-          tr: 'Allah\'ım! Ben Senin kulunum, kulunun oğlu, cariyenin oğlu. Perçemim elindedir.',
-          bn: 'হে আল্লাহ! আমি তোমার বান্দা, তোমার বান্দার ছেলে, তোমার বাঁদীর ছেলে। আমার কপাল তোমার হাতে।'
-        },
-        reference: 'Ahmad 3/199 (Sayyid al-Istighfar)',
-        repeat: 1,
-        benefit: 'The master of seeking forgiveness - Sayyid al-Istighfar'
-      }
-    ]
-  },
-  {
-    id: 'market',
-    name: {
-      en: 'Market & Shopping',
-      ar: 'السوق والتسوق',
-      ta: 'சந்தை & வாங்குதல்',
-      ml: 'ചന്ത & ഷോപ്പിംഗ്',
-      ur: 'بازار اور خریداری',
-      hi: 'बाज़ार और खरीदारी',
-      id: 'Pasar & Belanja',
-      fr: 'Marché & Shopping',
-      tr: 'Pazar & Alışveriş',
-      bn: 'বাজার ও কেনাকাটা'
-    },
-    icon: '🛒',
-    color: '#CA8A04',
-    duas: [
-      {
-        id: 'mk-1',
-        arabic: 'لاَ إِلَهَ إِلاَّ اللَّهُ وَحْدَهُ لاَ شَرِيكَ لَهُ لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ يُحْيِي وَيُمِيتُ وَهُوَ حَيٌّ لاَ يَمُوتُ بِيَدِهِ الْخَيْرُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ',
-        transliteration: 'Laa ilaaha illallaahu wahdahu laa shareeka lah, lahul-mulku wa lahul-hamd, yuhyee wa yumeetu wa huwa hayyun laa yamoot, biyadihil-khayr wa huwa \'alaa kulli shay\'in qadeer.',
-        translations: {
-          en: 'There is no god but Allah alone, without partner. To Him belongs the kingdom and all praise. He gives life and causes death. He is Living and does not die. In His hand is all good, and He is over all things omnipotent.',
-          ar: 'لا إله إلا الله وحده لا شريك له له الملك وله الحمد يحيي ويميت وهو حي لا يموت بيده الخير وهو على كل شيء قدير',
-          ta: 'அல்லாஹ்வைத் தவிர வணக்கத்திற்குரியவர் இல்லை, அவனுக்கே அரசு, அவனுக்கே புகழ். அவன் உயிரளிக்கிறான், மரணமளிக்கிறான். அவன் என்றும் வாழ்பவன்.',
-          ml: 'അല്ലാഹു അല്ലാതെ ആരാധ്യനില്ല. രാജ്യം അവനുടേതാണ്, സ്തുതി അവനുടേതാണ്. അവൻ ജീവൻ നൽകുന്നു, മരണം നൽകുന്നു.',
-          ur: 'اللہ کے سوا کوئی معبود نہیں، بادشاہت اسی کی ہے، حمد اسی کے لیے ہے۔ وہ زندہ کرتا ہے اور مارتا ہے۔',
-          hi: 'अल्लाह के सिवा कोई माबूद नहीं, बादशाहत उसी की है, हम्द उसी के लिए है। वह ज़िंदा करता है और मारता है।',
-          id: 'Tiada Tuhan selain Allah Yang Maha Esa. Kerajaan milik-Nya, puji-pujian milik-Nya. Dia menghidupkan dan mematikan.',
-          fr: 'Il n\'y a de dieu qu\'Allah Seul, sans partenaire. À Lui la royauté et la louange. Il donne la vie et la mort.',
-          tr: 'Allah\'tan başka ilah yoktur, tek ve ortağı yoktur. Mülk O\'nundur, hamd O\'na mahsustur. O diriltir ve öldürür.',
-          bn: 'আল্লাহ ছাড়া কোনো ইলাহ নেই, একক, শরীক নেই। রাজত্ব তাঁর, প্রশংসা তাঁর। তিনি জীবিত করেন ও মৃত্যু দেন।'
-        },
-        reference: 'At-Tirmidhi 5/515',
-        repeat: 1,
-        benefit: 'Reciting in the market - 1,000,000 good deeds recorded'
+        benefit: 'When rain begins'
       }
     ]
   },
@@ -1215,92 +832,92 @@ export const categories: Category[] = [
     name: {
       en: 'Sneezing & Yawning',
       ar: 'العطاس والتثاؤب',
-      ta: 'தும்மல் & கொட்டாவி',
-      ml: 'ചുമമലും കൊട്ടാവും',
-      ur: 'چھینک اور جمائی',
-      hi: 'छींक और जम्हाई',
-      id: 'Bersin & Menguap',
-      fr: 'Éternuement & Bâillement',
-      tr: 'Hapşırma & Esneme',
-      bn: 'হাঁচি ও হাই'
+      ta: 'தும்மல்',
+      ml: 'ചുമ്മാതൽ',
+      ur: 'چھینک',
+      hi: 'छींक',
+      id: 'Bersin',
+      fr: 'Éternuement',
+      tr: 'Hapşırma',
+      bn: 'হাঁচি'
     },
     icon: '🤧',
-    color: '#0D9488',
+    color: '#CDDC39',
     duas: [
       {
         id: 'sn-1',
         arabic: 'الْحَمْدُ لِلَّهِ',
-        transliteration: 'Alhamdu lillaah.',
+        transliteration: 'Alhamdulillah',
         translations: {
-          en: 'All praise is due to Allah.',
+          en: 'All praise is for Allah (after sneezing)',
           ar: 'الحمد لله',
-          ta: 'அனைத்து புகழும் அல்லாஹ்வுக்கே.',
-          ml: 'എല്ലാ സ്തുതിയും അല്ലാഹുവിന്.',
-          ur: 'تمام تعریف اللہ کے لیے ہے۔',
-          hi: 'सारी तारीफ अल्लाह के लिए है।',
-          id: 'Segala puji bagi Allah.',
-          fr: 'Louange à Allah.',
-          tr: 'Hamd Allah\'adır.',
-          bn: 'সকল প্রশংসা আল্লাহর।'
+          ta: 'எல்லா புகழும் அல்லாஹ்வுக்கே (தும்மலுக்குப் பின்)',
+          ml: 'എല്ലാ സ്തുതിയും അല്ലാഹുവിന് (ചുമ്മാതലിന് ശേഷം)',
+          ur: 'تمام تعریفیں اللہ کے لیے ہیں (چھینک کے بعد)',
+          hi: 'सब तारीफ़ अल्लाह के लिए हैं (छींक के बाद)',
+          id: 'Segala puji bagi Allah (setelah bersin)',
+          fr: 'Toute louange est pour Allah (après avoir éternué)',
+          tr: 'Hamd Allah\'adır (hapşırdıktan sonra)',
+          bn: 'সমস্ত প্রশংসা আল্লাহর (হাঁচির পরে)'
         },
-        reference: 'Bukhari 10/602',
+        reference: 'Bukhari 7/125',
         repeat: 1,
-        benefit: 'Said by the one who sneezes'
+        benefit: 'After sneezing'
       }
     ]
   },
   {
-    id: 'sleep-wake',
+    id: 'waking-sleeping',
     name: {
-      en: 'Sleeping & Waking',
-      ar: 'النوم والاستيقاظ',
-      ta: 'தூங்குதல் & எழுதல்',
-      ml: 'ഉറക്കവും ഉണർന്നെഴുന്നേൽപ്പും',
-      ur: 'سونے اور جاگنے کی دعائیں',
-      hi: 'सोने और जागने की दुआएं',
+      en: 'Waking & Sleeping',
+      ar: 'الاستيقاظ والنوم',
+      ta: 'தூக்கம் & எழுப்பு',
+      ml: 'ഉറക്കവും ഉണർവ്വും',
+      ur: 'سونے اور جاگنے',
+      hi: 'सोने और जागने',
       id: 'Tidur & Bangun',
-      fr: 'Dormir & Se Réveiller',
+      fr: 'Sommeil & Réveil',
       tr: 'Uyku & Uyanma',
       bn: 'ঘুম ও জাগরণ'
     },
     icon: '🌙',
-    color: '#4338CA',
+    color: '#673AB7',
     duas: [
       {
-        id: 'sl-1',
+        id: 'ws-1',
         arabic: 'بِاسْمِكَ اللَّهُمَّ أَمُوتُ وَأَحْيَا',
-        transliteration: 'Bismikallaahumma amootu wa ahyaa.',
+        transliteration: 'Bismika Allahumma amutu wa ahya',
         translations: {
           en: 'In Your name, O Allah, I die and I live.',
           ar: 'باسمك اللهم أموت وأحيا',
-          ta: 'இறைவா! உமது பெயரால் நான் இறக்கிறேன், உயிர் வாழ்கிறேன்.',
+          ta: 'உன் பெயரால், இறைவா! நான் இறக்கிறேன், நான் வாழ்கிறேன்.',
           ml: 'നിന്റെ നാമത്തിൽ, അല്ലാഹുവേ, ഞാൻ മരിക്കുകയും ജീവിക്കുകയും ചെയ്യുന്നു.',
-          ur: 'اے اللہ! تیرے نام سے میں مرتا ہوں اور جیتا ہوں۔',
-          hi: 'ऐ अल्लाह! तेरे नाम से मैं मरता हूं और जीता हूं।',
-          id: 'Dengan nama-Mu, Ya Allah, aku mati dan hidup.',
-          fr: 'En Ton nom, Ô Allah, je meurs et je vis.',
-          tr: 'Adınla Allah\'ım, ölüyorum ve yaşıyorum.',
-          bn: 'তোমার নামে, হে আল্লাহ, আমি মরি ও বাঁচি।'
+          ur: 'تیرے نام سے اے اللہ! میں مرتا ہوں اور جیتا ہوں۔',
+          hi: 'तेरे नाम से ऐ अल्लाह! मैं मरता हूं और जीता हूं।',
+          id: 'Dengan nama-Mu, ya Allah, aku mati dan aku hidup.',
+          fr: 'En Ton nom, ô Allah, je meurs et je vis.',
+          tr: 'Senin adınla Allah\'ım! Ölüyorum ve yaşıyorum.',
+          bn: 'তোমার নামে হে আল্লাহ! আমি মরি এবং বাঁচি।'
         },
         reference: 'Bukhari 11/113',
         repeat: 1,
         benefit: 'Before sleeping'
       },
       {
-        id: 'sl-2',
+        id: 'ws-2',
         arabic: 'الْحَمْدُ لِلَّهِ الَّذِي أَحْيَانَا بَعْدَ مَا أَمَاتَنَا وَإِلَيْهِ النُّشُورُ',
-        transliteration: 'Alhamdu lillaahil-lathee ahyaanaa ba\'da maa amaatanaa wa ilayhin-nushoor.',
+        transliteration: 'Alhamdu lillahil-ladhi ahyana ba\'da ma amatana wa ilayhin-nushur',
         translations: {
-          en: 'All praise is due to Allah who gave us life after He caused us to die, and to Him is the resurrection.',
+          en: 'All praise is for Allah who gave us life after having caused us to die, and unto Him is the resurrection.',
           ar: 'الحمد لله الذي أحيانا بعد ما أماتنا وإليه النشور',
-          ta: 'நம்மை இறக்கச் செய்த பின் உயிரளித்த அல்லாஹ்வுக்கே புகழ். அவனிடமே மறுமலர்ச்சி.',
-          ml: 'ഞങ്ങളെ മരിപ്പിച്ച ശേഷം ജീവിപ്പിച്ച അല്ലാഹുവിന് സ്തുതി. അവങ്കലേക്കാണ് ഉയിർത്തെഴുന്നേൽപ്പ്.',
-          ur: 'تمام تعریف اللہ کے لیے ہے جس نے ہمیں مرنے کے بعد زندہ کیا اور اسی کی طرف لوٹنا ہے۔',
-          hi: 'सारी तारीफ अल्लाह के लिए है जिसने हमें मारने के बाद ज़िंदा किया और उसी की तरफ लौटना है।',
-          id: 'Segala puji bagi Allah yang menghidupkan kami setelah mematikan kami, dan kepada-Nya kebangkitan.',
+          ta: 'நம்மை மரணமடையச் செய்த பின் உயிர்ப்பித்த அல்லாஹ்வுக்கே எல்லா புகழும்.',
+          ml: 'ഞങ്ങളെ മരിപ്പിച്ച ശേഷം ജീവിപ്പിച്ച അല്ലാഹുവിന് സ്തുതി.',
+          ur: 'تمام تعریفیں اللہ کے لیے ہیں جس نے ہمیں مرنے کے بعد زندہ کیا اور اسی کی طرف لوٹنا ہے۔',
+          hi: 'सब तारीफ़ अल्लाह के लिए हैं जिसने हमें मरने के बाद ज़िंदा किया और उसी की तरफ लौटना है।',
+          id: 'Segala puji bagi Allah yang menghidupkan kami setelah mematikan kami dan kepada-Nya kebangkitan.',
           fr: 'Louange à Allah qui nous a donné la vie après nous avoir fait mourir, et vers Lui est la résurrection.',
-          tr: 'Bizi öldükten sonra dirilten Allah\'a hamd olsun. Dönüş O\'nadır.',
-          bn: 'আল্লাহর প্রশংসা যিনি আমাদের মৃত্যুর পর জীবিত করেছেন এবং তাঁর দিকেই প্রত্যাবর্তন।'
+          tr: 'Bizi öldükten sonra dirilten Allah\'a hamdolsun ve dönüş O\'nadır.',
+          bn: 'সমস্ত প্রশংসা আল্লাহর যিনি আমাদের মৃত্যুর পর জীবিত করেছেন এবং তাঁর দিকেই প্রত্যাবর্তন।'
         },
         reference: 'Bukhari 11/113',
         repeat: 1,
@@ -1309,70 +926,31 @@ export const categories: Category[] = [
     ]
   },
   {
-    id: 'clothes',
-    name: {
-      en: 'Wearing Clothes',
-      ar: 'لبس الملابس',
-      ta: 'ஆடை அணிதல்',
-      ml: 'വസ്ത്രം ധരിക്കുമ്പോൾ',
-      ur: 'کپڑے پہننے کی دعا',
-      hi: 'कपड़े पहनने की दुआ',
-      id: 'Mengenakan Pakaian',
-      fr: 'Port de Vêtements',
-      tr: 'Kıyafet Giyme',
-      bn: 'পোশাক পরা'
-    },
-    icon: '👔',
-    color: '#B91C1C',
-    duas: [
-      {
-        id: 'cl-1',
-        arabic: 'الْحَمْدُ لِلَّهِ الَّذِي كَسَانِي هَذَا وَرَزَقَنِيهِ مِنْ غَيْرِ حَوْلٍ مِنِّي وَلاَ قُوَّةٍ',
-        transliteration: 'Alhamdu lillaahil-lathee kasaanee haadhaa wa razaqaneehi min ghayri hawlim-minni wa laa quwwah.',
-        translations: {
-          en: 'All praise is due to Allah who clothed me with this and provided it for me without any power or might on my part.',
-          ar: 'الحمد لله الذي كساني هذا ورزقنيه من حول مني ولا قوة',
-          ta: 'இதை எனக்கு உடுத்தியும், என் சக்தியின்றி எனக்கு அளித்தும் அல்லாஹ்வுக்கே புகழ்.',
-          ml: 'ഇത് എന്നെ ധരിപ്പിക്കുകയും എന്റെ ശക്തി കൂടാതെ നൽകുകയും ചെയ്ത അല്ലാഹുവിന് സ്തുതി.',
-          ur: 'تمام تعریف اللہ کے لیے ہے جس نے مجھے یہ کپڑا پہنایا اور میری کسی طاقت کے بغیر عطا کیا۔',
-          hi: 'सारी तारीफ अल्लाह के लिए है जिसने मुझे यह कपड़ा पहनाया और मेरी किसी ताकत के बिना अता किया।',
-          id: 'Segala puji bagi Allah yang memakaikan aku pakaian ini dan memberikannya tanpa daya dan kekuatan dariku.',
-          fr: 'Louange à Allah qui m\'a vêtu de ceci et me l\'a fourni sans aucun pouvoir de ma part.',
-          tr: 'Bana bunu giydiren ve benim hiçbir gücüm olmadan bana veren Allah\'a hamd olsun.',
-          bn: 'আল্লাহর প্রশংসা যিনি আমাকে এটি পরিয়েছেন এবং আমার কোনো শক্তি ছাড়াই দিয়েছেন।'
-        },
-        reference: 'Abu Dawud 4/41',
-        repeat: 1,
-        benefit: 'When wearing new clothes'
-      }
-    ]
-  },
-  {
     id: 'masjid',
     name: {
       en: 'Entering & Leaving Masjid',
       ar: 'دخول وخروج المسجد',
-      ta: 'மஸ்ஜித் நுழைதல் & வெளியேறுதல்',
-      ml: 'മസ്ജിദിൽ പ്രവേശിക്കുമ്പോൾ',
-      ur: 'مسجد میں داخلہ و خروج',
-      hi: 'मस्जिद में दाखिल व खारिज',
+      ta: 'மஸ்ஜித் நுழைவு & வெளியேற்றம்',
+      ml: 'മസ്ജിദിൽ പ്രവേശനവും പുറപ്പാടും',
+      ur: 'مسجد میں داخلہ اور خروج',
+      hi: 'मस्जिद में दाख़िला और ख़ारिज',
       id: 'Masuk & Keluar Masjid',
       fr: 'Entrée & Sortie de la Mosquée',
       tr: 'Camiye Giriş & Çıkış',
-      bn: 'মসজিদে প্রবেশ ও প্রস্থান'
+      bn: 'মসজিদে প্রবেশ ও নির্গমন'
     },
     icon: '🕌',
-    color: '#15803D',
+    color: '#004D40',
     duas: [
       {
-        id: 'ms-1',
+        id: 'mj-1',
         arabic: 'اللَّهُمَّ افْتَحْ لِي أَبْوَابَ رَحْمَتِكَ',
-        transliteration: 'Allaahummaftah lii abwaaba rahmatik.',
+        transliteration: 'Allahummaftah li abwaba rahmatik',
         translations: {
-          en: 'O Allah, open the gates of Your mercy for me.',
+          en: 'O Allah, open for me the doors of Your mercy.',
           ar: 'اللهم افتح لي أبواب رحمتك',
-          ta: 'இறைவா! உமது இரக்கத்தின் கதவுகளை எனக்குத் திறந்தருள்.',
-          ml: 'അല്ലാഹുവേ, നിന്റെ കാരുണ്യത്തിന്റെ കവാടങ്ങൾ എനിക്ക് തുറന്നുതരണമേ.',
+          ta: 'இறைவா! உன் இரக்கத்தின் கதவுகளை எனக்காகத் திறப்பாயாக!',
+          ml: 'അല്ലാഹുവേ, നിന്റെ കാരുണ്യത്തിന്റെ വാതിലുകൾ എനിക്ക് തുറന്നു തരണമേ.',
           ur: 'اے اللہ! میرے لیے اپنی رحمت کے دروازے کھول دے۔',
           hi: 'ऐ अल्लाह! मेरे लिए अपनी रहमत के दरवाज़े खोल दे।',
           id: 'Ya Allah, bukakanlah untukku pintu-pintu rahmat-Mu.',
@@ -1382,218 +960,477 @@ export const categories: Category[] = [
         },
         reference: 'Muslim 1/494',
         repeat: 1,
-        benefit: 'Entering the mosque - right foot first'
-      },
-      {
-        id: 'ms-2',
-        arabic: 'اللَّهُمَّ إِنِّي أَسْأَلُكَ مِنْ فَضْلِكَ',
-        transliteration: 'Allaahumma inni as\'aluka min fadlik.',
-        translations: {
-          en: 'O Allah, I ask You from Your bounty.',
-          ar: 'اللهم إني أسألك من فضلك',
-          ta: 'இறைவா! உமது அருளை உன்னிடம் கேட்கிறேன்.',
-          ml: 'അല്ലാഹുവേ, നിന്റെ അനുഗ്രഹം ഞാൻ ചോദിക്കുന്നു.',
-          ur: 'اے اللہ! میں تجھ سے تیرا فضل مانگتا ہوں۔',
-          hi: 'ऐ अल्लाह! मैं तुझसे तेरा फज़्ल मांगता हूं।',
-          id: 'Ya Allah, aku memohon karunia-Mu.',
-          fr: 'Ô Allah, je Te demande de Ta grâce.',
-          tr: 'Allah\'ım! Senden fazlını istiyorum.',
-          bn: 'হে আল্লাহ! আমি তোমার কাছে তোমার ফযল চাই।'
-        },
-        reference: 'Muslim 1/494',
-        repeat: 1,
-        benefit: 'Leaving the mosque - left foot first'
+        benefit: 'Entering the masjid'
       }
     ]
   },
   {
-    id: 'dhikr',
+    id: 'bathroom',
     name: {
-      en: 'Dhikr & Adhkar',
-      ar: 'الذكر والأذكار',
-      ta: 'திக்ர் & அட்கார்',
-      ml: 'ദിക്ർ & അദ്കാർ',
-      ur: 'ذکر و اذکار',
-      hi: 'ज़िक्र व अज़कार',
-      id: 'Dzikir & Adzkar',
-      fr: 'Dhikr & Adhkar',
-      tr: 'Zikir & Zikirler',
-      bn: 'যিকির ও আযকার'
+      en: 'Bathroom & Restroom',
+      ar: 'دخول الخلاء',
+      ta: 'கழிவறை',
+      ml: 'ശൗചാലയം',
+      ur: 'بیت الخلا',
+      hi: 'बाथरूम',
+      id: 'Toilet',
+      fr: 'Toilettes',
+      tr: 'Tuvalet',
+      bn: 'বাথরুম'
     },
-    icon: '📿',
-    color: '#92400E',
+    icon: '🚻',
+    color: '#795548',
     duas: [
       {
-        id: 'dh-1',
-        arabic: 'لاَ إِلَهَ إِلاَّ اللَّهُ وَحْدَهُ لاَ شَرِيكَ لَهُ لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ',
-        transliteration: 'Laa ilaaha illallaahu wahdahu laa shareeka lah, lahul-mulku wa lahul-hamd, wa huwa \'alaa kulli shay\'in qadeer.',
+        id: 'br-1',
+        arabic: 'بِسْمِ اللَّهِ اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْخُبُثِ وَالْخَبَائِثِ',
+        transliteration: 'Bismillah, Allahumma inni a\'udhu bika minal-khubuthi wal-khaba\'ith',
         translations: {
-          en: 'There is no god but Allah alone, without partner. To Him belongs all sovereignty and praise, and He is over all things omnipotent.',
-          ar: 'لا إله إلا الله وحده لا شريك له له الملك وله الحمد وهو على كل شيء قدير',
-          ta: 'அல்லாஹ்வைத் தவிர வணக்கத்திற்குரியவர் இல்லை. அவனுக்கே அரசு, புகழ். அவன் எல்லாவற்றின் மீதும் வல்லவன்.',
-          ml: 'അല്ലാഹു അല്ലാതെ ആരാധ്യനില്ല. രാജ്യം അവനുടേതാണ്, സ്തുതി അവനുടേതാണ്.',
-          ur: 'اللہ کے سوا کوئی معبود نہیں، بادشاہت اسی کی ہے، حمد اسی کے لیے ہے۔',
-          hi: 'अल्लाह के सिवा कोई माबूद नहीं, बादशाहत उसी की है, हम्द उसी के लिए है।',
-          id: 'Tiada Tuhan selain Allah Yang Maha Esa. Kerajaan milik-Nya, puji-pujian milik-Nya.',
-          fr: 'Il n\'y a de dieu qu\'Allah Seul, sans partenaire. À Lui la royauté et la louange.',
-          tr: 'Allah\'tan başka ilah yoktur, tek ve ortağı yoktur. Mülk O\'nundur, hamd O\'na mahsustur.',
-          bn: 'আল্লাহ ছাড়া কোনো ইলাহ নেই, একক, শরীক নেই। রাজত্ব তাঁর, প্রশংসা তাঁর।'
+          en: 'In the name of Allah. O Allah, I seek refuge in You from the male and female evil jinn.',
+          ar: 'بسم الله اللهم إني أعوذ بك من الخبث والخبائث',
+          ta: 'அல்லாஹ்வின் பெயரால். இறைவா! ஆண் மற்றும் பெண் கெட்ட ஜின்களிடமிருந்து உன்னிடம் புகலளிக்கிறேன்.',
+          ml: 'അല്ലാഹുവിന്റെ നാമത്തിൽ. അല്ലാഹുവേ, ആൺ-പെൺ ദുർജ്ജിന്നുക്കളിൽ നിന്ന് ഞാൻ നിന്നോട് അഭയം തേടുന്നു.',
+          ur: 'اللہ کے نام سے۔ اے اللہ! میں خبیث اور خبائث جنوں سے تیری پناہ مانگتا ہوں۔',
+          hi: 'अल्लाह के नाम से। ऐ अल्लाह! मैं ख़बीस और ख़बाइस जिन्नातों से तेरी पनाह मांगता हूं।',
+          id: 'Dengan nama Allah. Ya Allah, aku berlindung kepada-Mu dari jin laki-laki dan perempuan.',
+          fr: 'Au nom d\'Allah. Ô Allah, je cherche refuge auprès de Toi contre les djinns maléfiques mâles et femelles.',
+          tr: 'Allah\'ın adıyla. Allah\'ım! Kötü cinlerden Senin sığınağına sığınırım.',
+          bn: 'আল্লাহর নামে। হে আল্লাহ! আমি পুরুষ ও নারী জিনদের শর থেকে তোমার আশ্রয় চাই।'
         },
-        reference: 'Bukhari 4/95',
-        repeat: 100,
-        benefit: '100 times daily = freedom of 10 slaves, 1000 good deeds, 1000 sins erased'
-      },
+        reference: 'Bukhari 1/45',
+        repeat: 1,
+        benefit: 'Before entering bathroom'
+      }
+    ]
+  },
+  {
+    id: 'clothing',
+    name: {
+      en: 'Wearing Clothes',
+      ar: 'لبس الثوب',
+      ta: 'ஆடை அணிதல்',
+      ml: 'വസ്ത്രം ധരിക്കൽ',
+      ur: 'کپڑے پہننا',
+      hi: 'कपड़े पहनना',
+      id: 'Mengenakan Pakaian',
+      fr: 'Mettre des Vêtements',
+      tr: 'Kıyafet Giyme',
+      bn: 'পোশাক পরা'
+    },
+    icon: '👔',
+    color: '#E040FB',
+    duas: [
       {
-        id: 'dh-2',
-        arabic: 'سُبْحَانَ اللَّهِ وَبِحَمْدِهِ سُبْحَانَ اللَّهِ الْعَظِيمِ',
-        transliteration: 'Subhaanallaahi wa bihamdihi, Subhaanallaahil-\'Atheem.',
+        id: 'cl-1',
+        arabic: 'الْحَمْدُ لِلَّهِ الَّذِي كَسَانِي هَذَا الثَّوْبَ وَرَزَقَنِيهِ مِنْ غَيْرِ حَوْلٍ مِنِّي وَلَا قُوَّةٍ',
+        transliteration: 'Alhamdu lillahil-ladhi kasani hadhath-thawb, wa razaqanihi min ghayri hawlin minni wa la quwwah',
         translations: {
-          en: 'Glory be to Allah and His praise. Glory be to Allah, the Magnificent.',
-          ar: 'سبحان الله وبحمده سبحان الله العظيم',
-          ta: 'அல்லாஹ் பரிசுத்தம்! அவனுடைய புகழுடன். அல்லாஹ் பரிசுத்தம்! மகத்தானவன்.',
-          ml: 'അല്ലാഹു പരിശുദ്ധൻ, സ്തുതിയോടെ. അല്ലാഹു പരിശുദ്ധൻ, മഹാനും.',
-          ur: 'اللہ پاک ہے اس کی حمد کے ساتھ۔ اللہ پاک ہے، عظیم۔',
-          hi: 'अल्लाह पाक है उसकी हम्द के साथ। अल्लाह पाक है, अज़ीम।',
-          id: 'Maha Suci Allah dengan pujian-Nya. Maha Suci Allah Yang Agung.',
-          fr: 'Gloire à Allah et louange à Lui. Gloire à Allah le Magnifique.',
-          tr: 'Allah\'ı hamdiyle tesbih ederim. Allah\'ı tesbih ederim, Ulvi.',
-          bn: 'আল্লাহ পবিত্র তাঁর প্রশংসাসহ। আল্লাহ পবিত্র, মহান।'
+          en: 'All praise is for Allah who clothed me with this garment and provided it for me without any power or might from me.',
+          ar: 'الحمد لله الذي كساني هذا الثوب ورزقنيه من غير حول مني ولا قوة',
+          ta: 'இந்த ஆடையை எனக்கு அளித்த அல்லாஹ்வுக்கே எல்லா புகழும்.',
+          ml: 'ഈ വസ്ത്രം എനിക്ക് നൽകിയ അല്ലാഹുവിന് സ്തുതി.',
+          ur: 'تمام تعریفیں اللہ کے لیے ہیں جس نے مجھے یہ کپڑا عطا کیا۔',
+          hi: 'सब तारीफ़ अल्लाह के लिए हैं जिसने मुझे यह कपड़ा अता किया।',
+          id: 'Segala puji bagi Allah yang telah memberiku pakaian ini.',
+          fr: 'Louange à Allah qui m\'a vêtu de ce vêtement.',
+          tr: 'Bana bu kıyafeti veren Allah\'a hamdolsun.',
+          bn: 'সমস্ত প্রশংসা আল্লাহর যিনি আমাকে এই পোশাক দিয়েছেন।'
         },
-        reference: 'Bukhari 7/168',
-        repeat: 100,
-        benefit: 'Two words light on the tongue, heavy on the scales, beloved to the Most Merciful'
+        reference: 'Abu Dawud 4/41',
+        repeat: 1,
+        benefit: 'When wearing new clothes'
+      }
+    ]
+  },
+  {
+    id: 'market',
+    name: {
+      en: 'Market Entrance',
+      ar: 'دخول السوق',
+      ta: 'சந்தை நுழைவு',
+      ml: 'ചന്തയിൽ പ്രവേശനം',
+      ur: 'بازار میں داخلہ',
+      hi: 'बाज़ार में दाख़िला',
+      id: 'Masuk Pasar',
+      fr: 'Entrée au Marché',
+      tr: 'Pazara Giriş',
+      bn: 'বাজারে প্রবেশ'
+    },
+    icon: '🏪',
+    color: '#FF5722',
+    duas: [
+      {
+        id: 'mk-1',
+        arabic: 'لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ يُحْيِي وَيُمِيتُ وَهُوَ حَيٌّ لَا يَمُوتُ بِيَدِهِ الْخَيْرُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ',
+        transliteration: 'La ilaha illallahu wahdahu la sharika lah, lahul-mulku wa lahul-hamd, yuhyi wa yumitu, wa huwa hayyun la yamut, biyadihil-khayr, wa huwa \'ala kulli shay\'in qadir',
+        translations: {
+          en: 'There is no god but Allah alone, no partner has He. His is the dominion and His is the praise. He gives life and causes death, and He is Alive and does not die. In His Hand is all good, and He is over all things omnipotent.',
+          ar: 'لا إله إلا الله وحده لا شريك له له الملك وله الحمد يحيي ويميت وهو حي لا يموت بيده الخير وهو على كل شيء قدير',
+          ta: 'இணையற்ற அல்லாஹ்வைத் தவிர வணக்கத்திற்குரியவர் இல்லை. ஆட்சி அவனுடையது, புகழ் அவனுடையது. அவன் உயிர்ப்பிக்கிறான், மரணமளிக்கிறான்.',
+          ml: 'അല്ലാഹു ഒഴികെ ആരാധനാർഹനില്ല. രാജ്യം അവന്റേതാണ്, സ്തുതി അവന്റേതാണ്.',
+          ur: 'اللہ کے سوا کوئی معبود نہیں۔ بادشاہت اسی کی ہے، تعریف اسی کے لیے ہے۔ وہ زندہ کرتا ہے اور مارتا ہے۔',
+          hi: 'अल्लाह के सिवा कोई माबूद नहीं। बादशाहत उसी की है, तारीफ़ उसी के लिए है। वह ज़िंदा करता है और मारता है।',
+          id: 'Tiada tuhan selain Allah Yang Maha Esa. Kepunyaan-Nya kerajaan dan pujian. Dia menghidupkan dan mematikan.',
+          fr: 'Nul ne mérite d\'être adoré sauf Allah Seul. À Lui la royauté et à Lui la louange. Il donne la vie et la mort.',
+          tr: 'Allah\'tan başka ilah yoktur. Mülk O\'nundur, hamd O\'nundur. O diriltir ve öldürür.',
+          bn: 'আল্লাহ ছাড়া কোনো ইলাহ নেই। রাজত্ব তাঁর, প্রশংসা তাঁর। তিনি জীবিত করেন ও মৃত্যু দেন।'
+        },
+        reference: 'Tirmidhi 5/527',
+        repeat: 1,
+        benefit: '1,000,000 good deeds recorded'
       }
     ]
   }
 ];
 
-// Complete Asmaul Husna (99 Names) - abbreviated for space, full list in component
-export const asmaulHusnaComplete = [
-  { num: 1, arabic: 'اللَّهُ', transliteration: 'Allah', meaning: { en: 'Allah - The One and Only God', ta: 'அல்லாஹ்', ml: 'അല്ലാഹു', ur: 'اللہ', hi: 'अल्लाह' }},
-  { num: 2, arabic: 'الرَّحْمَنُ', transliteration: 'Ar-Rahman', meaning: { en: 'The Most Gracious', ta: 'மிகக் கருணையுள்ளவன்', ml: 'അതികാരുണികൻ', ur: 'بہت مہربان', hi: 'बहुत मेहरबान' }},
-  { num: 3, arabic: 'الرَّحِيمُ', transliteration: 'Ar-Raheem', meaning: { en: 'The Most Merciful', ta: 'மிக இரக்கமுள்ளவன்', ml: 'അതിദയാലു', ur: 'بہت رحم کرنے والا', hi: 'बहुत रहम करने वाला' }},
-  { num: 4, arabic: 'الْمَلِكُ', transliteration: 'Al-Malik', meaning: { en: 'The King', ta: 'அரசன்', ml: 'രാജാവ്', ur: 'بادشاہ', hi: 'बादशाह' }},
-  { num: 5, arabic: 'الْقُدُّوسُ', transliteration: 'Al-Quddus', meaning: { en: 'The Most Holy', ta: 'பரிசுத்தமானவன்', ml: 'പരിശുദ്ധൻ', ur: 'پاک', hi: 'पाक' }},
-  { num: 6, arabic: 'السَّلاَمُ', transliteration: 'As-Salam', meaning: { en: 'The Source of Peace', ta: 'சாந்தியளிப்பவன்', ml: 'സമാധാനത്തിന്റെ ഉറവിടം', ur: 'سلامتی والا', hi: 'सलामती वाला' }},
-  { num: 7, arabic: 'الْمُؤْمِنُ', transliteration: 'Al-Mu\'min', meaning: { en: 'The Guardian of Faith', ta: 'நம்பிக்கை காப்பவன்', ml: 'വിശ്വാസ സംരക്ഷകൻ', ur: 'ایمان دینے والا', hi: 'ईमान देने वाला' }},
-  { num: 8, arabic: 'الْمُهَيْمِنُ', transliteration: 'Al-Muhaymin', meaning: { en: 'The Protector', ta: 'பாதுகாப்பவன்', ml: 'സംരക്ഷകൻ', ur: 'نگران', hi: 'निगरान' }},
-  { num: 9, arabic: 'الْعَزِيزُ', transliteration: 'Al-Aziz', meaning: { en: 'The Almighty', ta: 'வல்லமை மிகுந்தவன்', ml: 'സർവ്വശക്തൻ', ur: 'زبردست', hi: 'ज़बरदस्त' }},
-  { num: 10, arabic: 'الْجَبَّارُ', transliteration: 'Al-Jabbar', meaning: { en: 'The Compeller', ta: 'வலுமை மிகுத்தவன்', ml: 'നിർബന്ധകൻ', ur: 'زبردست کرنے والا', hi: 'जबरदस्त करने वाला' }},
-  { num: 11, arabic: 'الْمُتَكَبِّرُ', transliteration: 'Al-Mutakabbir', meaning: { en: 'The Supreme', ta: 'பெருமை மிகுந்தவன்', ml: 'മഹത്വമുള്ളവൻ', ur: 'بڑائی والا', hi: 'बड़ाई वाला' }},
-  { num: 12, arabic: 'الْخَالِقُ', transliteration: 'Al-Khaliq', meaning: { en: 'The Creator', ta: 'படைப்பவன்', ml: 'സ്രഷ്ടാവ്', ur: 'پیدا کرنے والا', hi: 'पैदा करने वाला' }},
-  { num: 13, arabic: 'الْبَارِئُ', transliteration: 'Al-Bari\'', meaning: { en: 'The Maker', ta: 'உருவாக்குபவன்', ml: 'നിർമ്മാതാവ്', ur: 'بنانے والا', hi: 'बनाने वाला' }},
-  { num: 14, arabic: 'الْمُصَوِّرُ', transliteration: 'Al-Musawwir', meaning: { en: 'The Fashioner', ta: 'வடிவமைப்பவன்', ml: 'രൂപം നൽകുന്നവൻ', ur: 'صورت بنانے والا', hi: 'सूरत बनाने वाला' }},
-  { num: 15, arabic: 'الْغَفَّارُ', transliteration: 'Al-Ghaffar', meaning: { en: 'The Repeatedly Forgiving', ta: 'மீண்டும் மீண்டும் மன்னிப்பவன்', ml: 'ക്ഷമിക്കുന്നവൻ', ur: 'بار بار معاف کرنے والا', hi: 'बार बार माफ करने वाला' }},
-  { num: 16, arabic: 'الْقَهَّارُ', transliteration: 'Al-Qahhar', meaning: { en: 'The Subduer', ta: 'ஆதிக்கம் செலுத்துபவன்', ml: 'അടക്കിയാൾുന്നവൻ', ur: 'غالب', hi: 'ग़ालिब' }},
-  { num: 17, arabic: 'الْوَهَّابُ', transliteration: 'Al-Wahhab', meaning: { en: 'The Bestower', ta: 'வாரி வழங்குபவன்', ml: 'ദാനം ചെയ്യുന്നവൻ', ur: 'عطا کرنے والا', hi: 'अता करने वाला' }},
-  { num: 18, arabic: 'الرَّزَّاقُ', transliteration: 'Ar-Razzaq', meaning: { en: 'The Provider', ta: 'உணவளிப்பவன்', ml: 'ആഹാരം നൽകുന്നവൻ', ur: 'رزق دینے والا', hi: 'रिज़्क देने वाला' }},
-  { num: 19, arabic: 'الْفَتَّاحُ', transliteration: 'Al-Fattah', meaning: { en: 'The Opener', ta: 'திறப்பவன்', ml: 'തുറക്കുന്നവൻ', ur: 'کھولنے والا', hi: 'खोलने वाला' }},
-  { num: 20, arabic: 'الْعَلِيمُ', transliteration: 'Al-Aleem', meaning: { en: 'The All-Knowing', ta: 'எல்லாம் அறிபவன்', ml: 'സർവ്വജ്ഞൻ', ur: 'جاننے والا', hi: 'जानने वाला' }},
-  { num: 21, arabic: 'الْقَابِضُ', transliteration: 'Al-Qabid', meaning: { en: 'The Constrictor', ta: 'சுருக்குபவன்', ml: 'ചുരുക്കുന്നവൻ', ur: 'قبض کرنے والا', hi: 'कब्ज़ करने वाला' }},
-  { num: 22, arabic: 'الْبَاسِطُ', transliteration: 'Al-Basit', meaning: { en: 'The Expander', ta: 'விரிவுபடுத்துபவன்', ml: 'വികസിപ്പിക്കുന്നവൻ', ur: 'پھیلانے والا', hi: 'फैलाने वाला' }},
-  { num: 23, arabic: 'الْخَافِضُ', transliteration: 'Al-Khafid', meaning: { en: 'The Abaser', ta: 'தாழ்த்துபவன்', ml: 'താഴ്ത്തുന്നവൻ', ur: 'نیچا کرنے والا', hi: 'नीचा करने वाला' }},
-  { num: 24, arabic: 'الرَّافِعُ', transliteration: 'Ar-Rafi\'', meaning: { en: 'The Exalter', ta: 'உயர்த்துபவன்', ml: 'ഉയർത്തുന്നവൻ', ur: 'اونچا کرنے والا', hi: 'ऊंचा करने वाला' }},
-  { num: 25, arabic: 'الْمُعِزُّ', transliteration: 'Al-Mu\'izz', meaning: { en: 'The Honorer', ta: 'கௌரவிப்பவன்', ml: 'ആദരിക്കുന്നവൻ', ur: 'عزت دینے والا', hi: 'इज़्ज़त देने वाला' }},
-  { num: 26, arabic: 'المُذِلُّ', transliteration: 'Al-Muthill', meaning: { en: 'The Humiliator', ta: 'இழிவுபடுத்துபவன்', ml: 'അപമാനിക്കുന്നവൻ', ur: 'ذلیل کرنے والا', hi: 'ज़लील करने वाला' }},
-  { num: 27, arabic: 'السَّمِيعُ', transliteration: 'As-Samee\'', meaning: { en: 'The All-Hearing', ta: 'எல்லாம் கேட்பவன்', ml: 'സർവ്വശ്രോതാവ്', ur: 'سننے والا', hi: 'सुनने वाला' }},
-  { num: 28, arabic: 'الْبَصِيرُ', transliteration: 'Al-Baseer', meaning: { en: 'The All-Seeing', ta: 'எல்லாம் காண்பவன்', ml: 'സർവ്വദർശി', ur: 'دیکھنے والا', hi: 'देखने वाला' }},
-  { num: 29, arabic: 'الْحَكَمُ', transliteration: 'Al-Hakam', meaning: { en: 'The Judge', ta: 'நடுவர்', ml: 'വിധികർത്താവ്', ur: 'فیصلہ کرنے والا', hi: 'फैसला करने वाला' }},
-  { num: 30, arabic: 'الْعَدْلُ', transliteration: 'Al-Adl', meaning: { en: 'The Just', ta: 'நீதியுள்ளவன்', ml: 'നീതിമാൻ', ur: 'عادل', hi: 'आदिल' }},
-  { num: 31, arabic: 'اللَّطِيفُ', transliteration: 'Al-Lateef', meaning: { en: 'The Subtle One', ta: 'நுட்பமானவன்', ml: 'സൂക്ഷ്മൻ', ur: 'نوازش کرنے والا', hi: 'लतीफ' }},
-  { num: 32, arabic: 'الْخَبِيرُ', transliteration: 'Al-Khabeer', meaning: { en: 'The All-Aware', ta: 'எல்லாம் அறிந்தவன்', ml: 'സർവ്വബോധി', ur: 'باخبر', hi: 'बाख़बर' }},
-  { num: 33, arabic: 'الْحَلِيمُ', transliteration: 'Al-Haleem', meaning: { en: 'The Forbearing', ta: 'பொறுமையுள்ளவன்', ml: 'സഹനശീലൻ', ur: 'حلیم', hi: 'हलीम' }},
-  { num: 34, arabic: 'الْعَظِيمُ', transliteration: 'Al-Atheem', meaning: { en: 'The Magnificent', ta: 'மகத்தானவன்', ml: 'മഹാനും', ur: 'عظیم', hi: 'अज़ीम' }},
-  { num: 35, arabic: 'الْغَفُورُ', transliteration: 'Al-Ghafoor', meaning: { en: 'The All-Forgiving', ta: 'மன்னிப்பவன்', ml: 'ക്ഷമിക്കുന്നവൻ', ur: 'بخشنے والا', hi: 'बख्शने वाला' }},
-  { num: 36, arabic: 'الشَّكُورُ', transliteration: 'Ash-Shakoor', meaning: { en: 'The Appreciative', ta: 'நன்றியுள்ளவன்', ml: 'നന്ദിയുള്ളവൻ', ur: 'شکر گزار', hi: 'शुक्र गुज़ार' }},
-  { num: 37, arabic: 'الْعَلِيُّ', transliteration: 'Al-Aliyy', meaning: { en: 'The Most High', ta: 'மிக உயர்ந்தவன்', ml: 'ഉന്നതൻ', ur: 'بلند', hi: 'बुलंद' }},
-  { num: 38, arabic: 'الْكَبِيرُ', transliteration: 'Al-Kabeer', meaning: { en: 'The Most Great', ta: 'மிகப் பெரியவன்', ml: 'വലിയവൻ', ur: 'بڑا', hi: 'बड़ा' }},
-  { num: 39, arabic: 'الْحَفِيظُ', transliteration: 'Al-Hafeeth', meaning: { en: 'The Preserver', ta: 'காப்பவன்', ml: 'സംരക്ഷകൻ', ur: 'حفاظت کرنے والا', hi: 'हिफाज़त करने वाला' }},
-  { num: 40, arabic: 'الْمُقِيتُ', transliteration: 'Al-Muqeet', meaning: { en: 'The Sustainer', ta: 'உணவளிப்பவன்', ml: 'പോഷകൻ', ur: 'کھلانے والا', hi: 'खिलाने वाला' }},
-  { num: 41, arabic: 'الْحَسِيبُ', transliteration: 'Al-Hasib', meaning: { en: 'The Reckoner', ta: 'கணக்கிடுபவன்', ml: 'കണക്കെടുക്കുന്നവൻ', ur: 'حساب لینے والا', hi: 'हिसाब लेने वाला' }},
-  { num: 42, arabic: 'الْجَلِيلُ', transliteration: 'Al-Jaleel', meaning: { en: 'The Majestic', ta: 'மகிமை மிகுந்தவன்', ml: 'മഹിമയുള്ളവൻ', ur: 'جلال والا', hi: 'जलाल वाला' }},
-  { num: 43, arabic: 'الْكَرِيمُ', transliteration: 'Al-Kareem', meaning: { en: 'The Most Generous', ta: 'மிகக் கொடையுள்ளவன்', ml: 'ദയാലു', ur: 'کریم', hi: 'करीम' }},
-  { num: 44, arabic: 'الرَّقِيبُ', transliteration: 'Ar-Raqeeb', meaning: { en: 'The Watchful', ta: 'கண்காணிப்பவன்', ml: 'നിരീക്ഷകൻ', ur: 'نگران', hi: 'निगरान' }},
-  { num: 45, arabic: 'الْمُجِيبُ', transliteration: 'Al-Mujeeb', meaning: { en: 'The Responsive', ta: 'பதிலளிப்பவன்', ml: 'പ്രതികരിക്കുന്നവൻ', ur: 'جواب دینے والا', hi: 'जवाब देने वाला' }},
-  { num: 46, arabic: 'الْوَاسِعُ', transliteration: 'Al-Waasi\'', meaning: { en: 'The All-Encompassing', ta: 'எல்லாம் வல்லவன்', ml: 'സർവ്വവ്യാപി', ur: 'وسیع', hi: 'वसीअ' }},
-  { num: 47, arabic: 'الْحَكِيمُ', transliteration: 'Al-Hakeem', meaning: { en: 'The Most Wise', ta: 'மிக ஞானமுள்ளவன்', ml: 'ജ്ഞാനി', ur: 'حکیم', hi: 'हकीम' }},
-  { num: 48, arabic: 'الْوَدُودُ', transliteration: 'Al-Wadood', meaning: { en: 'The Most Loving', ta: 'மிக அன்புள்ளவன்', ml: 'സ്നേഹി', ur: 'محبت کرنے والا', hi: 'मुहब्बत करने वाला' }},
-  { num: 49, arabic: 'الْمَجِيدُ', transliteration: 'Al-Majeed', meaning: { en: 'The Most Glorious', ta: 'மகிமை மிகுந்தவன்', ml: 'മഹിമയുള്ളവൻ', ur: 'مجید', hi: 'मजीद' }},
-  { num: 50, arabic: 'الْبَاعِثُ', transliteration: 'Al-Ba\'ith', meaning: { en: 'The Resurrector', ta: 'உயிர்ப்பிப்பவன்', ml: 'ഉയിർപ്പിക്കുന്നവൻ', ur: 'उठाने वाला', hi: 'उठाने वाला' }},
-  { num: 51, arabic: 'الشَّهِيدُ', transliteration: 'Ash-Shaheed', meaning: { en: 'The Witness', ta: 'சாட்சியாளன்', ml: 'സാക്ഷി', ur: 'گواہ', hi: 'गवाह' }},
-  { num: 52, arabic: 'الْحَقُّ', transliteration: 'Al-Haqq', meaning: { en: 'The Truth', ta: 'சத்தியம்', ml: 'സത്യം', ur: 'حق', hi: 'हक़' }},
-  { num: 53, arabic: 'الْوَكِيلُ', transliteration: 'Al-Wakeel', meaning: { en: 'The Trustee', ta: 'நம்பிக்கையாளன்', ml: 'കർത്താവ്', ur: 'وکیل', hi: 'वकील' }},
-  { num: 54, arabic: 'الْقَوِيُّ', transliteration: 'Al-Qawiyy', meaning: { en: 'The Most Strong', ta: 'மிக வலிமையுள்ளவன்', ml: 'ശക്തൻ', ur: 'طاقتور', hi: 'ताकतवर' }},
-  { num: 55, arabic: 'الْمَتِينُ', transliteration: 'Al-Mateen', meaning: { en: 'The Firm', ta: 'உறுதியுள்ளவன்', ml: 'ദൃഢൻ', ur: 'مضبوط', hi: 'मज़बूत' }},
-  { num: 56, arabic: 'الْوَلِيُّ', transliteration: 'Al-Waliyy', meaning: { en: 'The Protecting Friend', ta: 'பாதுகாவலன்', ml: 'സഹായി', ur: 'دوست', hi: 'दोस्त' }},
-  { num: 57, arabic: 'الْحَمِيدُ', transliteration: 'Al-Hameed', meaning: { en: 'The Praiseworthy', ta: 'புகழப்படத்தக்கவன்', ml: 'സ്തുത്യൻ', ur: 'قابل تعریف', hi: 'काबिले तारीफ' }},
-  { num: 58, arabic: 'الْمُحْصِي', transliteration: 'Al-Muhsi', meaning: { en: 'The Counter', ta: 'எண்ணுபவன்', ml: 'എണ്ണുന്നവൻ', ur: 'گننے والا', hi: 'गिनने वाला' }},
-  { num: 59, arabic: 'الْمُبْدِئُ', transliteration: 'Al-Mubdi\'', meaning: { en: 'The Originator', ta: 'தொடங்குபவன்', ml: 'ആരംഭിക്കുന്നവൻ', ur: 'شروع کرنے والا', hi: 'शुरू करने वाला' }},
-  { num: 60, arabic: 'الْمُعِيدُ', transliteration: 'Al-Mu\'eed', meaning: { en: 'The Restorer', ta: 'மீண்டும் உருவாக்குபவன்', ml: 'പുനഃസ്രഷ്ടാവ്', ur: 'دوبारा بنانے والا', hi: 'दोबारा बनाने वाला' }},
-  { num: 61, arabic: 'الْمُحْيِي', transliteration: 'Al-Muhyi', meaning: { en: 'The Giver of Life', ta: 'உயிரளிப்பவன்', ml: 'ജീവൻ നൽകുന്നവൻ', ur: 'زندہ کرنے والا', hi: 'ज़िंदा करने वाला' }},
-  { num: 62, arabic: 'الْمُمِيتُ', transliteration: 'Al-Mumeet', meaning: { en: 'The Bringer of Death', ta: 'மரணமளிப்பவன்', ml: 'മരണം നൽകുന്നവൻ', ur: 'مارنے والا', hi: 'मारने वाला' }},
-  { num: 63, arabic: 'الْحَيُّ', transliteration: 'Al-Hayy', meaning: { en: 'The Ever Living', ta: 'என்றும் வாழ்பவன்', ml: 'ചിരഞ്ജീവി', ur: 'زندہ', hi: 'ज़िंदा' }},
-  { num: 64, arabic: 'الْقَيُّومُ', transliteration: 'Al-Qayyoom', meaning: { en: 'The Self-Existing', ta: 'தானே நிலைத்திருப்பவன்', ml: 'നിലനിൽക്കുന്നവൻ', ur: 'قائم رہنے والا', hi: 'क़ाइम रहने वाला' }},
-  { num: 65, arabic: 'الْوَاجِدُ', transliteration: 'Al-Waajid', meaning: { en: 'The Finder', ta: 'கண்டுபிடிப்பவன்', ml: 'കണ്ടെത്തുന്നവൻ', ur: 'پانے والا', hi: 'पाने वाला' }},
-  { num: 66, arabic: 'الْمَاجِدُ', transliteration: 'Al-Maajid', meaning: { en: 'The Noble', ta: 'கௌரவமுள்ளவன்', ml: 'മഹിമാന്വിതൻ', ur: 'ماجید', hi: 'माजिद' }},
-  { num: 67, arabic: 'الْوَاحِدُ', transliteration: 'Al-Waahid', meaning: { en: 'The One', ta: 'ஒன்றானவன்', ml: 'ഏകൻ', ur: 'ایک', hi: 'एक' }},
-  { num: 68, arabic: 'الصَّمَدُ', transliteration: 'As-Samad', meaning: { en: 'The Eternal', ta: 'நிலையானவன்', ml: 'ശാശ്വതൻ', ur: 'ہمیشہ رہنے والا', hi: 'हमेशा रहने वाला' }},
-  { num: 69, arabic: 'الْقَادِرُ', transliteration: 'Al-Qaadir', meaning: { en: 'The Able', ta: 'செய்யவல்லவன்', ml: 'ശക്തൻ', ur: 'قادر', hi: 'कादिर' }},
-  { num: 70, arabic: 'الْمُقْتَدِرُ', transliteration: 'Al-Muqtadir', meaning: { en: 'The Powerful', ta: 'ஆற்றல் மிகுந்தவன்', ml: 'ശക്തിമാൻ', ur: 'مقتدر', hi: 'मुक़्तदिर' }},
-  { num: 71, arabic: 'الْمُقَدِّمُ', transliteration: 'Al-Muqaddim', meaning: { en: 'The Expediter', ta: 'முன்னிலைப்படுத்துபவன்', ml: 'മുന്നോട്ട് വയ്ക്കുന്നവൻ', ur: 'آگے بڑھانے والا', hi: 'आगे बढ़ाने वाला' }},
-  { num: 72, arabic: 'الْمُؤَخِّرُ', transliteration: 'Al-Mu\'akhkhir', meaning: { en: 'The Delayer', ta: 'தாமதப்படுத்துபவன்', ml: 'താമസിപ്പിക്കുന്നവൻ', ur: 'پیچھے کرنے والا', hi: 'पीछे करने वाला' }},
-  { num: 73, arabic: 'الْأَوَّلُ', transliteration: 'Al-Awwal', meaning: { en: 'The First', ta: 'முதலானவன்', ml: 'ആദ്യം', ur: 'پہلا', hi: 'पहला' }},
-  { num: 74, arabic: 'الْآخِرُ', transliteration: 'Al-Aakhir', meaning: { en: 'The Last', ta: 'கடையானவன்', ml: 'അവസാനം', ur: 'آخری', hi: 'आखरी' }},
-  { num: 75, arabic: 'الظَّاهِرُ', transliteration: 'Az-Zaahir', meaning: { en: 'The Manifest', ta: 'வெளிப்படையானவன்', ml: 'പ്രകടൻ', ur: 'ظاہر', hi: 'ज़ाहिर' }},
-  { num: 76, arabic: 'الْبَاطِنُ', transliteration: 'Al-Baatin', meaning: { en: 'The Hidden', ta: 'மறைந்திருப்பவன்', ml: 'അദൃശ്യൻ', ur: 'باطن', hi: 'बातिन' }},
-  { num: 77, arabic: 'الْوَالِي', transliteration: 'Al-Waali', meaning: { en: 'The Governor', ta: 'ஆளுபவன்', ml: 'ഭരണാധികാരി', ur: 'حاکم', hi: 'हाकिम' }},
-  { num: 78, arabic: 'الْمُتَعَالِي', transliteration: 'Al-Muta\'ali', meaning: { en: 'The Most Exalted', ta: 'மிக உயர்ந்தவன்', ml: 'പരമോന്നതൻ', ur: 'بلند مرتبہ', hi: 'बुलंद मरतबा' }},
-  { num: 79, arabic: 'الْبَرُّ', transliteration: 'Al-Barr', meaning: { en: 'The Source of Goodness', ta: 'நன்மையின் மூலம்', ml: 'നന്മയുടെ ഉറവിടം', ur: 'نیکی کرنے والا', hi: 'नेकी करने वाला' }},
-  { num: 80, arabic: 'التَّوَّابُ', transliteration: 'At-Tawwaab', meaning: { en: 'The Acceptor of Repentance', ta: 'பாவமன்னிப்பு ஏற்பவன்', ml: 'പശ്ചാത്താപം സ്വീകരിക്കുന്നവൻ', ur: 'توبہ قبول کرنے والا', hi: 'तौबा क़बूल करने वाला' }},
-  { num: 81, arabic: 'الْمُنْتَقِمُ', transliteration: 'Al-Muntaqim', meaning: { en: 'The Avenger', ta: 'பழிவாங்குபவன்', ml: 'പ്രതികാരം ചെയ്യുന്നവൻ', ur: 'انتقام لینے والا', hi: 'इंतेकाम लेने वाला' }},
-  { num: 82, arabic: 'العَفُوُّ', transliteration: 'Al-Afuww', meaning: { en: 'The Pardoner', ta: 'மன்னிப்பவன்', ml: 'മാപ്പുനൽകുന്നവൻ', ur: 'معاف کرنے والا', hi: 'माफ करने वाला' }},
-  { num: 83, arabic: 'الرَّؤُوفُ', transliteration: 'Ar-Ra\'oof', meaning: { en: 'The Most Kind', ta: 'மிக இரக்கமுள்ளவன்', ml: 'അതിദയാലു', ur: 'بہت مہربان', hi: 'बहुत मेहरबान' }},
-  { num: 84, arabic: 'مَالِكُ الْمُلْكِ', transliteration: 'Maalik-ul-Mulk', meaning: { en: 'Owner of Sovereignty', ta: 'ஆட்சியின் உரிமையாளன்', ml: 'അധികാരത്തിന്റെ ഉടമ', ur: 'بادشاہت کا مالک', hi: 'बादशाहत का मालिक' }},
-  { num: 85, arabic: 'ذُو الْجَلاَلِ وَالإِكْرَامِ', transliteration: 'Thul-Jalaali wal-Ikraam', meaning: { en: 'Lord of Majesty and Bounty', ta: 'மகிமை & கௌரவத்தின் உடையவன்', ml: 'മഹിമയുടെയും ആദരവിന്റെയും ഉടമ', ur: 'جلال و اکرم والا', hi: 'जलाल व इकराम वाला' }},
-  { num: 86, arabic: 'الْمُقْسِطُ', transliteration: 'Al-Muqsit', meaning: { en: 'The Equitable', ta: 'நீதியுள்ளவன்', ml: 'നീതിമാൻ', ur: 'انصاف کرنے والا', hi: 'इंसाफ करने वाला' }},
-  { num: 87, arabic: 'الْجَامِعُ', transliteration: 'Al-Jaami\'', meaning: { en: 'The Gatherer', ta: 'ஒன்றுசேர்ப்பவன்', ml: 'ഒന്നിപ്പിക്കുന്നവൻ', ur: 'جمع کرنے والا', hi: 'जमा करने वाला' }},
-  { num: 88, arabic: 'الْغَنِيُّ', transliteration: 'Al-Ghaniyy', meaning: { en: 'The Self-Sufficient', ta: 'தானே போதுமானவன்', ml: 'ധനവാൻ', ur: 'بے نیاز', hi: 'बेनियाज़' }},
-  { num: 89, arabic: 'الْمُغْنِي', transliteration: 'Al-Mughni', meaning: { en: 'The Enricher', ta: 'செல்வமாக்குபவன்', ml: 'സമ്പന്നനാക്കുന്നവൻ', ur: 'امیر کرنے والا', hi: 'अमीर करने वाला' }},
-  { num: 90, arabic: 'الْمَانِعُ', transliteration: 'Al-Maani\'', meaning: { en: 'The Preventer', ta: 'தடுப்பவன்', ml: 'തടയുന്നവൻ', ur: 'روکنے والا', hi: 'रोकने वाला' }},
-  { num: 91, arabic: 'الضَّارُّ', transliteration: 'Ad-Daarr', meaning: { en: 'The Distresser', ta: 'தீங்கு விளைவிப்பவன்', ml: 'ദ്രോഹിക്കുന്നവൻ', ur: 'نقصان پہنچانے والا', hi: 'नुकसान पहुंचाने वाला' }},
-  { num: 92, arabic: 'النَّافِعُ', transliteration: 'An-Naafi\'', meaning: { en: 'The Benefiter', ta: 'நன்மை செய்பவன்', ml: 'ഗുണം ചെയ്യുന്നവൻ', ur: 'فائدہ پہنچانے والا', hi: 'फायदा पहुंचाने वाला' }},
-  { num: 93, arabic: 'النُّورُ', transliteration: 'An-Noor', meaning: { en: 'The Light', ta: 'ஒளி', ml: 'പ്രകാശം', ur: 'نور', hi: 'नूर' }},
-  { num: 94, arabic: 'الْهَادِي', transliteration: 'Al-Haadi', meaning: { en: 'The Guide', ta: 'வழிகாட்டுபவன்', ml: 'മാർഗ്ഗദർശി', ur: 'ہدایت دینے والا', hi: 'हिदायत देने वाला' }},
-  { num: 95, arabic: 'الْبَدِيعُ', transliteration: 'Al-Badee\'', meaning: { en: 'The Originator', ta: 'புதியதாக படைப்பவன்', ml: 'നവീന സ്രഷ്ടാവ്', ur: 'نئی تخلیق کرنے والا', hi: 'नई तख्लीक करने वाला' }},
-  { num: 96, arabic: 'الْبَاقِي', transliteration: 'Al-Baaqi', meaning: { en: 'The Everlasting', ta: 'நிலைத்திருப்பவன்', ml: 'നിലനിൽക്കുന്നവൻ', ur: 'باقی رہنے والا', hi: 'बाकी रहने वाला' }},
-  { num: 97, arabic: 'الْوَارِثُ', transliteration: 'Al-Waarith', meaning: { en: 'The Inheritor', ta: 'உரிமை கொள்பவன்', ml: 'അവകാശി', ur: 'وارث', hi: 'वारिस' }},
-  { num: 98, arabic: 'الرَّشِيدُ', transliteration: 'Ar-Rasheed', meaning: { en: 'The Guide to the Right Path', ta: 'நேர்வழி காட்டுபவன்', ml: 'നേർവഴി കാട്ടുന്നവൻ', ur: 'راہ دکھانے والا', hi: 'राह दिखाने वाला' }},
-  { num: 99, arabic: 'الصَّبُورُ', transliteration: 'As-Saboor', meaning: { en: 'The Most Patient', ta: 'மிகப் பொறுமையுள்ளவன்', ml: 'സഹനശീലൻ', ur: 'صبر کرنے والا', hi: 'सबर करने वाला' }},
+export const asmaHusna: AsmaHusna[] = [
+  { number: 1, arabic: 'الرَّحْمَنُ', transliteration: 'Ar-Rahman', translations: { en: 'The Most Gracious', ar: 'الرحمن', ta: 'மிகவும் கருணையுள்ளவன்', ml: 'അതികാരുണികൻ', ur: 'بہت مہربان', hi: 'बहुत मेहरबान', id: 'Yang Maha Pengasih', fr: 'Le Tout Miséricordieux', tr: 'Rahman', bn: 'পরম দয়ালু' }, benefit: 'Recite for mercy' },
+  { number: 2, arabic: 'الرَّحِيمُ', transliteration: 'Ar-Raheem', translations: { en: 'The Most Merciful', ar: 'الرحيم', ta: 'மிகவும் இரக்கமுள்ளவன்', ml: 'അതിദയാലു', ur: 'بہت رحم کرنے والا', hi: 'बहुत रहम करने वाला', id: 'Yang Maha Penyayang', fr: 'Le Très Miséricordieux', tr: 'Rahim', bn: 'পরম দয়ালু' }, benefit: 'Recite for compassion' },
+  { number: 3, arabic: 'الْمَلِكُ', transliteration: 'Al-Malik', translations: { en: 'The King', ar: 'الملك', ta: 'மன்னவன்', ml: 'രാജാവ്', ur: 'بادشاہ', hi: 'बादशाह', id: 'Yang Maha Merajai', fr: 'Le Roi', tr: 'Melik', bn: 'বাদশাহ' }, benefit: 'Recite for leadership' },
+  { number: 4, arabic: 'الْقُدُّوسُ', transliteration: 'Al-Quddus', translations: { en: 'The Most Holy', ar: 'القدوس', ta: 'மிகவும் தூய்மையானவன்', ml: 'പരിശുദ്ധൻ', ur: 'بہت پاک', hi: 'बहुत पाक', id: 'Yang Maha Suci', fr: 'Le Très Saint', tr: 'Kuddus', bn: 'পরম পবিত্র' }, benefit: 'Recite for purity' },
+  { number: 5, arabic: 'السَّلَامُ', transliteration: 'As-Salam', translations: { en: 'The Source of Peace', ar: 'السلام', ta: 'சாந்தியின் மூலம்', ml: 'സമാധാനത്തിന്റെ ഉറവിടം', ur: 'سلامتی کا ماخذ', hi: 'सलामती का ज़रिया', id: 'Yang Maha Memberi Kesejahteraan', fr: 'La Source de la Paix', tr: 'Selam', bn: 'শান্তির উৎস' }, benefit: 'Recite for peace' },
+  { number: 6, arabic: 'الْمُؤْمِنُ', transliteration: 'Al-Mu\'min', translations: { en: 'The Guardian of Faith', ar: 'المؤمن', ta: 'நம்பிக்கையின் பாதுகாவலன்', ml: 'വിശ്വാസത്തിന്റെ കാവൽക്കാരൻ', ur: 'ایمان کا محافظ', hi: 'ईमान का महफूज़', id: 'Yang Maha Memberi Keamanan', fr: 'Le Gardien de la Foi', tr: 'Mümin', bn: 'ঈমানের রক্ষক' }, benefit: 'Recite for security' },
+  { number: 7, arabic: 'الْمُهَيْمِنُ', transliteration: 'Al-Muhaymin', translations: { en: 'The Protector', ar: 'المهيمن', ta: 'பாதுகாவலன்', ml: 'സംരക്ഷകൻ', ur: 'نگران', hi: 'निगरान', id: 'Yang Maha Memelihara', fr: 'Le Protecteur', tr: 'Müheymin', bn: 'রক্ষক' }, benefit: 'Recite for protection' },
+  { number: 8, arabic: 'الْعَزِيزُ', transliteration: 'Al-Aziz', translations: { en: 'The Almighty', ar: 'العزيز', ta: 'வல்லமையுள்ளவன்', ml: 'സർവ്വശക്തൻ', ur: 'عزت والا', hi: 'इज़्ज़त वाला', id: 'Yang Maha Perkasa', fr: 'Le Tout Puissant', tr: 'Aziz', bn: 'পরাক্রমশালী' }, benefit: 'Recite for strength' },
+  { number: 9, arabic: 'الْجَبَّارُ', transliteration: 'Al-Jabbar', translations: { en: 'The Compeller', ar: 'الجبار', ta: 'கட்டாயப்படுத்துபவன்', ml: 'നിർബന്ധകൻ', ur: 'جبروت والا', hi: 'जब्रत वाला', id: 'Yang Maha Memaksa', fr: 'Le Contraignant', tr: 'Cebbar', bn: 'জবরদস্ত' }, benefit: 'Recite for mending broken hearts' },
+  { number: 10, arabic: 'الْمُتَكَبِّرُ', transliteration: 'Al-Mutakabbir', translations: { en: 'The Supreme', ar: 'المتكبر', ta: 'மிகப் பெரியவன்', ml: 'മഹത്വമുള്ളവൻ', ur: 'بڑائی والا', hi: 'बड़ाई वाला', id: 'Yang Maha Megah', fr: 'Le Suprême', tr: 'Mütekebbir', bn: 'মহিমান্বিত' }, benefit: 'Recite for humility' },
+  { number: 11, arabic: 'الْخَالِقُ', transliteration: 'Al-Khaliq', translations: { en: 'The Creator', ar: 'الخالق', ta: 'படைப்பாளன்', ml: 'സ്രഷ്ടാവ്', ur: 'پیدا کرنے والا', hi: 'पैदा करने वाला', id: 'Yang Maha Menciptakan', fr: 'Le Créateur', tr: 'Halık', bn: 'স্রষ্টা' }, benefit: 'Recite for creativity' },
+  { number: 12, arabic: 'الْبَارِئُ', transliteration: 'Al-Bari\'', translations: { en: 'The Originator', ar: 'البارئ', ta: 'தோற்றுவிப்பவன்', ml: 'ഉത്പാദകൻ', ur: 'بنانے والا', hi: 'बनाने वाला', id: 'Yang Maha Mengadakan', fr: 'L\'Originateur', tr: 'Bari', bn: 'উদ্ভাবক' }, benefit: 'Recite for new beginnings' },
+  { number: 13, arabic: 'الْمُصَوِّرُ', transliteration: 'Al-Musawwir', translations: { en: 'The Fashioner', ar: 'المصور', ta: 'வடிவமைப்பவன்', ml: 'രൂപകൽപ്പന ചെയ്യുന്നവൻ', ur: 'صورت بنانے والا', hi: 'शक्ल देने वाला', id: 'Yang Maha Membentuk', fr: 'Le Modeleur', tr: 'Musavvir', bn: 'রূপদানকারী' }, benefit: 'Recite for beauty' },
+  { number: 14, arabic: 'الْغَفَّارُ', transliteration: 'Al-Ghaffar', translations: { en: 'The Forgiver', ar: 'الغفار', ta: 'மன்னிப்பவன்', ml: 'പൊറുക്കുന്നവൻ', ur: 'بخشنے والا', hi: 'बख्शने वाला', id: 'Yang Maha Pengampun', fr: 'Le Pardonneur', tr: 'Gaffar', bn: 'ক্ষমাকারী' }, benefit: 'Recite for forgiveness' },
+  { number: 15, arabic: 'الْقَهَّارُ', transliteration: 'Al-Qahhar', translations: { en: 'The Subduer', ar: 'القهار', ta: 'அடக்குபவன்', ml: 'അടക്കിയാൾവുന്നവൻ', ur: 'غالب', hi: 'ग़ालिब', id: 'Yang Maha Menundukkan', fr: 'Le Dominateur', tr: 'Kahhar', bn: 'প্রবল' }, benefit: 'Recite against oppression' },
+  { number: 16, arabic: 'الْوَهَّابُ', transliteration: 'Al-Wahhab', translations: { en: 'The Bestower', ar: 'الوهاب', ta: 'வாரி வழங்குபவன்', ml: 'ദാനം ചെയ്യുന്നവൻ', ur: 'عطا کرنے والا', hi: 'अता करने वाला', id: 'Yang Maha Pemberi', fr: 'Le Donateur', tr: 'Vehhab', bn: 'দাতা' }, benefit: 'Recite for sustenance' },
+  { number: 17, arabic: 'الرَّزَّاقُ', transliteration: 'Ar-Razzaq', translations: { en: 'The Provider', ar: 'الرزاق', ta: 'உணவளிப்பவன்', ml: 'ആഹാരം നൽകുന്നവൻ', ur: 'رزق دینے والا', hi: 'रिज़्क़ देने वाला', id: 'Yang Maha Pemberi Rezeki', fr: 'Le Pourvoyeur', tr: 'Rezzak', bn: 'রিযিকদাতা' }, benefit: 'Recite for rizq' },
+  { number: 18, arabic: 'الْفَتَّاحُ', transliteration: 'Al-Fattah', translations: { en: 'The Opener', ar: 'الفتاح', ta: 'திறப்பவன்', ml: 'തുറക്കുന്നവൻ', ur: 'کھولنے والا', hi: 'खोलने वाला', id: 'Yang Maha Pembuka', fr: 'L\'ouvreur', tr: 'Fettah', bn: 'উন্মোচক' }, benefit: 'Recite for opening doors of opportunity' },
+  { number: 19, arabic: 'اَلْعَلِيْمُ', transliteration: 'Al-Alim', translations: { en: 'The All-Knowing', ar: 'العليم', ta: 'எல்லாம் அறிபவன்', ml: 'സർവ്വജ്ഞൻ', ur: 'عالم', hi: 'आलिम', id: 'Yang Maha Mengetahui', fr: 'L\'Omniscient', tr: 'Alim', bn: 'সর্বজ্ঞ' }, benefit: 'Recite for knowledge' },
+  { number: 20, arabic: 'الْقَابِضُ', transliteration: 'Al-Qabid', translations: { en: 'The Constrictor', ar: 'القابض', ta: 'சுருக்குபவன்', ml: 'ചുരുക്കുന്നവൻ', ur: 'قبض کرنے والا', hi: 'क़ब्ज़ करने वाला', id: 'Yang Maha Menyempitkan', fr: 'Le Constrictor', tr: 'Kabız', bn: 'সংকোচনকারী' }, benefit: 'Recite for patience' },
+  { number: 21, arabic: 'الْبَاسِطُ', transliteration: 'Al-Basit', translations: { en: 'The Expander', ar: 'الباسط', ta: 'விரிவுபடுத்துபவன்', ml: 'വികസിപ്പിക്കുന്നവൻ', ur: 'پھیلانے والا', hi: 'फैलाने वाला', id: 'Yang Maha Melapangkan', fr: 'L\'Extenseur', tr: 'Basıt', bn: 'প্রসারণকারী' }, benefit: 'Recite for expansion of sustenance' },
+  { number: 22, arabic: 'الْخَافِضُ', transliteration: 'Al-Khafid', translations: { en: 'The Abaser', ar: 'الخافض', ta: 'தாழ்த்துபவன்', ml: 'താഴ്ത്തുന്നവൻ', ur: 'نیچا کرنے والا', hi: 'नीचा करने वाला', id: 'Yang Maha Merendahkan', fr: 'L\'Avilissant', tr: 'Hafız', bn: 'নতকারী' }, benefit: 'Recite for humility' },
+  { number: 23, arabic: 'الرَّافِعُ', transliteration: 'Ar-Rafi', translations: { en: 'The Exalter', ar: 'الرافع', ta: 'உயர்த்துபவன்', ml: 'ഉയർത്തുന്നവൻ', ur: 'بلند کرنے والا', hi: 'बुलंद करने वाला', id: 'Yang Maha Meninggikan', fr: 'L\'Élévateur', tr: 'Rafi', bn: 'উন্নীতকারী' }, benefit: 'Recite for elevation' },
+  { number: 24, arabic: 'الْمُعِزُّ', transliteration: 'Al-Mu\'izz', translations: { en: 'The Honorer', ar: 'المعز', ta: 'கௌரவிப்பவன்', ml: 'ബഹുമാനിക്കുന്നവൻ', ur: 'عزت دینے والا', hi: 'इज़्ज़त देने वाला', id: 'Yang Maha Memuliakan', fr: 'L\'Honorent', tr: 'Muizz', bn: 'সম্মানদাতা' }, benefit: 'Recite for honor' },
+  { number: 25, arabic: 'الْمُذِلُّ', transliteration: 'Al-Mudhill', translations: { en: 'The Humiliator', ar: 'المذل', ta: 'இழிவுபடுத்துபவன்', ml: 'അപമാനിക്കുന്നവൻ', ur: 'ذلیل کرنے والا', hi: 'ज़लील करने वाला', id: 'Yang Maha Menghinakan', fr: 'L\'Humiliant', tr: 'Müzill', bn: 'অপমানকারী' }, benefit: 'Recite for protection from arrogance' },
+  { number: 26, arabic: 'السَّمِيعُ', transliteration: 'As-Sami', translations: { en: 'The All-Hearing', ar: 'السميع', ta: 'எல்லாம் கேட்பவன்', ml: 'സർവ്വശ്രോതാവ്', ur: 'سننے والا', hi: 'सुनने वाला', id: 'Yang Maha Mendengar', fr: 'L\'Audient', tr: 'Semi', bn: 'সর্বশ্রোতা' }, benefit: 'Recite for acceptance of dua' },
+  { number: 27, arabic: 'الْبَصِيرُ', transliteration: 'Al-Basir', translations: { en: 'The All-Seeing', ar: 'البصير', ta: 'எல்லாம் காண்பவன்', ml: 'സർവ്വദ്രഷ്ടാവ്', ur: 'دیکھنے والا', hi: 'देखने वाला', id: 'Yang Maha Melihat', fr: 'Le Voyant', tr: 'Basir', bn: 'সর্বদ্রষ্টা' }, benefit: 'Recite for awareness' },
+  { number: 28, arabic: 'الْحَكَمُ', transliteration: 'Al-Hakam', translations: { en: 'The Judge', ar: 'الحكم', ta: 'நடுவர்', ml: 'വിധികർത്താവ്', ur: 'فیصلہ کرنے والا', hi: 'फ़ैसला करने वाला', id: 'Yang Maha Memutuskan', fr: 'Le Juge', tr: 'Hakem', bn: 'বিচারক' }, benefit: 'Recite for justice' },
+  { number: 29, arabic: 'الْعَدْلُ', transliteration: 'Al-Adl', translations: { en: 'The Just', ar: 'العدل', ta: 'நீதியுள்ளவன்', ml: 'നീതിമാൻ', ur: 'عادل', hi: 'आदिल', id: 'Yang Maha Adil', fr: 'Le Juste', tr: 'Adl', bn: 'ন্যায়পরায়ণ' }, benefit: 'Recite for justice' },
+  { number: 30, arabic: 'اللَّطِيفُ', transliteration: 'Al-Latif', translations: { en: 'The Subtle', ar: 'اللطيف', ta: 'நுட்பமானவன்', ml: 'സൂക്ഷ്മൻ', ur: 'نوازिश کرنے والا', hi: 'लतीफ़', id: 'Yang Maha Lembut', fr: 'Le Subtil', tr: 'Latif', bn: 'সূক্ষ্ম' }, benefit: 'Recite for gentle guidance' },
+  { number: 31, arabic: 'الْخَبِيرُ', transliteration: 'Al-Khabir', translations: { en: 'The All-Aware', ar: 'الخبير', ta: 'எல்லாம் அறிந்தவன்', ml: 'സർവ്വജ്ഞൻ', ur: 'باخبر', hi: 'बाख़बर', id: 'Yang Maha Mengenal', fr: 'L\'Informé', tr: 'Habir', bn: 'সবিশেষ জ্ঞাত' }, benefit: 'Recite for awareness' },
+  { number: 32, arabic: 'الْحَلِيمُ', transliteration: 'Al-Halim', translations: { en: 'The Forbearing', ar: 'الحليم', ta: 'பொறுமையுள்ளவன்', ml: 'ക്ഷമാശീലൻ', ur: 'بردبار', hi: 'बर्द्बार', id: 'Yang Maha Penyantun', fr: 'Le Clément', tr: 'Halim', bn: 'সহনশীল' }, benefit: 'Recite for patience' },
+  { number: 33, arabic: 'الْعَظِيمُ', transliteration: 'Al-Azim', translations: { en: 'The Magnificent', ar: 'العظيم', ta: 'மகத்தானவன்', ml: 'മഹാന', ur: 'عظیم', hi: 'अज़ीम', id: 'Yang Maha Agung', fr: 'Le Magnifique', tr: 'Azim', bn: 'মহান' }, benefit: 'Recite for greatness' },
+  { number: 34, arabic: 'الْغَفُورُ', transliteration: 'Al-Ghafur', translations: { en: 'The All-Forgiving', ar: 'الغفور', ta: 'மன்னிப்பவன்', ml: 'ഏറ്റവും പൊറുക്കുന്നവൻ', ur: 'بخشنے والا', hi: 'ग़फ़ूर', id: 'Yang Maha Pengampun', fr: 'Le Pardonneur', tr: 'Gafur', bn: 'ক্ষমাশীল' }, benefit: 'Recite for forgiveness' },
+  { number: 35, arabic: 'الشَّكُورُ', transliteration: 'Ash-Shakur', translations: { en: 'The Appreciative', ar: 'الشكور', ta: 'நன்றியுள்ளவன்', ml: 'നന്ദിയുള്ളവൻ', ur: 'شکر قبول کرنے والا', hi: 'शुक्र कुबूल करने वाला', id: 'Yang Maha Mensyukuri', fr: 'Le Reconnaissant', tr: 'Şekur', bn: 'কৃতজ্ঞ' }, benefit: 'Recite for gratitude' },
+  { number: 36, arabic: 'الْعَلِيُّ', transliteration: 'Al-Ali', translations: { en: 'The Most High', ar: 'العلي', ta: 'மிக உயர்ந்தவன்', ml: 'ഉന്നതൻ', ur: 'بلند', hi: 'आली', id: 'Yang Maha Tinggi', fr: 'Le Très Haut', tr: 'Ali', bn: 'সুউচ্চ' }, benefit: 'Recite for elevation' },
+  { number: 37, arabic: 'الْكَبِيرُ', transliteration: 'Al-Kabir', translations: { en: 'The Great', ar: 'الكبير', ta: 'பெரியவன்', ml: 'വലിയവൻ', ur: 'بڑا', hi: 'कबीर', id: 'Yang Maha Besar', fr: 'Le Grand', tr: 'Kebir', bn: 'মহান' }, benefit: 'Recite for greatness' },
+  { number: 38, arabic: 'الْحَفِيظُ', transliteration: 'Al-Hafiz', translations: { en: 'The Preserver', ar: 'الحفيظ', ta: 'காப்பவன்', ml: 'സംരക്ഷകൻ', ur: 'حفاظت کرنے والا', hi: 'हिफ़ाज़त करने वाला', id: 'Yang Maha Memelihara', fr: 'Le Gardien', tr: 'Hafiz', bn: 'রক্ষক' }, benefit: 'Recite for protection' },
+  { number: 39, arabic: 'الْمُقِيتُ', transliteration: 'Al-Muqit', translations: { en: 'The Nourisher', ar: 'المقيت', ta: 'போஷிப்பவன்', ml: 'പോഷകൻ', ur: 'خوراک دینے والا', hi: 'खुराक देने वाला', id: 'Yang Maha Pemberi Kecukupan', fr: 'Le Nourricier', tr: 'Mukit', bn: 'পোষণকারী' }, benefit: 'Recite for sustenance' },
+  { number: 40, arabic: 'الْحَسِيبُ', transliteration: 'Al-Hasib', translations: { en: 'The Reckoner', ar: 'الحسيب', ta: 'கணக்கிடுபவன்', ml: 'കണക്കാക്കുന്നവൻ', ur: 'حساب لینے والا', hi: 'हिसाब लेने वाला', id: 'Yang Maha Menghitung', fr: 'Le Comptable', tr: 'Hasib', bn: 'হিসাবকারী' }, benefit: 'Recite for accountability' },
+  { number: 41, arabic: 'الْجَلِيلُ', transliteration: 'Al-Jalil', translations: { en: 'The Majestic', ar: 'الجليل', ta: 'மகிமையுள்ளவன்', ml: 'മഹിമാന്വിതൻ', ur: 'جلال والا', hi: 'जलील', id: 'Yang Maha Mulia', fr: 'Le Majestueux', tr: 'Celil', bn: 'মহিমান্বিত' }, benefit: 'Recite for majesty' },
+  { number: 42, arabic: 'الْكَرِيمُ', transliteration: 'Al-Karim', translations: { en: 'The Generous', ar: 'الكريم', ta: 'கொடையாளி', ml: 'ദയാലു', ur: 'کریم', hi: 'करीम', id: 'Yang Maha Mulia', fr: 'Le Généreux', tr: 'Kerim', bn: 'দয়ালু' }, benefit: 'Recite for generosity' },
+  { number: 43, arabic: 'الرَّقِيبُ', transliteration: 'Ar-Raqib', translations: { en: 'The Watchful', ar: 'الرقيب', ta: 'கண்காணிப்பவன்', ml: 'നിരീക്ഷകൻ', ur: 'نگران', hi: 'नज़र रखने वाला', id: 'Yang Maha Mengawasi', fr: 'L\'Observateur', tr: 'Rakib', bn: 'তত্ত্বাবধায়ক' }, benefit: 'Recite for awareness' },
+  { number: 44, arabic: 'الْمُجِيبُ', transliteration: 'Al-Mujib', translations: { en: 'The Responsive', ar: 'المجيب', ta: 'பதிலளிப்பவன்', ml: 'ഉത്തരം നൽകുന്നവൻ', ur: 'قبول کرنے والا', hi: 'क़ुबूल करने वाला', id: 'Yang Maha Mengabulkan', fr: 'Le Répondant', tr: 'Mucib', bn: 'সাড়া দাতা' }, benefit: 'Recite for acceptance of dua' },
+  { number: 45, arabic: 'الْوَاسِعُ', transliteration: 'Al-Wasi', translations: { en: 'The All-Encompassing', ar: 'الواسع', ta: 'விரிவானவன்', ml: 'വിശാലൻ', ur: 'وسعت والا', hi: 'वासेअ', id: 'Yang Maha Luas', fr: 'L\'Immense', tr: 'Vasi', bn: 'বিশাল' }, benefit: 'Recite for expansion' },
+  { number: 46, arabic: 'الْحَكِيمُ', transliteration: 'Al-Hakim', translations: { en: 'The Wise', ar: 'الحكيم', ta: 'ஞானமுள்ளவன்', ml: 'ജ്ഞാനി', ur: 'حکمت والا', hi: 'हकीम', id: 'Yang Maha Bijaksana', fr: 'Le Sage', tr: 'Hakim', bn: 'প্রজ্ঞাময়' }, benefit: 'Recite for wisdom' },
+  { number: 47, arabic: 'الْوَدُودُ', transliteration: 'Al-Wadud', translations: { en: 'The Loving', ar: 'الودود', ta: 'அன்புள்ளவன்', ml: 'സ്നേഹനിധി', ur: 'محبت کرنے والا', hi: 'मोहब्बत करने वाला', id: 'Yang Maha Mencintai', fr: 'L\'Aimant', tr: 'Vedud', bn: 'প্রেমময়' }, benefit: 'Recite for love' },
+  { number: 48, arabic: 'الْمَجِيدُ', transliteration: 'Al-Majid', translations: { en: 'The Glorious', ar: 'المجيد', ta: 'மகிமைமிக்கவன்', ml: 'മഹിമാന്വിതൻ', ur: 'مجید', hi: 'मजीद', id: 'Yang Maha Mulia', fr: 'Le Glorieux', tr: 'Mecid', bn: 'মহিমান্বিত' }, benefit: 'Recite for glory' },
+  { number: 49, arabic: 'الْبَاعِثُ', transliteration: 'Al-Ba\'ith', translations: { en: 'The Resurrector', ar: 'الباعث', ta: 'உயிர்ப்பிப்பவன்', ml: 'ഉയിർപ്പിക്കുന്നവൻ', ur: 'اٹھانے والا', hi: 'उठाने वाला', id: 'Yang Maha Membangkitkan', fr: 'Le Résurrecteur', tr: 'Ba\'is', bn: 'উত্থাপক' }, benefit: 'Recite for resurrection' },
+  { number: 50, arabic: 'الشَّهِيدُ', transliteration: 'Ash-Shahid', translations: { en: 'The Witness', ar: 'الشهيد', ta: 'சாட்சியாளர்', ml: 'സാക്ഷി', ur: 'گواہ', hi: 'गवाह', id: 'Yang Maha Menyaksikan', fr: 'Le Témoin', tr: 'Şahid', bn: 'সাক্ষী' }, benefit: 'Recite for truthfulness' },
+  { number: 51, arabic: 'الْحَقُّ', transliteration: 'Al-Haqq', translations: { en: 'The Truth', ar: 'الحق', ta: 'உண்மை', ml: 'സത്യം', ur: 'سچ', hi: 'हक़', id: 'Yang Maha Benar', fr: 'La Vérité', tr: 'Hakk', bn: 'সত্য' }, benefit: 'Recite for truth' },
+  { number: 52, arabic: 'الْوَكِيلُ', transliteration: 'Al-Wakil', translations: { en: 'The Trustee', ar: 'الوكيل', ta: 'பொறுப்பாளர்', ml: 'കർത്താവ്', ur: 'ذمہ دار', hi: 'वकील', id: 'Yang Maha Memelihara', fr: 'Le Gardien', tr: 'Vekil', bn: 'ভরসাস্থল' }, benefit: 'Recite for tawakkul' },
+  { number: 53, arabic: 'الْقَوِيُّ', transliteration: 'Al-Qawiyy', translations: { en: 'The Strong', ar: 'القوي', ta: 'வலிமையுள்ளவன்', ml: 'ശക്തൻ', ur: 'قوی', hi: 'क़वी', id: 'Yang Maha Kuat', fr: 'Le Fort', tr: 'Kavi', bn: 'শক্তিশালী' }, benefit: 'Recite for strength' },
+  { number: 54, arabic: 'الْمَتِينُ', transliteration: 'Al-Matin', translations: { en: 'The Firm', ar: 'المتين', ta: 'உறுதியுள்ளவன்', ml: 'ദൃഢൻ', ur: 'مضبوط', hi: 'मतीन', id: 'Yang Maha Kokoh', fr: 'Le Ferme', tr: 'Metin', bn: 'দৃঢ়' }, benefit: 'Recite for firmness' },
+  { number: 55, arabic: 'الْوَلِيُّ', transliteration: 'Al-Waliyy', translations: { en: 'The Protecting Friend', ar: 'الولي', ta: 'பாதுகாவல நண்பன்', ml: 'സംരക്ഷകൻ', ur: 'دوست', hi: 'वली', id: 'Yang Maha Melindungi', fr: 'Le Protecteur', tr: 'Veli', bn: 'অভিভাবক' }, benefit: 'Recite for friendship' },
+  { number: 56, arabic: 'الْحَمِيدُ', transliteration: 'Al-Hamid', translations: { en: 'The Praiseworthy', ar: 'الحمد', ta: 'புகழத்தக்கவன்', ml: 'സ്തുത്യർഹൻ', ur: 'تعریف کے لائق', hi: 'हमीद', id: 'Yang Maha Terpuji', fr: 'Le Louable', tr: 'Hamid', bn: 'প্রশংসনীয়' }, benefit: 'Recite for praise' },
+  { number: 57, arabic: 'الْمُحْصِي', transliteration: 'Al-Muhsi', translations: { en: 'The Accounter', ar: 'المحصي', ta: 'எண்ணுபவன்', ml: 'എണ്ണുന്നവൻ', ur: 'شمارنے والا', hi: 'शुमार करने वाला', id: 'Yang Maha Menghitung', fr: 'Le Compteur', tr: 'Muhsi', bn: 'গণনাকারী' } },
+  { number: 58, arabic: 'الْمُبْدِئُ', transliteration: 'Al-Mubdi', translations: { en: 'The Originator', ar: 'المبدئ', ta: 'தொடங்குபவன்', ml: 'ആരംഭിക്കുന്നവൻ', ur: 'ابتدا کرنے والا', hi: 'इबतिदा करने वाला', id: 'Yang Maha Memulai', fr: 'L\'Initiateur', tr: 'Mubdi', bn: 'আরম্ভকারী' } },
+  { number: 59, arabic: 'الْمُعِيدُ', transliteration: 'Al-Mu\'id', translations: { en: 'The Restorer', ar: 'المعيد', ta: 'மீண்டும் உருவாக்குபவன்', ml: 'തിരികെ കൊണ്ടുവരുന്നവൻ', ur: 'واپس لانے والا', hi: 'वापस लाने वाला', id: 'Yang Maha Mengembalikan', fr: 'Le Restaurateur', tr: 'Muid', bn: 'পুনরুদ্ধারকারী' } },
+  { number: 60, arabic: 'الْمُحْيِي', transliteration: 'Al-Muhyi', translations: { en: 'The Giver of Life', ar: 'المحيي', ta: 'உயிர்ப்பிப்பவன்', ml: 'ജീവൻ നൽകുന്നവൻ', ur: 'زندہ کرنے والا', hi: 'ज़िंदा करने वाला', id: 'Yang Maha Menghidupkan', fr: 'Le Vivificateur', tr: 'Muhyi', bn: 'জীবনদাতা' } },
+  { number: 61, arabic: 'اَلْمُمِيتُ', transliteration: 'Al-Mumit', translations: { en: 'The Bringer of Death', ar: 'المميت', ta: 'மரணமளிக்கிறவன்', ml: 'മരണം നൽകുന്നവൻ', ur: 'مارنے والا', hi: 'मारने वाला', id: 'Yang Mematikan', fr: 'Le Giveur de Mort', tr: 'Mumit', bn: 'মৃত্যুদাতা' } },
+  { number: 62, arabic: 'الْحَيُّ', transliteration: 'Al-Hayy', translations: { en: 'The Ever Living', ar: 'الحي', ta: 'நிரந்தர வாழ்வான்', ml: 'നിത്യജീവൻ', ur: 'زندہ', hi: 'हय्य', id: 'Yang Maha Hidup', fr: 'Le Vivant', tr: 'Hayy', bn: 'চিরঞ্জীব' } },
+  { number: 63, arabic: 'الْقَيُّومُ', transliteration: 'Al-Qayyum', translations: { en: 'The Self-Existing', ar: 'القيوم', ta: 'தானே நிலைத்திருப்பவன்', ml: 'സ്വയം നിലനിൽക്കുന്നവൻ', ur: 'قائم رہنے والا', hi: 'क़य्यूम', id: 'Yang Mandiri', fr: 'L\'Auto-Subsistant', tr: 'Kayyum', bn: 'আত্মপ্রতিষ্ঠিত' } },
+  { number: 64, arabic: 'الْوَاجِدُ', transliteration: 'Al-Wajid', translations: { en: 'The Finder', ar: 'الواجد', ta: 'கண்டுபிடிப்பவன்', ml: 'കണ്ടെത്തുന്നവൻ', ur: 'پانے والا', hi: 'पाने वाला', id: 'Yang Maha Penemu', fr: 'Le Trouveur', tr: 'Vacid', bn: 'প্রাপক' } },
+  { number: 65, arabic: 'الْمَاجِدُ', transliteration: 'Al-Majid', translations: { en: 'The Noble', ar: 'الماجد', ta: 'கௌரவமுள்ளவன்', ml: 'മഹാന', ur: 'باوقار', hi: 'माजिद', id: 'Yang Maha Mulia', fr: 'Le Noble', tr: 'Macid', bn: 'মর্যাদাবান' } },
+  { number: 66, arabic: 'الْوَاحِدُ', transliteration: 'Al-Wahid', translations: { en: 'The One', ar: 'الواحد', ta: 'ஒன்றே', ml: 'ഏകൻ', ur: 'ایک', hi: 'वाहिद', id: 'Yang Maha Esa', fr: 'L\'Unique', tr: 'Vahid', bn: 'এক' } },
+  { number: 67, arabic: 'اَلاَحَدُ', transliteration: 'Al-Ahad', translations: { en: 'The Indivisible', ar: 'الأحد', ta: 'ஒப்பற்றவன்', ml: 'അദ്വിതീയൻ', ur: 'اکیلا', hi: 'अहद', id: 'Yang Maha Tunggal', fr: 'L\'Indivisible', tr: 'Ehad', bn: 'অদ্বিতীয়' } },
+  { number: 68, arabic: 'الصَّمَدُ', transliteration: 'As-Samad', translations: { en: 'The Eternal', ar: 'الصمد', ta: 'நிரந்தரமானவன்', ml: 'നിത്യൻ', ur: 'ہمیشہ رہنے والا', hi: 'समद', id: 'Yang Maha Dibutuhkan', fr: 'L\'Éternel', tr: 'Samed', bn: 'চিরস্থায়ী' } },
+  { number: 69, arabic: 'الْقَادِرُ', transliteration: 'Al-Qadir', translations: { en: 'The Able', ar: 'القادر', ta: 'சக்தியுள்ளவன்', ml: 'ശക്തൻ', ur: 'قادر', hi: 'क़adir', id: 'Yang Maha Kuasa', fr: 'Le Capable', tr: 'Kadir', bn: 'সক্ষম' } },
+  { number: 70, arabic: 'الْمُقْتَدِرُ', transliteration: 'Al-Muqtadir', translations: { en: 'The Powerful', ar: 'المقتدر', ta: 'ஆற்றலுள்ளவன்', ml: 'ശക്തിമാൻ', ur: 'مقتدر', hi: 'मुक़्तदिर', id: 'Yang Maha Berkuasa', fr: 'Le Puissant', tr: 'Muktedir', bn: 'ক্ষমতাবান' } },
+  { number: 71, arabic: 'الْمُقَدِّمُ', transliteration: 'Al-Muqaddim', translations: { en: 'The Expediter', ar: 'المقدم', ta: 'முன்னிலைப்படுத்துபவன்', ml: 'മുന്നോട്ട് വയ്ക്കുന്നവൻ', ur: 'آگے کرنے والا', hi: 'आगे करने वाला', id: 'Yang Maha Mendahulukan', fr: 'L\'Avanceur', tr: 'Mukaddim', bn: 'অগ্রবর্তীকারী' } },
+  { number: 72, arabic: 'الْمُؤَخِّرُ', transliteration: 'Al-Mu\'akhkhir', translations: { en: 'The Delayer', ar: 'المؤخر', ta: 'பின்னிலைப்படுத்துபவன்', ml: 'പിന്നോട്ട് വയ്ക്കുന്നവൻ', ur: 'پیچھے کرنے والا', hi: 'पीछे करने वाला', id: 'Yang Maha Mengakhirkan', fr: 'L\'Ajournant', tr: 'Muahhir', bn: 'পশ্চাৎকারী' } },
+  { number: 73, arabic: 'الْأَوَّلُ', transliteration: 'Al-Awwal', translations: { en: 'The First', ar: 'الأول', ta: 'முதலாவன', ml: 'ആദ്യം', ur: 'پہلا', hi: 'अव्वल', id: 'Yang Maha Awal', fr: 'Le Premier', tr: 'Evvel', bn: 'প্রথম' } },
+  { number: 74, arabic: 'الْآخِرُ', transliteration: 'Al-Akhir', translations: { en: 'The Last', ar: 'الآخر', ta: 'கடைசியானவன்', ml: 'അവസാനം', ur: 'آخری', hi: 'आख़िर', id: 'Yang Maha Akhir', fr: 'Le Dernier', tr: 'Ahir', bn: 'শেষ' } },
+  { number: 75, arabic: 'الظَّاهِرُ', transliteration: 'Az-Zahir', translations: { en: 'The Manifest', ar: 'الظاهر', ta: 'வெளிப்படையானவன்', ml: 'പ്രകടൻ', ur: 'ظاہر', hi: 'ज़ाहिर', id: 'Yang Maha Nyata', fr: 'Le Manifeste', tr: 'Zahir', bn: 'প্রকাশ্য' } },
+  { number: 76, arabic: 'الْبَاطِنُ', transliteration: 'Al-Batin', translations: { en: 'The Hidden', ar: 'الباطن', ta: 'மறைந்தவன்', ml: 'ഗൂഢൻ', ur: 'باطن', hi: 'बातिन', id: 'Yang Maha Tersembunyi', fr: 'Le Caché', tr: 'Batın', bn: 'গোপন' } },
+  { number: 77, arabic: 'الْوَالِي', transliteration: 'Al-Wali', translations: { en: 'The Governor', ar: 'الوالي', ta: 'ஆளுபவன்', ml: 'ഭരണാധികാരി', ur: 'حاکم', hi: 'वाली', id: 'Yang Maha Memerintah', fr: 'Le Gouverneur', tr: 'Vali', bn: 'শাসক' } },
+  { number: 78, arabic: 'الْمُتَعَالِي', transliteration: 'Al-Muta\'ali', translations: { en: 'The Most Exalted', ar: 'المتعالي', ta: 'மிக உயர்ந்தவன்', ml: 'അത്യുന്നതൻ', ur: 'بہت بلند', hi: 'बुलंद', id: 'Yang Maha Tinggi', fr: 'Le Très Exalté', tr: 'Müteali', bn: 'সুউচ্চ' } },
+  { number: 79, arabic: 'الْبَرُّ', transliteration: 'Al-Barr', translations: { en: 'The Source of Goodness', ar: 'البر', ta: 'நன்மையின் மூலம்', ml: 'നന്മയുടെ ഉറവിടം', ur: 'نیکی کا ماخذ', hi: 'बर्र', id: 'Yang Maha Penderma', fr: 'La Source de Bonté', tr: 'Berr', bn: 'সৎকর্মশীল' } },
+  { number: 80, arabic: 'التَّوَّابُ', transliteration: 'At-Tawwab', translations: { en: 'The Acceptor of Repentance', ar: 'التواب', ta: 'தௌபாவை ஏற்பவன்', ml: 'പശ്ചാത്താപം സ്വീകരിക്കുന്നവൻ', ur: 'توبہ قبول کرنے والا', hi: 'तौबा कुबूल करने वाला', id: 'Yang Maha Penerima Taubat', fr: 'L\'Accepteur du Repentir', tr: 'Tevvab', bn: 'তওবা কবूलকারী' } },
+  { number: 81, arabic: 'الْمُنْتَقِمُ', transliteration: 'Al-Muntaqim', translations: { en: 'The Avenger', ar: 'المنتقم', ta: 'பழிவாங்குபவன்', ml: 'പ്രതികാരം ചെയ്യുന്നവൻ', ur: 'بدلہ لینے والا', hi: 'बदला लेने वाला', id: 'Yang Maha Penuntut', fr: 'Le Vengeur', tr: 'Müntakim', bn: 'প্রতিশোধকারী' } },
+  { number: 82, arabic: 'العَفُوُّ', transliteration: 'Al-Afuww', translations: { en: 'The Pardoner', ar: 'العفو', ta: 'மன்னிப்பவன்', ml: 'മാപ്പുനൽകുന്നവൻ', ur: 'معاف کرنے والا', hi: 'माफ़ करने वाला', id: 'Yang Maha Pemaaf', fr: 'Le Pardonneur', tr: 'Afuww', bn: 'মার্জনাকারী' } },
+  { number: 83, arabic: 'الرَّؤُوفُ', transliteration: 'Ar-Ra\'uf', translations: { en: 'The Compassionate', ar: 'الرؤوف', ta: 'இரக்கமுள்ளவன்', ml: 'കാരുണികൻ', ur: 'شفیق', hi: 'रऊफ़', id: 'Yang Maha Pengasih', fr: 'Le Compatissant', tr: 'Rauf', bn: 'কোমল হৃদয়' } },
+  { number: 84, arabic: 'مَالِكُ الْمُلْكِ', transliteration: 'Malikul-Mulk', translations: { en: 'Owner of Sovereignty', ar: 'مالك الملك', ta: 'ஆட்சியின் உரிமையாளன்', ml: 'രാജ്യത്തിന്റെ ഉടമ', ur: 'بادشاہت کا مالک', hi: 'बादशाहत का मालिक', id: 'Pemilik Kerajaan', fr: 'Possesseur de la Royauté', tr: 'Mülkün Sahibi', bn: 'রাজত্বের মালিক' } },
+  { number: 85, arabic: 'ذُو الْجَلَالِ وَالْإِكْرَامِ', transliteration: 'Dhul-Jalali wal-Ikram', translations: { en: 'Lord of Majesty and Bounty', ar: 'ذو الجلال والإكرام', ta: 'மகிமை மற்றும் கௌரவத்தின் உரிமையாளன்', ml: 'മഹത്വത്തിന്റെയും ബഹുമാനത്തിന്റെയും ഉടമ', ur: 'جلال اور اکرام والا', hi: 'जलाल और इकराम वाला', id: 'Pemilik Keagungan dan Kemuliaan', fr: 'Possesseur de Majesté et de Générosité', tr: 'Celal ve İkram Sahibi', bn: 'মহিমা ও সম্মানের অধিকারী' } },
+  { number: 86, arabic: 'الْمُقْسِطُ', transliteration: 'Al-Muqsit', translations: { en: 'The Just', ar: 'المقسط', ta: 'நீதியுள்ளவன்', ml: 'നീതിമാൻ', ur: 'انصاف کرنے والا', hi: 'इंसाफ़ करने वाला', id: 'Yang Maha Adil', fr: 'Le Juste', tr: 'Müksit', bn: 'ন্যায়বিচারক' } },
+  { number: 87, arabic: 'الْجَامِعُ', transliteration: 'Al-Jami', translations: { en: 'The Gatherer', ar: 'الجامع', ta: 'ஒன்று சேர்ப்பவன்', ml: 'ഒന്നിപ്പിക്കുന്നവൻ', ur: 'جمع کرنے والا', hi: 'जमा करने वाला', id: 'Yang Maha Mengumpulkan', fr: 'Le Rassembleur', tr: 'Cami', bn: 'একত্রকারী' } },
+  { number: 88, arabic: 'الْغَنِيُّ', transliteration: 'Al-Ghaniyy', translations: { en: 'The Self-Sufficient', ar: 'الغني', ta: 'தேவையற்றவன்', ml: 'ആവശ്യമില്ലാത്തവൻ', ur: 'بے نیاز', hi: 'ग़नी', id: 'Yang Maha Kaya', fr: 'Le Riche', tr: 'Gani', bn: 'অমুখাপেক্ষী' } },
+  { number: 89, arabic: 'الْمُغْنِي', transliteration: 'Al-Mughni', translations: { en: 'The Enricher', ar: 'المغني', ta: 'செல்வமாக்குபவன்', ml: 'സമ്പന്നനാക്കുന്നവൻ', ur: 'غنی کرنے والا', hi: 'गनी करने वाला', id: 'Yang Maha Mencukupkan', fr: 'L\'Enrichisseur', tr: 'Muğni', bn: 'সমৃদ্ধকারী' } },
+  { number: 90, arabic: 'الْمَانِعُ', transliteration: 'Al-Mani\'', translations: { en: 'The Preventer', ar: 'المانع', ta: 'தடுப்பவன்', ml: 'തടയുന്നവൻ', ur: 'روکنے والا', hi: 'रोकने वाला', id: 'Yang Maha Mencegah', fr: 'Le Préventeur', tr: 'Mani', bn: 'প্রতিরোধকারী' } },
+  { number: 91, arabic: 'الضَّارَّ', transliteration: 'Ad-Darr', translations: { en: 'The Distresser', ar: 'الضار', ta: 'தீங்கு செய்பவன்', ml: 'ദ്രോഹിക്കുന്നവൻ', ur: 'ضرر پہنچانے والا', hi: 'नुक़सान पहुंचाने वाला', id: 'Yang Maha Memberi Mudarat', fr: 'Le Nuisible', tr: 'Darr', bn: 'ক্ষতিকারক' } },
+  { number: 92, arabic: 'النَّافِعُ', transliteration: 'An-Nafi', translations: { en: 'The Benefiter', ar: 'النافع', ta: 'நன்மை செய்பவன்', ml: 'ഗുണം ചെയ്യുന്നവൻ', ur: 'فائدہ پہنچانے والا', hi: 'फ़ायदा पहुंचाने वाला', id: 'Yang Maha Memberi Manfaat', fr: 'Le Bénéfique', tr: 'Nafi', bn: 'উপকারকারী' } },
+  { number: 93, arabic: 'النُّورُ', transliteration: 'An-Nur', translations: { en: 'The Light', ar: 'النور', ta: 'ஒளி', ml: 'പ്രകാശം', ur: 'نور', hi: 'नूर', id: 'Yang Maha Cahaya', fr: 'La Lumière', tr: 'Nur', bn: 'আলো' } },
+  { number: 94, arabic: 'الْهَادِي', transliteration: 'Al-Hadi', translations: { en: 'The Guide', ar: 'الهادي', ta: 'நெறிப்படுத்துபவன்', ml: 'മാർഗ്ഗദർശകൻ', ur: 'ہدایت دینے والا', hi: 'हिदायत देने वाला', id: 'Yang Maha Memberi Petunjuk', fr: 'Le Guide', tr: 'Hadi', bn: 'পথপ্রদর্শক' } },
+  { number: 95, arabic: 'الْبَدِيعُ', transliteration: 'Al-Badi', translations: { en: 'The Originator', ar: 'البديع', ta: 'புதியவனாகப் படைப்பவன்', ml: 'അത്ഭുതകരമായ സ്രഷ്ടാവ്', ur: 'بے مثال بنانے والا', hi: 'बदी', id: 'Yang Maha Pencipta Keindahan', fr: 'L\'Innovateur', tr: 'Bedi', bn: 'অভিনব স্রষ্টা' } },
+  { number: 96, arabic: 'الْبَاقِي', transliteration: 'Al-Baqi', translations: { en: 'The Everlasting', ar: 'الباقي', ta: 'நிலைத்திருப்பவன்', ml: 'നിലനിൽക്കുന്നവൻ', ur: 'باقی رہنے والا', hi: 'बाक़ी', id: 'Yang Maha Kekal', fr: 'L\'Éternel', tr: 'Baki', bn: 'চিরস্থায়ী' } },
+  { number: 97, arabic: 'الْوَارِثُ', transliteration: 'Al-Warith', translations: { en: 'The Inheritor', ar: 'الوارث', ta: 'உரிமை கொள்பவன்', ml: 'അവകാശി', ur: 'وارث', hi: 'वारिस', id: 'Yang Maha Pewaris', fr: 'L\'Héritier', tr: 'Varis', bn: 'উত্তরাধিকারী' } },
+  { number: 98, arabic: 'الرَّشِيدُ', transliteration: 'Ar-Rashid', translations: { en: 'The Guide to the Right Path', ar: 'الرشيد', ta: 'நேர்வழி காட்டுபவன்', ml: 'നേർവഴി കാണിക്കുന്നവൻ', ur: 'راہ دکھانے والا', hi: 'राशिद', id: 'Yang Maha Cerdas', fr: 'Le Guide', tr: 'Reşid', bn: 'সঠিক পথপ্রদর্শক' } },
+  { number: 99, arabic: 'الصَّبُورُ', transliteration: 'As-Sabur', translations: { en: 'The Patient', ar: 'الصبور', ta: 'பொறுமையுள்ளவன்', ml: 'ക്ഷമാശീലൻ', ur: 'صبر کرنے والا', hi: 'सबूर', id: 'Yang Maha Sabar', fr: 'Le Patient', tr: 'Sabur', bn: 'ধৈর্যশীল' } },
 ];
 
-export const asmaulAnbiyaComplete = [
-  { num: 1, name: 'آدَمُ', transliteration: 'Adam (AS)', era: 'Beginning of Humanity', quranic: 'Surah Al-Baqarah 2:30-39', dua: 'رَبَّنَا ظَلَمْنَا أَنفُسَنَا' },
-  { num: 2, name: 'نُوحٌ', transliteration: 'Nuh (AS)', era: 'Before the Flood', quranic: 'Surah Nuh 71:1-28', dua: 'رَبِّ اغْفِرْ لِي وَلِوَالِدَيَّ' },
-  { num: 3, name: 'إِدْرِيسُ', transliteration: 'Idris (AS)', era: 'Ancient Times', quranic: 'Surah Maryam 19:56-57', dua: 'Known for wisdom' },
-  { num: 4, name: 'هُودٌ', transliteration: 'Hud (AS)', era: 'People of Aad', quranic: 'Surah Hud 11:50-60', dua: 'إِنْ أَنَا إِلَّا نَذِيرٌ' },
-  { num: 5, name: 'صَالِحٌ', transliteration: 'Salih (AS)', era: 'People of Thamud', quranic: 'Surah Hud 11:61-68', dua: 'Sign of the She-Camel' },
-  { num: 6, name: 'إِبْرَاهِيمُ', transliteration: 'Ibrahim (AS)', era: 'Friend of Allah', quranic: 'Surah Ibrahim 14:35-41', dua: 'رَبِّ اجْعَلْ هَٰذَا الْبَلَدَ آمِنًا' },
-  { num: 7, name: 'لُوطٌ', transliteration: 'Lut (AS)', era: 'People of Sodom', quranic: 'Surah Al-Araf 7:80-84', dua: 'رَبِّ انصُرْنِي عَلَى الْقَوْمِ الْمُفْسِدِينَ' },
-  { num: 8, name: 'إِسْمَاعِيلُ', transliteration: 'Ismail (AS)', era: 'Son of Ibrahim', quranic: 'Surah Maryam 19:54-55', dua: 'رَبِّ اجْعَلْنِي مُقِيمَ الصَّلَاةِ' },
-  { num: 9, name: 'إِسْحَاقُ', transliteration: 'Ishaq (AS)', era: 'Son of Ibrahim', quranic: 'Surah Hud 11:71-73', dua: 'Blessed progeny' },
-  { num: 10, name: 'يَعْقُوبُ', transliteration: 'Yaqub (AS)', era: 'Father of 12 Tribes', quranic: 'Surah Yusuf 12:38', dua: 'إِنَّمَا أَشْكُو بَثِّي وَحُزْنِي إِلَى اللَّهِ' },
-  { num: 11, name: 'يُوسُفُ', transliteration: 'Yusuf (AS)', era: 'Egypt - Story of Patience', quranic: 'Surah Yusuf (Full Surah)', dua: 'رَبِّ قَدْ آتَيْتَنِي مِنَ الْمُلْكِ' },
-  { num: 12, name: 'شُعَيْبٌ', transliteration: 'Shuayb (AS)', era: 'People of Madyan', quranic: 'Surah Hud 11:84-95', dua: 'وَعِظَةُ اللَّهِ' },
-  { num: 13, name: 'أَيُّوبُ', transliteration: 'Ayyub (AS)', era: 'Example of Patience', quranic: 'Surah Al-Anbiya 21:83-84', dua: 'أَنِّي مَسَّنِيَ الضُّرُّ وَأَنتَ أَرْحَمُ الرَّاحِمِينَ' },
-  { num: 14, name: 'ذُو الْكِفْلِ', transliteration: 'Dhul-Kifl (AS)', era: 'Known for patience', quranic: 'Surah Al-Anbiya 21:85-86', dua: 'Steadfast servant' },
-  { num: 15, name: 'مُوسَى', transliteration: 'Musa (AS)', era: 'Exodus from Egypt', quranic: 'Surah Al-Qasas 28:1-88', dua: 'رَبِّ اشْرَحْ لِي صَدْرِي' },
-  { num: 16, name: 'هَارُونُ', transliteration: 'Harun (AS)', era: 'Brother of Musa', quranic: 'Surah Ta-Ha 20:29-36', dua: 'Supporter of Musa' },
-  { num: 17, name: 'دَاوُودُ', transliteration: 'Dawud (AS)', era: 'King & Prophet', quranic: 'Surah Sad 38:17-26', dua: 'Psalms (Zabur) revealed' },
-  { num: 18, name: 'سُلَيْمَانُ', transliteration: 'Sulaiman (AS)', era: 'King of all creation', quranic: 'Surah An-Naml 27:15-44', dua: 'رَبِّ أَوْزِعْنِي أَنْ أَشْكُرَ نِعْمَتَكَ' },
-  { num: 19, name: 'إِلْيَاسُ', transliteration: 'Ilyas (AS)', era: 'People of Baalbek', quranic: 'Surah As-Saffat 37:123-132', dua: 'Called to Allah' },
-  { num: 20, name: 'الْيَسَعُ', transliteration: 'Al-Yasa (AS)', era: 'Successor of Ilyas', quranic: 'Surah Al-Anam 6:86', dua: 'Among the righteous' },
-  { num: 21, name: 'يُونُسُ', transliteration: 'Yunus (AS)', era: 'The Whale', quranic: 'Surah Yunus 10:98', dua: 'لَا إِلَٰهَ إِلَّا أَنتَ سُبْحَانَكَ إِنِّي كُنتُ مِنَ الظَّالِمِينَ' },
-  { num: 22, name: 'زَكَرِيَّا', transliteration: 'Zakariyya (AS)', era: 'Father of Yahya', quranic: 'Surah Maryam 19:3-15', dua: 'رَبِّ لَا تَذَرْنِي فَرْدًا وَأَنتَ خَيْرُ الْوَارِثِينَ' },
-  { num: 23, name: 'يَحْيَى', transliteration: 'Yahya (AS)', era: 'Contemporary of Isa', quranic: 'Surah Maryam 19:7-15', dua: 'Given wisdom as a child' },
-  { num: 24, name: 'عِيسَى', transliteration: 'Isa (AS)', era: 'Before Muhammad ﷺ', quranic: 'Surah Al-Maidah 5:110-120', dua: 'اللَّهُمَّ رَبَّنَا أَنزِلْ عَلَيْنَا مَائِدَةً' },
-  { num: 25, name: 'مُحَمَّدٌ ﷺ', transliteration: 'Muhammad ﷺ', era: 'Final Messenger', quranic: 'Surah Al-Ahzab 33:40', dua: 'رَبِّ زِدْنِي عِلْمًا' },
+export const asmaAnbiya: Prophet[] = [
+  { number: 1, arabic: 'آدَمُ', name: { en: 'Adam', ar: 'آدم', ta: 'ஆதம்', ml: 'ആദം', ur: 'آدم', hi: 'आदम', id: 'Adam', fr: 'Adam', tr: 'Âdem', bn: 'আদম' }, era: 'First human', quranicMentions: 25, famousDua: 'رَبَّنَا ظَلَمْنَا أَنْفُسَنَا (Our Lord, we have wronged ourselves)' },
+  { number: 2, arabic: 'إِدْرِيسُ', name: { en: 'Idris', ar: 'إدريس', ta: 'இத்ரீஸ்', ml: 'ഇദ്രീസ്', ur: 'ادریس', hi: 'इदरीस', id: 'Idris', fr: 'Idris', tr: 'İdris', bn: 'ইদ্রিস' }, era: 'Early prophet', quranicMentions: 2, famousDua: 'لَا إِلَهَ إِلَّا أَنْتَ سُبْحَانَكَ (There is no god but You, glory to You)' },
+  { number: 3, arabic: 'نُوحٌ', name: { en: 'Nuh (Noah)', ar: 'نوح', ta: 'நூஹ்', ml: 'നൂഹ്', ur: 'نوح', hi: 'नूह', id: 'Nuh', fr: 'Noé', tr: 'Nuh', bn: 'নূহ' }, era: 'Before the flood', quranicMentions: 43, famousDua: 'رَبِّ اغْفِرْ لِي وَلِوَالِدَيَّ (My Lord, forgive me and my parents)' },
+  { number: 4, arabic: 'هُودٌ', name: { en: 'Hud', ar: 'هود', ta: 'ஹூத்', ml: 'ഹൂദ്', ur: 'ہود', hi: 'हूद', id: 'Hud', fr: 'Hud', tr: 'Hud', bn: 'হুদ' }, era: 'People of Ad', quranicMentions: 25, famousDua: 'إِنْ أَعُوذُ بِاللَّهِ (I seek refuge in Allah)' },
+  { number: 5, arabic: 'صَالِحٌ', name: { en: 'Salih', ar: 'صالح', ta: 'ஸாலிஹ்', ml: 'സ്വാലിഹ്', ur: 'صالح', hi: 'सालेह', id: 'Salih', fr: 'Salih', tr: 'Salih', bn: 'সালিহ' }, era: 'People of Thamud', quranicMentions: 9, famousDua: 'دعاء لقوم ثمود (Supplication for the people of Thamud)' },
+  { number: 6, arabic: 'إِبْرَاهِيمُ', name: { en: 'Ibrahim (Abraham)', ar: 'إبراهيم', ta: 'இப்ராஹீம்', ml: 'ഇബ്രാഹിം', ur: 'ابراہیم', hi: 'इब्राहीम', id: 'Ibrahim', fr: 'Abraham', tr: 'İbrahim', bn: 'ইব্রাহিম' }, era: 'Friend of Allah', quranicMentions: 69, famousDua: 'رَبِّ اجْعَلْ هَذَا الْبَلَدَ آمِنًا (My Lord, make this city safe)' },
+  { number: 7, arabic: 'لُوطٌ', name: { en: 'Lut (Lot)', ar: 'لوط', ta: 'லூத்', ml: 'ലൂത്വ്', ur: 'لوط', hi: 'लूत', id: 'Luth', fr: 'Lot', tr: 'Lut', bn: 'লূত' }, era: 'Contemporary of Ibrahim', quranicMentions: 27, famousDua: 'رَبِّ نَجِّنِي وَأَهْلِي (My Lord, save me and my family)' },
+  { number: 8, arabic: 'إِسْمَاعِيلُ', name: { en: 'Ismail (Ishmael)', ar: 'إسماعيل', ta: 'இஸ்மாயீல்', ml: 'ഇസ്മാഈൽ', ur: 'اسماعیل', hi: 'इस्माईल', id: 'Ismail', fr: 'Ismaël', tr: 'İsmail', bn: 'ইসমাঈল' }, era: 'Son of Ibrahim', quranicMentions: 12, famousDua: 'رَبِّ اجْعَلْنِي مُقِيمَ الصَّلَاةِ (My Lord, make me establisher of prayer)' },
+  { number: 9, arabic: 'إِسْحَاقُ', name: { en: 'Ishaq (Isaac)', ar: 'إسحاق', ta: 'இஸ்ஹாக்', ml: 'ഇസ്ഹാഖ്', ur: 'اسحاق', hi: 'इस्हाक़', id: 'Ishaq', fr: 'Isaac', tr: 'İshak', bn: 'ইসহাক' }, era: 'Son of Ibrahim', quranicMentions: 17, famousDua: 'بُشِّرْنَا (We were given good news)' },
+  { number: 10, arabic: 'يَعْقُوبُ', name: { en: 'Yaqub (Jacob)', ar: 'يعقوب', ta: 'யஃகூப்', ml: 'യഅ്ഖൂബ്', ur: 'یعقوب', hi: 'याक़ूब', id: 'Yaqub', fr: 'Jacob', tr: 'Yakub', bn: 'ইয়াকুব' }, era: 'Son of Ishaq', quranicMentions: 16, famousDua: 'إِنَّمَا أَشْكُو بَثِّي وَحُزْنِي إِلَى اللَّهِ (I complain of my suffering to Allah)' },
+  { number: 11, arabic: 'يُوسُفُ', name: { en: 'Yusuf (Joseph)', ar: 'يوسف', ta: 'யூசுஃப்', ml: 'യൂസുഫ്', ur: 'یوسف', hi: 'यूसुफ़', id: 'Yusuf', fr: 'Joseph', tr: 'Yusuf', bn: 'ইউসুফ' }, era: 'Egypt', quranicMentions: 27, famousDua: 'رَبِّ قَدْ آتَيْتَنِي مِنَ الْمُلْكِ (My Lord, You have given me sovereignty)' },
+  { number: 12, arabic: 'أَيُّوبُ', name: { en: 'Ayyub (Job)', ar: 'أيوب', ta: 'அய்யூப்', ml: 'അയ്യൂബ്', ur: 'ایوب', hi: 'अय्यूब', id: 'Ayyub', fr: 'Job', tr: 'Eyyub', bn: 'আইয়ুব' }, era: 'Time of patience', quranicMentions: 4, famousDua: 'أَنِّي مَسَّنِيَ الضُّرُّ وَأَنْتَ أَرْحَمُ الرَّاحِمِينَ (Adversity has touched me, You are Most Merciful)' },
+  { number: 13, arabic: 'ذُو الْكِفْلِ', name: { en: 'Dhul-Kifl', ar: 'ذو الكفل', ta: 'துல்கிஃல்', ml: 'ദുല്കിഫ്ല്', ur: 'ذوالکفل', hi: 'ज़ुलकिफ़्ल', id: 'Zulkifli', fr: 'Dhu al-Kifl', tr: 'Zülkifil', bn: 'জুল কিফল' }, era: 'Prophet of patience', quranicMentions: 2, famousDua: 'Prayer for patience and steadfastness' },
+  { number: 14, arabic: 'شُعَيْبٌ', name: { en: 'Shuayb (Jethro)', ar: 'شعيب', ta: 'ஷுஐப்', ml: 'ശുഐബ്', ur: 'شعیب', hi: 'शुऐब', id: 'Syuaib', fr: 'Shuayb', tr: 'Şuayb', bn: 'শুয়াইব' }, era: 'People of Madyan', quranicMentions: 11, famousDua: 'رَبَّنَا افْتَحْ بَيْنَنَا وَبَيْنَ قَوْمِنَا (Our Lord, judge between us and our people)' },
+  { number: 15, arabic: 'مُوسَى', name: { en: 'Musa (Moses)', ar: 'موسى', ta: 'மூஸா', ml: 'മൂസാ', ur: 'موسیٰ', hi: 'मूसा', id: 'Musa', fr: 'Moïse', tr: 'Musa', bn: 'মূসা' }, era: 'Exodus from Egypt', quranicMentions: 136, famousDua: 'رَبِّ اشْرَحْ لِي صَدْرِي (My Lord, expand my chest)' },
+  { number: 16, arabic: 'هَارُونُ', name: { en: 'Harun (Aaron)', ar: 'هارون', ta: 'ஹாரூன்', ml: 'ഹാറൂൻ', ur: 'ہارون', hi: 'हारून', id: 'Harun', fr: 'Aaron', tr: 'Harun', bn: 'হারুন' }, era: 'Brother of Musa', quranicMentions: 24, famousDua: 'رَبِّ اجْعَلْنِي وَزِيرًا (My Lord, make me a vizier)' },
+  { number: 17, arabic: 'دَاوُودُ', name: { en: 'Dawud (David)', ar: 'داود', ta: 'தாவூத்', ml: 'ദാവൂദ്', ur: 'داود', hi: 'दाऊद', id: 'Daud', fr: 'David', tr: 'Davud', bn: 'দাউদ' }, era: 'King and Prophet', quranicMentions: 16, famousDua: 'رَبِّ أَوْزِعْنِي أَنْ أَشْكُرَ نِعْمَتَكَ (My Lord, enable me to be grateful)' },
+  { number: 18, arabic: 'سُلَيْمَانُ', name: { en: 'Sulayman (Solomon)', ar: 'سليمان', ta: 'ஸுலைமான்', ml: 'സുലൈമാൻ', ur: 'سلیمان', hi: 'सुलेमान', id: 'Sulaiman', fr: 'Salomon', tr: 'Süleyman', bn: 'সুলাইমান' }, era: 'King with power over jinn', quranicMentions: 17, famousDua: 'رَبِّ أَوْزِعْنِي أَنْ أَشْكُرَ نِعْمَتَكَ (My Lord, enable me to be grateful)' },
+  { number: 19, arabic: 'إِلْيَاسُ', name: { en: 'Ilyas (Elijah)', ar: 'إلياس', ta: 'இல்யாஸ்', ml: 'ഇല്യാസ്', ur: 'الیاس', hi: 'इलयास', id: 'Ilyas', fr: 'Élie', tr: 'İlyas', bn: 'ইলিয়াস' }, era: 'Prophet to Baal worshippers', quranicMentions: 4, famousDua: 'دعاء ضد عبدة البعل (Prayer against Baal worshippers)' },
+  { number: 20, arabic: 'الْيَسَعُ', name: { en: 'Al-Yasa (Elisha)', ar: 'اليسع', ta: 'அல்யஸஅ', ml: 'അൽയസഅ', ur: 'الیسع', hi: 'अलयासा', id: 'Ilyasa', fr: 'Élisée', tr: 'Elyesa', bn: 'আল-ইয়াসা' }, era: 'Successor of Ilyas', quranicMentions: 2, famousDua: 'Prayer for guidance' },
+  { number: 21, arabic: 'يُونُسُ', name: { en: 'Yunus (Jonah)', ar: 'يونس', ta: 'யூனுஸ்', ml: 'യൂനുസ്', ur: 'یونس', hi: 'यूनूस', id: 'Yunus', fr: 'Jonas', tr: 'Yunus', bn: 'ইউনুস' }, era: 'The whale', quranicMentions: 6, famousDua: 'لَا إِلَهَ إِلَّا أَنْتَ سُبْحَانَكَ إِنِّي كُنْتُ مِنَ الظَّالِمِينَ (There is no god but You, glory to You, I was among the wrongdoers)' },
+  { number: 22, arabic: 'زَكَرِيَّا', name: { en: 'Zakariya (Zechariah)', ar: 'زكريا', ta: 'ஸகரிய்யா', ml: 'സകരിയ്യ', ur: 'زکریا', hi: 'ज़कारिया', id: 'Zakariya', fr: 'Zacharie', tr: 'Zekeriya', bn: 'যাকারিয়া' }, era: 'Father of Yahya', quranicMentions: 7, famousDua: 'رَبِّ لَا تَذَرْنِي فَرْدًا وَأَنْتَ خَيْرُ الْوَارِثِينَ (My Lord, do not leave me alone)' },
+  { number: 23, arabic: 'يَحْيَى', name: { en: 'Yahya (John)', ar: 'يحيى', ta: 'யஹ்யா', ml: 'യഹ്‌യ', ur: 'یحییٰ', hi: 'यह्या', id: 'Yahya', fr: 'Jean', tr: 'Yahya', bn: 'ইয়াহইয়া' }, era: 'Contemporary of Isa', quranicMentions: 5, famousDua: 'Prayer for wisdom in youth' },
+  { number: 24, arabic: 'عِيسَى', name: { en: 'Isa (Jesus)', ar: 'عيسى', ta: 'ஈஸா', ml: 'ഈസാ', ur: 'عیسیٰ', hi: 'ईसा', id: 'Isa', fr: 'Jésus', tr: 'İsa', bn: 'ঈসা' }, era: 'Before Muhammad ﷺ', quranicMentions: 25, famousDua: 'اللَّهُمَّ رَبَّنَا أَنْزِلْ عَلَيْنَا مَائِدَةً مِنَ السَّمَاءِ (O Allah, send down a table from heaven)' },
+  { number: 25, arabic: 'مُحَمَّدٌ ﷺ', name: { en: 'Muhammad ﷺ', ar: 'محمد', ta: 'முஹம்மது ﷺ', ml: 'മുഹമ്മദ് ﷺ', ur: 'محمد ﷺ', hi: 'मुहम्मद ﷺ', id: 'Muhammad ﷺ', fr: 'Muhammad ﷺ', tr: 'Muhammed ﷺ', bn: 'মুহাম্মাদ ﷺ' }, era: 'Seal of Prophets', quranicMentions: 4, famousDua: 'رَبِّ اغْفِرْ لِي وَلِوَالِدَيَّ وَلِلْمُؤْمِنِينَ (My Lord, forgive me, my parents, and the believers)' },
+];
+
+export const salawat = [
+  {
+    id: 'sw-1',
+    name: { en: 'Salawat Ibrahimiyyah', ar: 'الصلاة الإبراهيمية' },
+    arabic: 'اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ كَمَا صَلَّيْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ إِنَّكَ حَمِيدٌ مَجِيدٌ',
+    transliteration: 'Allahumma salli \'ala Muhammadin wa \'ala ali Muhammad, kama sallayta \'ala Ibrahim wa \'ala ali Ibrahim, innaka hamidun majid',
+    translations: {
+      en: 'O Allah, send prayers upon Muhammad and upon the family of Muhammad, as You sent prayers upon Ibrahim and upon the family of Ibrahim. You are indeed Praiseworthy, Glorious.',
+      ar: 'اللهم صل على محمد وعلى آل محمد كما صليت على إبراهيم وعلى آل إبراهيم إنك حميد مجيد',
+      ta: 'இறைவா! முஹம்மது மீதும் முஹம்மது குடும்பத்தார் மீதும் நீர் ரஹ்மத் அனுப்புவாயாக!',
+      ml: 'അല്ലാഹുവേ, മുഹമ്മദിന്റെയും മുഹമ്മദിന്റെ കുടുംബത്തിന്റെയും മേൽ നീ നിന്റെ റഹ്മത്ത് ഇറക്കണമേ.',
+      ur: 'اے اللہ! محمد ﷺ پر اور آل محمد پر رحمت نازل فرما۔',
+      hi: 'ऐ अल्लाह! मुहम्मद ﷺ पर और आले मुहम्मद पर रहमत नाज़िल फरमा।',
+      id: 'Ya Allah, limpahkanlah shalawat kepada Muhammad dan keluarga Muhammad.',
+      fr: 'Ô Allah, envoie Tes prières sur Muhammad et sur la famille de Muhammad.',
+      tr: 'Allah\'ım! Muhammed\'e ve Muhammed\'in ailesine salat et.',
+      bn: 'হে আল্লাহ! মুহাম্মদ ﷺ এবং তাঁর পরিবারের প্রতি রহমত নাযিল করো।'
+    },
+    reference: 'Bukhari 3/10',
+    repeat: 1
+  },
+  {
+    id: 'sw-2',
+    name: { en: 'Salawat al-Tunjina/Munjiyah', ar: 'صلاة التنجية' },
+    arabic: 'اللَّهُمَّ صَلِّ عَلَى سَيِّدِنَا مُحَمَّدٍ صَلَاةً تُنْجِينَا بِهَا مِنْ جَمِيعِ الْأَهْوَالِ وَالْآفَاتِ',
+    transliteration: 'Allahumma salli \'ala sayyidina Muhammad, salatan tunjina biha min jami\'il-ahwal wal-afat',
+    translations: {
+      en: 'O Allah, send prayers upon our Master Muhammad, a prayer that saves us from all fears and calamities.',
+      ar: 'اللهم صل على سيدنا محمد صلاة تنجينا بها من جميع الأهوال والآفات',
+      ta: 'இறைவா! எங்கள் தலைவர் முஹம்மது மீது ரஹ்மத் அனுப்புவாயாக!',
+      ml: 'അല്ലാഹുവേ, ഞങ്ങളുടെ നേതാവ് മുഹമ്മദിന്റെ മേൽ റഹ്മത്ത് ഇറക്കണമേ.',
+      ur: 'اے اللہ! ہمارے سردار محمد ﷺ پر رحمت نازل فرما۔',
+      hi: 'ऐ अल्लाह! हमारे सरदार मुहम्मद ﷺ पर रहमत नाज़िल फरमा।',
+      id: 'Ya Allah, limpahkanlah shalawat kepada Tuan kami Muhammad.',
+      fr: 'Ô Allah, envoie Tes prières sur notre Maître Muhammad.',
+      tr: 'Allah\'ım! Efendimiz Muhammed\'e salat et.',
+      bn: 'হে আল্লাহ! আমাদের নেতা মুহাম্মদ ﷺ এর প্রতি রহমত নাযিল করো।'
+    },
+    reference: 'Traditional',
+    repeat: 1
+  },
+  {
+    id: 'sw-3',
+    name: { en: 'Salawat al-Fatih', ar: 'صلاة الفاتح' },
+    arabic: 'اللَّهُمَّ صَلِّ عَلَى سَيِّدِنَا مُحَمَّدٍ الْفَاتِحِ لِمَا أُغْلِقَ وَالْخَاتِمِ لِمَا سَبَقَ',
+    transliteration: 'Allahumma salli \'ala sayyidina Muhammadinil-fatihi lima ughliq, wal-khatimi ma sabaq',
+    translations: {
+      en: 'O Allah, send prayers upon our Master Muhammad, the opener of what was closed and the sealer of what has passed.',
+      ar: 'اللهم صل على سيدنا محمد الفاتح لما أغلق والخاتم لما سبق',
+      ta: 'இறைவா! மூடியவற்றைத் திறப்பவரும் முந்தையவற்றை முடிப்பவருமான நம் தலைவர் முஹம்மது மீது ரஹ்மத் அனுப்புவாயாக!',
+      ml: 'അല്ലാഹുവേ, അടഞ്ഞവ തുറക്കുന്നവനും മുൻകാലങ്ങൾക്ക് മുദ്ര വയ്ക്കുന്നവനുമായ നമ്മുടെ നേതാവ് മുഹമ്മദിന്റെ മേൽ റഹ്മത്ത്.',
+      ur: 'اے اللہ! ہمارے سردار محمد ﷺ پر رحمت نازل فرما جو بند چیزوں کو کھولنے والے ہیں۔',
+      hi: 'ऐ अल्लाह! हमारे सरदार मुहम्मद ﷺ पर रहमत नाज़िल फरमा जो बंद चीज़ों को खोलने वाले हैं।',
+      id: 'Ya Allah, limpahkanlah shalawat kepada Muhammad, pembuka yang tertutup.',
+      fr: 'Ô Allah, envoie Tes prières sur Muhammad, l\'ouvreur de ce qui est fermé.',
+      tr: 'Allah\'ım! Kapalı olanı açan Efendimiz Muhammed\'e salat et.',
+      bn: 'হে আল্লাহ! বন্ধ জিনিস খোলার নেতা মুহাম্মদ ﷺ এর প্রতি রহমত নাযিল করো।'
+    },
+    reference: 'Traditional',
+    repeat: 1
+  }
+];
+
+export const burdah = [
+  {
+    id: 'bur-1',
+    arabic: 'أَمِنْ تَذَكُّرِ جِيرَانٍ بِذِي سَلَمِ *** مَزَجْتَ دَمْعًا جَرَى مِنْ مُقْلَةٍ بِدَمِ',
+    transliteration: 'Amin tazakkuri jiranin bi dzi salam *** Mazajta dam\'an jara min muqlatin bi dam',
+    translations: {
+      en: 'Is it because of recalling neighbors at Dhi Salam that you have mixed tears with blood flowing from your eyes?',
+      ar: 'أمن تذكر جيران بذي سلم مزجت دمعا جرى من مقلة بدم',
+      ta: 'தி சலாமில் உள்ள அண்டையவர்களை நினைத்ததால் உங்கள் கண்களில் இருந்து ரத்தம் கலந்த கண்ணீர் வருகிறதா?',
+      ml: 'ധി സലമിലെ അയൽക്കാരെ ഓർത്താണോ നിങ്ങളുടെ കണ്ണുകളിൽ നിന്ന് രക്തം കലർന്ന കണ്ണീർ ഒഴുകുന്നത്?',
+      ur: 'کیا ذی سلم کے پڑوسیوں کو یاد کر کے آپ نے آنکھوں سے خون ملا آنسو بہائے؟',
+      hi: 'क्या ज़ी सलम के पड़ोसियों को याद कर के आप ने आँखों से ख़ून मिला आंसू बहाए?',
+      id: 'Apakah karena mengingat tetangga di Dhi Salam engkau mencampur air mata dengan darah?',
+      fr: 'Est-ce en te rappelant les voisins de Dhi Salam que tu as mêlé des larmes de sang?',
+      tr: 'Dhi Salam\'daki komşuları hatırlayarak gözlerinden kan karışık yaş mı akıttın?',
+      bn: 'ধি সলামের প্রতিবেশীদের স্মরণ করে কি আপনি চোখ থেকে রক্ত মিশ্রিত অশ্রু ফেলেছেন?'
+    },
+    reference: 'Qasida al-Burdah - Stanza 1',
+    author: 'Imam al-Busiri'
+  },
+  {
+    id: 'bur-2',
+    arabic: 'أَوَ مِنْ تَجَاوُرِ عُمَّارٍ بِذِي سَلَمِ *** أَرَقْتَ عَيْنَكَ فِي إِطْرَاقٍ وَنَعَمِ',
+    transliteration: 'Awa min tajawuri \'ummarin bi dzi salam *** Araqta \'aynaka fi itrāqin wa na\'ami',
+    translations: {
+      en: 'Or is it from the remembrance of those who dwelt at Dhi Salam that you have spent the night in sleeplessness and tears?',
+      ar: 'أو من تجاور عمار بذي سلم أرقت عينك في إطراق ونعم',
+      ta: 'தி சலாமில் வாழ்ந்தவர்களை நினைத்ததால் நீங்கள் தூக்கமின்றி இரவைக் கழித்தீர்களா?',
+      ml: 'ധി സലമിൽ താമസിച്ചവരെ ഓർത്ത് നിങ്ങൾ ഉറക്കമില്ലാതെ രാത്രി ചെലവഴിച്ചോ?',
+      ur: 'یا ذی سلم میں رہنے والوں کو یاد کر کے آپ نے رات بیداری میں گزار دی؟',
+      hi: 'या ज़ी सलम में रहने वालों को याद कर के आप ने रात बेख़وابी में गुज़ार दी?',
+      id: 'Atau karena mengingat penghuni Dhi Salam engkau begadang semalaman?',
+      fr: 'Ou est-ce en te rappelant les habitants de Dhi Salam que tu as passé la nuit sans sommeil?',
+      tr: 'Dhi Salam sakinlerini hatırlayarak uykusuz bir gece mi geçirdin?',
+      bn: 'অথবা ধি সলামের অধিবাসীদের স্মরণ করে কি আপনি নিদ্রাহীন রাত কাটিয়েছেন?'
+    },
+    reference: 'Qasida al-Burdah - Stanza 2',
+    author: 'Imam al-Busiri'
+  }
+];
+
+export const rathib = [
+  {
+    id: 'rth-1',
+    name: { en: 'Rathib al-Haddad - Opening', ar: 'راتب الحداد' },
+    arabic: 'يَا رَبِّ صَلِّ وَسَلِّمْ دَائِمًا أَبَدًا عَلَى حَبِيبِكَ خَيْرِ الْخَلْقِ كُلِّهِمِ',
+    transliteration: 'Ya rabbi salli wa sallim da\'iman abada, \'ala habibika khayril-khalqi kullihimi',
+    translations: {
+      en: 'O my Lord, send prayers and peace always and eternally upon Your beloved, the best of all creation.',
+      ar: 'يا رب صل وسلم دائما أبدا على حبيبك خير الخلق كلهم',
+      ta: 'இறைவா! உன் அன்பிற்குரியவரின் மீதும், படைப்புகளில் சிறந்தவரின் மீதும் என்றென்றும் ரஹ்மத்தையும் சலாமத்தையும் அனுப்புவாயாக!',
+      ml: 'രക്ഷിതാവേ, നിന്റെ പ്രിയങ്കരനുടെയും സൃഷ്ടികളിൽ ഏറ്റവും ഉത്തമന്റെയും മേൽ നിത്യവും റഹ്മത്തും സലാമും ഇറക്കണമേ.',
+      ur: 'اے میرے رب! اپنے محبوب ﷺ پر ہمیشہ ہمیشہ رحمت اور سلامتی نازل فرما۔',
+      hi: 'ऐ मेरे रब! अपने महबूब ﷺ पर हमेशा हमेशा रहमत और सलामत नाज़िल फरमा।',
+      id: 'Ya Tuhanku, limpahkanlah shalawat dan salam selamanya kepada kekasih-Mu.',
+      fr: 'Ô mon Seigneur, envoie prières et paix éternellement sur Ton bien-aimé.',
+      tr: 'Rabbim! Sevgiline sürekli salat ve selam gönder.',
+      bn: 'হে আমার রব! তোমার প্রিয়তম ﷺ এর প্রতি চিরকাল রহমত ও সালাম নাযিল করো।'
+    },
+    reference: 'Rathib al-Haddad',
+    author: 'Imam Abdullah al-Haddad'
+  },
+  {
+    id: 'rth-2',
+    name: { en: 'Rathib al-Haddad - Istighfar', ar: 'راتب الحداد - الاستغفار' },
+    arabic: 'أَسْتَغْفِرُ اللَّهَ الْعَظِيمَ الَّذِي لَا إِلَهَ إِلَّا هُوَ الْحَيَّ الْقَيُّومَ وَأَتُوبُ إِلَيْهِ',
+    transliteration: 'Astaghfirullahal-\'azim, alladhi la ilaha illa huwal-hayyul-qayyum, wa atubu ilayh',
+    translations: {
+      en: 'I seek forgiveness from Allah the Mighty, there is no god but He, the Living, the Self-subsisting, and I repent to Him.',
+      ar: 'أستغفر الله العظيم الذي لا إله إلا هو الحي القيوم وأتوب إليه',
+      ta: 'மிகப் பெரிய அல்லாஹ்விடம் மன்னிப்பு தேடுகிறேன். அவனைத் தவிர வணக்கத்திற்குரியவர் இல்லை. நான் அவனிடம் தௌபா செய்கிறேன்.',
+      ml: 'മഹാനായ അല്ലാഹുവിനോട് പാപമോചനം തേടുന്നു. അവനല്ലാതെ ആരാധനാർഹനില്ല. ഞാൻ അവങ്കലേക്ക് പശ്ചാത്തപിക്കുന്നു.',
+      ur: 'میں اللہ عظیم سے مغفرت مانگتا ہوں جس کے سوا کوئی معبود نہیں اور میں اس کی طرف توبہ کرتا ہوں۔',
+      hi: 'मैं अल्लाह अज़ीम से माफ़ी मांगता हूं जिसके सिवा कोई माबूद नहीं और मैं उसकी तरफ तौबा करता हूं।',
+      id: 'Aku memohon ampun kepada Allah Yang Maha Agung, tiada tuhan selain Dia, dan aku bertaubat kepada-Nya.',
+      fr: 'Je demande pardon à Allah le Grand, il n\'y a de dieu que Lui, et je me repens à Lui.',
+      tr: 'Allah\'tan bağışlanma diliyorum, O\'ndan başka ilah yoktur ve O\'na tövbe ederim.',
+      bn: 'আমি আল্লাহ মহান থেকে ক্ষমা প্রার্থনা করছি, তিনি ছাড়া কোনো ইলাহ নেই এবং আমি তাঁর কাছে তওবা করছি।'
+    },
+    reference: 'Rathib al-Haddad',
+    author: 'Imam Abdullah al-Haddad'
+  }
+];
+
+export const yaseen = {
+  title: { en: 'Surah Yaseen', ar: 'سورة يس', ta: 'யாசீன்', ml: 'യാസീൻ', ur: 'سورہ یٰسین', hi: 'सूरह यासीन', id: 'Surah Yasin', fr: 'Sourate Yasin', tr: 'Yasin Suresi', bn: 'সূরা ইয়াসিন' },
+  description: { en: 'The Heart of the Qur\'an', ar: 'قلب القرآن', ta: 'திருக்குர்ஆனின் இதயம்', ml: 'ഖുർആനിന്റെ ഹൃദയം', ur: 'قرآن کا دل', hi: 'कुरान का दिल', id: 'Jantung Al-Quran', fr: 'Le Cœur du Coran', tr: 'Kur\'an\'ın Kalbi', bn: 'কুরআনের হৃদয়' },
+  arabic: 'يس وَالْقُرْآنِ الْحَكِيمِ',
+  transliteration: 'Ya-Sin. Wal-Qur\'anil-Hakim',
+  translations: {
+    en: 'Ya-Sin. By the wise Qur\'an.',
+    ar: 'يس والقرآن الحكيم',
+    ta: 'யா-சீன். ஞானமிக்க குர்ஆன் மீது ஆணையாக.',
+    ml: 'യാ-സീൻ. ജ്ഞാനമയ ഖുർആൻ ആണ.',
+    ur: 'یٰسین۔ حکمت والے قرآن کی قسم۔',
+    hi: 'यासीन। हुकमत वाले कुरान की क़सम।',
+    id: 'Ya-Sin. Demi Al-Quran yang penuh hikmah.',
+    fr: 'Ya-Sin. Par le Coran plein de sagesse.',
+    tr: 'Ya-Sin. Hikmet dolu Kur\'an adına.',
+    bn: 'ইয়া-সিন। জ্ঞানময় কুরআনের কসম।'
+  },
+  reference: 'Quran 36:1-2',
+  benefit: 'Recite for the deceased and the sick'
+};
+
+export const dhikr = [
+  {
+    id: 'dh-1',
+    arabic: 'لَا إِلَهَ إِلَّا اللَّهُ',
+    transliteration: 'La ilaha illallah',
+    translations: { en: 'There is no god but Allah', ar: 'لا إله إلا الله', ta: 'அல்லாஹ்வைத் தவிர வணக்கத்திற்குரியவர் இல்லை', ml: 'അല്ലാഹു ഒഴികെ ആരാധനാർഹനില്ല', ur: 'اللہ کے سوا کوئی معبود نہیں', hi: 'अल्लाह के सिवा कोई माबूद नहीं', id: 'Tiada tuhan selain Allah', fr: 'Nul ne mérite d\'être adoré sauf Allah', tr: 'Allah\'tan başka ilah yoktur', bn: 'আল্লাহ ছাড়া কোনো ইলাহ নেই' },
+    repeat: 100,
+    benefit: 'The best dhikr'
+  },
+  {
+    id: 'dh-2',
+    arabic: 'سُبْحَانَ اللَّهِ',
+    transliteration: 'Subhanallah',
+    translations: { en: 'Glory be to Allah', ar: 'سبحان الله', ta: 'அல்லாஹ் தூய்மையானவன்', ml: 'അല്ലാഹു പരിശുദ്ധൻ', ur: 'اللہ پاک ہے', hi: 'अल्लाह पाक है', id: 'Maha Suci Allah', fr: 'Gloire à Allah', tr: 'Allah\'ı tenzih ederim', bn: 'আল্লাহ পবিত্র' },
+    repeat: 33,
+    benefit: 'Half the scale with good deeds'
+  },
+  {
+    id: 'dh-3',
+    arabic: 'الْحَمْدُ لِلَّهِ',
+    transliteration: 'Alhamdulillah',
+    translations: { en: 'All praise is for Allah', ar: 'الحمد لله', ta: 'எல்லா புகழும் அல்லாஹ்வுக்கே', ml: 'എല്ലാ സ്തുതിയും അല്ലാഹുവിന്', ur: 'تمام تعریفیں اللہ کے لیے', hi: 'सब तारीफ़ अल्लाह के लिए', id: 'Segala puji bagi Allah', fr: 'Toute louange est pour Allah', tr: 'Hamd Allah\'adır', bn: 'সমস্ত প্রশংসা আল্লাহর' },
+    repeat: 33,
+    benefit: 'Fills the scale'
+  },
+  {
+    id: 'dh-4',
+    arabic: 'اللَّهُ أَكْبَرُ',
+    transliteration: 'Allahu Akbar',
+    translations: { en: 'Allah is the Greatest', ar: 'الله أكبر', ta: 'அல்லாஹ் மிகப் பெரியவன்', ml: 'അല്ലാഹു ഏറ്റവും വലിയവൻ', ur: 'اللہ سب سے بڑا ہے', hi: 'अल्लाह सबसे बड़ा है', id: 'Allah Maha Besar', fr: 'Allah est le Plus Grand', tr: 'Allah en büyüktür', bn: 'আল্লাহ সর্বশ্রেষ্ঠ' },
+    repeat: 34,
+    benefit: 'Fills the space between heaven and earth'
+  }
+];
+
+export const adhkar = [
+  {
+    id: 'adh-1',
+    arabic: 'لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ',
+    transliteration: 'La hawla wa la quwwata illa billah',
+    translations: { en: 'There is no power nor strength except with Allah', ar: 'لا حول ولا قوة إلا بالله', ta: 'அல்லாஹ்வைத் தவிர சக்தியும் வலிமையும் இல்லை', ml: 'അല്ലാഹു അല്ലാതെ ശക്തിയുമില്ല ബലവുമില്ല', ur: 'اللہ کے سوا کوئی طاقت اور قوت نہیں', hi: 'अल्लाह के सिवा कोई ताक़त और क़ुव्वत नहीं', id: 'Tiada daya dan kekuatan kecuali dengan Allah', fr: 'Il n\'y a de pouvoir ni de force qu\'en Allah', tr: 'Allah\'tan başka güç ve kuvvet yoktur', bn: 'আল্লাহ ছাড়া কোনো শক্তি ও ক্ষমতা নেই' },
+    repeat: 100,
+    benefit: 'A treasure from the treasures of Paradise'
+  },
+  {
+    id: 'adh-2',
+    arabic: 'سُبْحَانَ اللَّهِ وَبِحَمْدِهِ سُبْحَانَ اللَّهِ الْعَظِيمِ',
+    transliteration: 'Subhanallahi wa bihamdihi, Subhanallahil-\'azim',
+    translations: { en: 'Glory be to Allah and His praise, glory be to Allah the Magnificent', ar: 'سبحان الله وبحمده سبحان الله العظيم', ta: 'அல்லாஹ் தூய்மையானவன், புகழுடன். மகத்தான அல்லாஹ் தூய்மையானவன்', ml: 'അല്ലാഹു പരിശുദ്ധൻ, സ്തുതിയോടെ. മഹാനായ അല്ലാഹു പരിശുദ്ധൻ', ur: 'اللہ پاک ہے اس کی تعریف کے ساتھ، اللہ عظیم پاک ہے', hi: 'अल्लाह पाक है उसकी तारीफ़ के साथ, अल्लाह अज़ीम पाक है', id: 'Maha Suci Allah dengan pujian-Nya, Maha Suci Allah Yang Agung', fr: 'Gloire à Allah et Sa louange, Gloire à Allah le Magnifique', tr: 'Allah\'ı hamd ile tenzih ederim, Allah\'ı tenzih ederim', bn: 'আল্লাহ পবিত্র তাঁর প্রশংসাসহ, আল্লাহ মহান পবিত্র' },
+    repeat: 100,
+    benefit: 'Two words light on the tongue, heavy on the scale'
+  }
 ];
