@@ -416,6 +416,118 @@ export const categories: Category[] = [
       { id:'wk2', arabic:'اللَّهُمَّ مَا أَصْبَحَ بِي مِنْ نِعْمَةٍ أَوْ بِأَحَدٍ مِنْ خَلْقِكَ فَمِنْكَ وَحْدَكَ لَا شَرِيكَ لَكَ فَلَكَ الْحَمْدُ وَلَكَ الشُّكْرُ', transliteration:'Allahumma ma asbaha bi min ni\'matin aw bi-ahadin min khalqika faminka wahdaka la sharika lak, falakal-hamdu wa lakash-shukr', translations:T('O Allah, whatever blessing has come to me or to any of Your creation is from You alone, no partner have You. So praise and thanks are Yours.','اللهم ما أصبح بي من نعمة','எனக்கும் உன் படைப்புகளுக்கும் வந்த அருள் உன்னிடமிருந்தே','എനിക്കും നിന്റെ സൃഷ്ടികൾക്കും വന്ന അനുഗ്രഹം','مجھے یا تیری مخلوق میں سے کسی کو جو نعمت','मुझे या तेरी मखलूक को जो नेमत','nikmat yang datang kepadaku','la bénédiction qui m\'est venue','bana veya mahlukatına gelen nimet','আমাকে বা তোমার সৃষ্টিতে যে নেয়ামত'), reference:'Abu Dawud 4/317', repeat:1, benefit:'Upon waking - whoever says it has fulfilled gratitude' },
     ]
   },
+  {
+    id: 'evil-eye',
+    name: T('Protection from Evil Eye','الحسد والعين','கண் தீண்டல்','ദൃഷ്ടിദോഷം','نظر بد','बुरी नज़र','Ain & Hasad','Mauvais œil','Kem gözü','কুদৃষ্টি'),
+    icon: '🧿', color: '#D32F2F',
+    duas: [
+      { id:'eo1', arabic:'أَعُوذُ بِكَلِمَاتِ اللَّهِ التَّامَّةِ مِنْ كُلِّ شَيْطَانٍ وَهَامَّةٍ وَمِنْ كُلِّ عَيْنٍ لَامَّةٍ', transliteration:'A\\'udhu bikalimatillahit-tammati min kulli shaytanin wa hammah, wa min kulli \\'aynin lammah', translations:T('I seek refuge in the perfect words of Allah from every devil and every poisonous reptile, and from every evil eye.','أعوذ بكلمات الله التامات','அல்லாஹ்வின் முழுமையான வார்த்தைகளில்','അല്ലാഹുവിന്റെ പൂർണ്ണ വാക്കുകളിൽ','اللہ کی کامل کلاموں کی پناہ','अल्लाह की कामिल कलामों की पनाह','Aku berlindung dengan kalimat Allah','Je cherche refuge dans les paroles d\'Allah','Allah\'ın mükemmel kelimelerine','আল্লাহর পূর্ণ বাণীতে'), reference:'Bukhari 4/114', repeat:1, benefit:'Protection from evil eye and harm' },
+    ]
+  },
+  {
+    id: 'laylatul-qadr',
+    name: T('Laylatul Qadr','ليلة القدر','லைலத்துல் ஃபத்ர்','ലൈലത്തുൽ ഖദ്ർ','شب قدر','शब-ए-क़द्र','Lailatul Qadr','Nuit du Destin','Kadir Gecesi','ক্বদরের রাত'),
+    icon: '✨', color: '#7B1FA2',
+    duas: [
+      { id:'lq1', arabic:'اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي', transliteration:'Allahumma innaka \\'afuwwun tuhibbul-\\'afwa fa\\'fu \\'anni', translations:T('O Allah, You are the Pardoner, You love to pardon, so pardon me.','اللهم إنك عفو تحب العفو فاعف عني','இறைவா, நீ மன்னிப்பவன், மன்னிப்பை விரும்புகிறாய்','അല്ലാഹുവേ, നീ മാപ്പുനൽകുന്നവൻ','اے اللہ! تو معاف کرنے والا ہے','ऐ अल्लाह! तू माफ़ करने वाला','Ya Allah, Engkau Maha Pemaaf','Ô Allah, Tu es le Pardonneur','Allah\'ım, Sen affedicisin','হে আল্লাহ! তুমি ক্ষমাকারী'), reference:'Tirmidhi 5/544', repeat:100, benefit:'Say on Laylatul Qadr' },
+    ]
+  },
+  {
+    id: 'jumuah',
+    name: T('Jumu\'ah (Friday)','يوم الجمعة','ஜுமுஆ','ജുമുഅ','جمعہ','जुमा','Jumat','Vendredi','Cuma','জুমুআ'),
+    icon: '🕌', color: '#1B5E20',
+    duas: [
+      { id:'jm1', arabic:'اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ عَبْدِكَ وَرَسُولِكَ كَمَا صَلَّيْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ', transliteration:'Allahumma salli \\'ala Muhammadin \\'abdika wa rasulik, kama sallayta \\'ala Ibrahim wa \\'ala ali Ibrahim', translations:T('O Allah, send prayers upon Muhammad, Your servant and Messenger, as You sent prayers upon Ibrahim and the family of Ibrahim.','اللهم صل على محمد عبدك ورسولك','இறைவா, முஹம்மது மீது ரஹ்மத் அனுப்புவாயாக','അല്ലാഹുവേ, മുഹമ്മദിന്റെ മേൽ റഹ്മത്ത്','اے اللہ! محمد ﷺ پر رحمت نازل فرما','ऐ अल्लाह! मुहम्मद ﷺ पर रहमत','Ya Allah, limpahkan shalawat atas Muhammad','Ô Allah, envoie des prières sur Muhammad','Allah\'ım, Muhammed\'e salat et','হে আল্লাহ! মুহাম্মদ ﷺ এর প্রতি রহমত'), reference:'Bukhari', repeat:100, benefit:'Best day to send salawat - Friday' },
+    ]
+  },
+  {
+    id: 'new-baby',
+    name: T('New Baby & Children','المولود والأطفال','புதிய குழந்தை','പുതിയ കുഞ്ഞ്','نیا بچہ','नया बच्चा','Bayi Baru','Nouveau-né','Yeni Bebek','নতুন শিশু'),
+    icon: '👶', color: '#FF80AB',
+    duas: [
+      { id:'nb1', arabic:'بَارَكَ اللَّهُ لَكَ فِي الْمَوْهُوبِ لَكَ وَشَكَرْتَ الْوَاهِبَ وَبَلَغَ أَشُدَّهُ وَرُزِقْتَ بِرَّهُ', transliteration:'Barakallahu laka fil-mawhubi lak, wa shakartal-wahib, wa balagha ashuddahu, wa ruziqta birrah', translations:T('May Allah bless you in the gift given to you, and may you thank the Giver, and may the child reach maturity, and may you be granted his righteousness.','بارك الله لك في الموهوب لك','அல்லாஹ் உனக்கு அளிக்கப்பட்டதில் பரக்கத்','അല്ലാഹു നിനക്ക് തന്നതിൽ അനുഗ്രഹിക്കട്ടെ','اللہ تجھے دی ہوئی نعمت میں برکت دے','अल्लाह तुझे दी हुई नेमत में बरकत दे','Semoga Allah memberkahi karunia yang diberikan','Qu\'Allah bénisse le don qui t\'est fait','Allah sana verilen nimette bereket','আল্লাহ তোমাকে প্রদত্ত নেয়ামতে বরকত'), reference:'General', repeat:1, benefit:'Congratulations for newborn' },
+    ]
+  },
+  {
+    id: 'house-vehicle',
+    name: T('House & Vehicle','البيت والسيارة','வீடு & வாகனம்','വീടും വാഹനവും','گھر اور گاڑی','घर और गाड़ी','Rumah & Kendaraan','Maison & Véhicule','Ev & Araç','ঘর ও গাড়ি'),
+    icon: '🏠', color: '#4E342E',
+    duas: [
+      { id:'hv1', arabic:'اللَّهُمَّ بَارِكْ لَنَا فِي دَارِنَا وَاكْفِنَا شَرَّ مَا فِيهَا', transliteration:'Allahumma barik lana fi darina wakfina sharra ma fiha', translations:T('O Allah, bless us in our home and protect us from its evil.','اللهم بارك لنا في دارنا','இறைவா, எங்கள் வீட்டில் பரக்கத்','അല്ലാഹുവേ, ഞങ്ങളുടെ വീട്ടിൽ അനുഗ്രഹ','اے اللہ! ہمارے گھر میں برکت','ऐ अल्लाह! हमारे घर में बरकत','Ya Allah, berkahi rumah kami','Ô Allah, bénis notre maison','Allah\'ım, evimizde bereket','হে আল্লাহ! আমাদের ঘরে বরকত'), reference:'General', repeat:1, benefit:'Blessing for new home' },
+    ]
+  },
+  {
+    id: 'success',
+    name: T('Success & Achievement','النجاح','வெற்றி','വിജയം','کامیابی','कामयाबी','Kesuksesan','Succès','Başarı','সাফল্য'),
+    icon: '🏆', color: '#FFD600',
+    duas: [
+      { id:'sc1', arabic:'رَبِّ اشْرَحْ لِي صَدْرِي وَيَسِّرْ لِي أَمْرِي وَاحْلُلْ عُقْدَةً مِنْ لِسَانِي يَفْقَهُوا قَوْلِي', transliteration:'Rabbishrah li sadri wa yassir li amri wahlul \\'uqdatan min lisani yafqahu qawli', translations:T('My Lord, expand my chest, ease my task, and untie the knot from my tongue that they may understand my speech.','رب اشرح لي صدري','என் மார்பை விரிவுபடுத்துவாயாக','നെഞ്ച് വിശലമാക്കണമേ','میرا سینہ کھول','मेरा सीना खोल','lapangkan dadaku','ouvre-moi la poitrine','göğsümü aç','বক্ষ প্রসারিত করো'), reference:'Quran 20:25-28', repeat:1, benefit:'Before important tasks' },
+    ]
+  },
+  {
+    id: 'difficulties',
+    name: T('Difficulties & Hardship','الشدة والضيق','கஷ்டங்கள்','ബുദ്ധിമുട്ടുകൾ','مشکلات','मुश्किलات','Kesulitan','Difficultés','Zorluklar','কঠিন সময়'),
+    icon: '⚠️', color: '#BF360C',
+    duas: [
+      { id:'df1', arabic:'لَا إِلَهَ إِلَّا اللَّهُ الْعَظِيمُ الْحَلِيمُ لَا إِلَهَ إِلَّا اللَّهُ رَبُّ الْعَرْشِ الْعَظِيمِ لَا إِلَهَ إِلَّا اللَّهُ رَبُّ السَّمَاوَاتِ وَرَبُّ الْأَرْضِ وَرَبُّ الْعَرْشِ الْكَرِيمِ', transliteration:'La ilaha illallahul-\\'azimul-halim, la ilaha illallahu Rabbul-\\'Arshil-\\'azim, la ilaha illallahu Rabbus-samawati wa Rabbul-ardi wa Rabbul-\\'Arshil-karim', translations:T('None has right to be worshipped except Allah the Mighty, the Forbearing. None has right except Allah, Lord of the Mighty Throne.','لا إله إلا الله العظيم الحليم','இணையற்ற மகத்தான அல்லாஹ்','അല്ലാഹു ഒഴികെ ആരാധനാർഹനില്ല','اللہ کے سوا کوئی معبود نہیں','अल्लाह के सिवा कोई माबूद नहीं','Tiada tuhan selain Allah','Nul dieu sauf Allah','Allah\'tan başka ilah yok','আল্লাহ ছাড়া কোনো ইলাহ নেই'), reference:'Bukhari 7/158', repeat:1, benefit:'Dua of distress - Prophet ﷺ said it in difficulty' },
+    ]
+  },
+  {
+    id: 'good-character',
+    name: T('Good Character','حسن الخلق','நல்ல பண்பு','സദ്സ്വഭാവം','اچھے اخلاق','अच्छे अख़लाक़','Akhlak Mulia','Bon Caractère','Güzel Ahlak','সুন্দর চরিত্র'),
+    icon: '💎', color: '#00BFA5',
+    duas: [
+      { id:'gc1', arabic:'اللَّهُمَّ كَمَا حَسَّنْتَ خَلْقِي فَحَسِّنْ خُلُقِي', transliteration:'Allahumma kama hassanta khalqi fa hassin khuluqi', translations:T('O Allah, just as You made my appearance beautiful, make my character beautiful.','اللهم كما حسنت خلقي فحسن خلقي','என் உருவை அழகாக்கியது போல் குணத்தையும்','എന്റെ രൂപം സുന്ദരമാക്കിയതുപോലെ','جیسا میرا ظاہر خوبصورت','जैसा मेरा ज़ाहिर खूबसूरत','seperti Engkau perindah rupaku','comme Tu as embelli mon apparence','dış görünüşümü güzelleştirdiğin','যেমন আমার বাহ্যিক রূপ'), reference:'Ahmad', repeat:1, benefit:'For good character' },
+    ]
+  },
+  {
+    id: 'deceased',
+    name: T('For Deceased','للموتى','இறந்தவர்களுக்கு','മരിച്ചവർക്ക്','فوت شدگان','मृतकों के लिए','Untuk yang meninggal','Pour les défunts','Vefat edenler için','মৃতদের জন্য'),
+    icon: '🕯️', color: '#455A64',
+    duas: [
+      { id:'dc1', arabic:'اللَّهُمَّ اغْفِرْ لَهُ وَارْحَمْهُ وَعَافِهِ وَاعْفُ عَنْهُ وَأَكْرِمْ نُزُلَهُ وَوَسِّعْ مُدْخَلَهُ', transliteration:'Allahummaghfir lahu warhamhu wa\\'afihi wa\\'fu \\'anh wa akrim nuzulahu wa wassi\\' mudkhalahu', translations:T('O Allah, forgive him, have mercy on him, grant him well-being, pardon him, honor his reception, and widen his entrance.','اللهم اغفر له وارحمه','இறைவா, மன்னிப்பளி, இரக்கம் காட்டு','അല്ലാഹുവേ, പൊറുക്കണമേ','اے اللہ! بخش دے، رحم فرما','ऐ अल्लाह! बख्श दे, रहम फरमा','Ya Allah, ampunilah dia','Ô Allah, pardonne-lui','Allah\'ım! Bağışla, merhamet et','হে আল্লাহ! ক্ষমা করো, দয়া করো'), reference:'Muslim 2/663', repeat:1, benefit:'For deceased Muslim' },
+    ]
+  },
+  {
+    id: 'provision',
+    name: T('Provision & Rizq','الرزق','ரிஸ்க்','റിസ്ഖ്','رزق','रिज़्क़','Rezeki','Subsistance','Rızık','রিযিক'),
+    icon: '💰', color: '#FF6F00',
+    duas: [
+      { id:'pv1', arabic:'اللَّهُمَّ إِنِّي أَسْأَلُكَ عِلْمًا نَافِعًا وَرِزْقًا طَيِّبًا وَعَمَلًا مُتَقَبَّلًا', transliteration:'Allahumma inni as\\'aluka \\'ilman nafi\\'an wa rizqan tayyiban wa \\'amalan mutaqabbala', translations:T('O Allah, I ask You for beneficial knowledge, good provision, and accepted deeds.','اللهم إني أسألك علما نافعا','பயனுள்ள அறிவு, நல்ல ரிஸ்க்','ഗുണകരമായ വിദ്യ, നല്ല റിസ്ഖ','فائدہ مند علم، پاک رزق','फ़ायदेमंद इल्म, पाक रिज़्क़','ilmu bermanfaat, rezeki baik','savoir bénéfique, bonne subsistance','faydalı ilim, helal rızık','উপকারী জ্ঞান, ভালো রিযিক'), reference:'Ibn Majah', repeat:1, benefit:'Morning dua for rizq' },
+    ]
+  },
+  {
+    id: 'gratitude',
+    name: T('Gratitude','الشكر','நன்றி','നന്ദി','شکر','शुक्र','Bersyukur','Gratitude','Şükür','কৃতজ্ঞতা'),
+    icon: '🙏', color: '#00C853',
+    duas: [
+      { id:'gt1', arabic:'اللَّهُمَّ أَعِنِّي عَلَى ذِكْرِكَ وَشُكْرِكَ وَحُسْنِ عِبَادَتِكَ', transliteration:'Allahumma a\\'inni \\'ala dhikrika wa shukrika wa husni \\'ibadatik', translations:T('O Allah, help me to remember You, give thanks, and worship You well.','اللهم أعني على ذكرك وشكرك','உன்னை நினைவு கூர, நன்றி செலுத்த','നിന്നെ ഓർക്കാനും നന്ദി','تیرے ذکر و شکر پر مدد','तेरे ज़िक्र व शुक्र पर मदद','bantu aku mengingat-Mu dan bersyukur','aide-moi à Te mentionner et remercier','Seni zikretmemde yardım','তোমাকে স্মরণ ও শুকরিয়া'), reference:'Abu Dawud', repeat:1, benefit:'For gratitude' },
+    ]
+  },
+  {
+    id: 'patience',
+    name: T('Patience','الصبر','பொறுமை','ക്ഷമ','صبر','सब्र','Kesabaran','Patience','Sabır','ধৈর্য'),
+    icon: '⏳', color: '#5D4037',
+    duas: [
+      { id:'pt1', arabic:'رَبَّنَا أَفْرِغْ عَلَيْنَا صَبْرًا وَثَبِّتْ أَقْدَامَنَا وَانْصُرْنَا عَلَى الْقَوْمِ الْكَافِرِينَ', transliteration:'Rabbana afrigh \\'alayna sabran wa thabbit aqdamana wansurna \\'alal-qawmil-kafirin', translations:T('Our Lord, pour upon us patience, firm our feet, and help us against the disbelieving people.','ربنا أفرغ علينا صبرا','எங்கள் மீது பொறையை வார்ச்சுவாயாக','ഞങ്ങളുടെ മേൽ ക്ഷമ ചൊരിയണമേ','ہم پر صبر برسا','हम पर सब्र बरसा','curahkan kesabaran atas kami','verse sur nous la patience','üzerimize sabır dök','আমাদের উপর ধৈর্য ঢালো'), reference:'Quran 2:250', repeat:1, benefit:'For patience in difficulty' },
+    ]
+  },
+  {
+    id: 'guidance',
+    name: T('Guidance','الهداية','நெறி','മാർഗ്ഗദർശനം','ہدایت','हिदायत','Petunjuk','Guidance','Hidayet','হেদায়েত'),
+    icon: '🧭', color: '#006064',
+    duas: [
+      { id:'gd1', arabic:'يَا مُقَلِّبَ الْقُلُوبِ ثَبِّتْ قَلْبِي عَلَى دِينِكَ', transliteration:'Ya muqallibal-qulub, thabbit qalbi \\'ala dinik', translations:T('O Turner of hearts, make my heart firm upon Your religion.','يا مقلب القلوب ثبت قلبي على دينك','இருதயங்களைத் திருப்புவோனே','ഹൃദയങ്ങളെ തിരിക്കുന്നവനേ','اے دلوں کو پھیرنے والے!','ऐ दिलों को पलटने वाले!','Wahai Pembolak-balik hati','Ô Toi qui retourne les cœurs','Kalpleri çeviren!','হে অন্তর পালটানোর!'), reference:'Tirmidhi', repeat:1, benefit:'For steadfastness in faith' },
+    ]
+  },
+  {
+    id: 'marriage',
+    name: T('Marriage','الزواج','திருமணം','വിവാഹം','شادی','शादी','Pernikahan','Mariage','Evlilik','বিবাহ'),
+    icon: '💍', color: '#AD1457',
+    duas: [
+      { id:'mg1', arabic:'رَبِّ إِنِّي لِمَا أَنْزَلْتَ إِلَيَّ مِنْ خَيْرٍ فَقِيرٌ', transliteration:'Rabbi inni lima anzalta ilayya min khayrin faqir', translations:T('My Lord, I am in need of whatever good You send down to me.','رب إني لما أنزلت إلي من خير فقير','நீ அனுப்பும் நன்மைக்கு நான் தேவை','നീ ഇറക്കുന്ന നന്മയ്ക്ക് ഞാൻ ആവശ്യക്കാരൻ','مجھے تیری بھلائی کی ضرورت','मुझे तेरी भलाई की ज़रूरत','aku butuh kebaikan yang Engkau turunkan','j\\'ai besoin du bien que Tu envoies','indireceğin hayra muhtacım','তুমি নাযিল করা কল্যাণের মুখাপেক্ষী'), reference:'Quran 28:24', repeat:1, benefit:'For finding a spouse' },
+    ]
+  },
 ];
 
 export const asmaHusna: AsmaHusna[] = Array.from({length: 99}, (_, i) => {

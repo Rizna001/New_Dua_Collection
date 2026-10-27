@@ -6,9 +6,20 @@ import {
 import { yaseenVerses } from './data/yaseenData';
 import { extendedSalawat, extendedDhikr, extendedAdhkar } from './data/extendedData';
 
+interface NotificationSchedule {
+  id: string;
+  duaId: string;
+  duaArabic: string;
+  duaTranslation: string;
+  times: string[];
+  days: number[];
+  enabled: boolean;
+  repeat: boolean;
+}
+
 type Theme = 'light' | 'dark' | 'sepia';
 type ArabicSize = 'standard' | 'medium' | 'large' | 'huge';
-type View = 'home' | 'category' | 'asma-husna' | 'asma-anbiya' | 'salawat' | 'burdah' | 'rathib' | 'yaseen' | 'dhikr' | 'tasbeeh' | 'bookmarks' | 'settings' | 'notifications' | 'qibla' | 'prayer-times' | 'streaks' | 'per-dua-notif';
+type View = 'home' | 'category' | 'asma-husna' | 'asma-anbiya' | 'salawat' | 'burdah' | 'rathib' | 'yaseen' | 'dhikr' | 'tasbeeh' | 'bookmarks' | 'settings' | 'schedule-manager' | 'per-dua-notif' | 'streaks';
 
 const App: React.FC = () => {
   const [theme, setTheme] = useState<Theme>(() => (localStorage.getItem('theme') as Theme) || 'dark');
@@ -25,20 +36,25 @@ const App: React.FC = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentAudioId, setCurrentAudioId] = useState<string | null>(null);
   const [dailyDua, setDailyDua] = useState<Dua | null>(null);
-  const [notifEnabled, setNotifEnabled] = useState(() => localStorage.getItem('notifEnabled') === 'true');
-  const [notifTime, setNotifTime] = useState(() => localStorage.getItem('notifTime') || '06:00');
-  const [notifPermission, setNotifPermission] = useState<NotificationPermission>('default');
-  const [perDuaNotifs, setPerDuaNotifs] = useState<Record<string, string>>(() => JSON.parse(localStorage.getItem('perDuaNotifs') || '{}'));
-  const [selectedDuaForNotif, setSelectedDuaForNotif] = useState<Dua | null>(null);
   const [audioSpeed, setAudioSpeed] = useState(() => parseFloat(localStorage.getItem('audioSpeed') || '0.9'));
   const [streak, setStreak] = useState(() => parseInt(localStorage.getItem('streak') || '0'));
   const [lastVisit, setLastVisit] = useState(() => localStorage.getItem('lastVisit') || '');
-  const [readingMode, setReadingMode] = useState(false);
-  const [qiblaAngle, setQiblaAngle] = useState(0);
+  const [selectedDuaForNotif, setSelectedDuaForNotif] = useState<Dua | null>(null);
+  const [notifPermission, setNotifPermission] = useState<NotificationPermission>('default');
+  
+  // Notification schedules - unlimited per dua
+  const [notificationSchedules, setNotificationSchedules] = useState<NotificationSchedule[]>(() => 
+    JSON.parse(localStorage.getItem('notificationSchedules') || '[]')
+  );
+  
+  // New schedule form state
+  const [newTimes, setNewTimes] = useState<string[]>(['06:00']);
+  const [newDays, setNewDays] = useState<number[]>([0,1,2,3,4,5,6]);
+  const [newRepeat, setNewRepeat] = useState(true);
+  
   const speechRef = useRef<SpeechSynthesisUtterance | null>(null);
   const audioCtxRef = useRef<AudioContext | null>(null);
 
-  // All duas flat
   const allDuas = useMemo(() => {
     const all: Dua[] = [];
     categories.forEach(cat => all.push(...cat.duas));
@@ -49,17 +65,15 @@ const App: React.FC = () => {
   useEffect(() => {
     const today = new Date().toDateString();
     const yesterday = new Date(Date.now() - 86400000).toDateString();
-    
     if (lastVisit === today) return;
-    
     if (lastVisit === yesterday) {
-      setStreak(prev => prev + 1);
-      localStorage.setItem('streak', String(streak + 1));
+      const newStreak = streak + 1;
+      setStreak(newStreak);
+      localStorage.setItem('streak', String(newStreak));
     } else if (lastVisit !== today) {
       setStreak(1);
       localStorage.setItem('streak', '1');
     }
-    
     localStorage.setItem('lastVisit', today);
     setLastVisit(today);
   }, []);
@@ -68,11 +82,9 @@ const App: React.FC = () => {
     localStorage.setItem('theme', theme);
     localStorage.setItem('lang', lang);
     localStorage.setItem('arabicSize', arabicSize);
-    localStorage.setItem('notifEnabled', String(notifEnabled));
-    localStorage.setItem('notifTime', notifTime);
-    localStorage.setItem('perDuaNotifs', JSON.stringify(perDuaNotifs));
     localStorage.setItem('audioSpeed', String(audioSpeed));
-  }, [theme, lang, arabicSize, notifEnabled, notifTime, perDuaNotifs, audioSpeed]);
+    localStorage.setItem('notificationSchedules', JSON.stringify(notificationSchedules));
+  }, [theme, lang, arabicSize, audioSpeed, notificationSchedules]);
 
   useEffect(() => { localStorage.setItem('bookmarks', JSON.stringify(bookmarks)); }, [bookmarks]);
   useEffect(() => { localStorage.setItem('counters', JSON.stringify(counters)); }, [counters]);
@@ -83,37 +95,39 @@ const App: React.FC = () => {
   }, [allDuas]);
 
   useEffect(() => {
-    if ('Notification' in window) {
-      setNotifPermission(Notification.permission);
-    }
+    if ('Notification' in window) setNotifPermission(Notification.permission);
   }, []);
 
-  // Qibla calculation (simplified - uses Mecca coordinates)
+  // Notification scheduler - checks every minute
   useEffect(() => {
-    if ('geolocation' in navigator) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const lat = position.coords.latitude;
-          const lon = position.coords.longitude;
-          const meccaLat = 21.4225;
-          const meccaLon = 39.8262;
-          
-          const dLon = (meccaLon - lon) * Math.PI / 180;
-          const lat1 = lat * Math.PI / 180;
-          const lat2 = meccaLat * Math.PI / 180;
-          
-          const y = Math.sin(dLon) * Math.cos(lat2);
-          const x = Math.cos(lat1) * Math.sin(lat2) - Math.sin(lat1) * Math.cos(lat2) * Math.cos(dLon);
-          
-          let angle = Math.atan2(y, x) * 180 / Math.PI;
-          angle = (angle + 360) % 360;
-          setQiblaAngle(angle);
-        },
-        () => {},
-        { enableHighAccuracy: true }
-      );
-    }
-  }, []);
+    if (notifPermission !== 'granted') return;
+    
+    const checkNotifications = () => {
+      const now = new Date();
+      const currentTime = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+      const currentDay = now.getDay();
+      
+      notificationSchedules.forEach(schedule => {
+        if (!schedule.enabled) return;
+        if (!schedule.days.includes(currentDay)) return;
+        if (!schedule.times.includes(currentTime)) return;
+        
+        // Check if we already notified in this minute (using sessionStorage)
+        const key = `notified-${schedule.id}-${currentTime}-${now.toDateString()}`;
+        if (sessionStorage.getItem(key)) return;
+        sessionStorage.setItem(key, 'true');
+        
+        new Notification('🕌 Dua Reminder', {
+          body: schedule.duaTranslation,
+          tag: schedule.id,
+          requireInteraction: true
+        });
+      });
+    };
+    
+    const interval = setInterval(checkNotifications, 60000);
+    return () => clearInterval(interval);
+  }, [notificationSchedules, notifPermission]);
 
   const toggleBookmark = useCallback((id: string) => {
     setBookmarks(prev => prev.includes(id) ? prev.filter(b => b !== id) : [...prev, id]);
@@ -169,17 +183,13 @@ const App: React.FC = () => {
       return;
     }
     window.speechSynthesis.cancel();
-    
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.lang = 'ar-SA';
     utterance.rate = audioSpeed;
     utterance.pitch = 1.0;
-    utterance.volume = 1.0;
-    
     const voices = window.speechSynthesis.getVoices();
     const arabicVoice = voices.find(v => v.lang.startsWith('ar'));
     if (arabicVoice) utterance.voice = arabicVoice;
-    
     utterance.onend = () => { setIsPlaying(false); setCurrentAudioId(null); };
     utterance.onerror = () => { setIsPlaying(false); setCurrentAudioId(null); };
     speechRef.current = utterance;
@@ -227,11 +237,8 @@ const App: React.FC = () => {
       yaseen: { en: 'Yaseen', ar: 'یس', ta: 'யாசீன்', ml: 'യാസീൻ', ur: 'یٰسین', hi: 'यासीन', id: 'Yasin', fr: 'Yasin', tr: 'Yasin', bn: 'ইয়াসিন' },
       dhikr: { en: 'Dhikr', ar: 'الذكر', ta: 'திக்ர்', ml: 'ധിക്റ്', ur: 'ذکر', hi: 'ज़िक्र', id: 'Dzikir', fr: 'Dhikr', tr: 'Zikir', bn: 'যিকির' },
       dailyDua: { en: 'Dua of the Day', ar: 'دعاء اليوم', ta: 'இன்றைய துஆ', ml: 'ഇന്നത്തെ ദുആ', ur: 'آج کی دعا', hi: 'आज की दुआ', id: 'Doa Hari Ini', fr: 'Invocation du Jour', tr: 'Günün Duası', bn: 'আজকের দোয়া' },
-      notifications: { en: 'Notifications', ar: 'الإشعارات', ta: 'அறிவிப்புகள்', ml: 'അറിയിപ്പുകൾ', ur: 'اطلاعات', hi: 'सूचनाएं', id: 'Notifikasi', fr: 'Notifications', tr: 'Bildirimler', bn: 'বিজ্ঞপ্তি' },
-      qibla: { en: 'Qibla', ar: 'القبلة', ta: 'கிப்லா', ml: 'ഖിബ്‌ല', ur: 'قبلہ', hi: 'क़िब्ला', id: 'Kiblat', fr: 'Qibla', tr: 'Kıble', bn: 'কিবলা' },
-      prayerTimes: { en: 'Prayer Times', ar: 'أوقات الصلاة', ta: 'தொழுகை நேரம்', ml: 'നമസ്കാര സമയം', ur: 'نماز کے اوقات', hi: 'नमाज़ के वक़्त', id: 'Waktu Shalat', fr: 'Heures de Prière', tr: 'Namaz Vakitleri', bn: 'নামাযের সময়' },
+      scheduleManager: { en: 'My Schedules', ar: 'جداولي', ta: 'என் அட்டவணை', ml: 'എന്റെ ഷെഡ്യൂളുകൾ', ur: 'میرے شیڈول', hi: 'मेरे शेड्यूल', id: 'Jadwal Saya', fr: 'Mes Programmes', tr: 'Programlarım', bn: 'আমার সময়সূচী' },
       streak: { en: 'Streak', ar: 'السلسلة', ta: 'தொடர்', ml: 'സ്ട്രീക്ക്', ur: 'سلسلہ', hi: 'स्ट्रीक', id: 'Streak', fr: 'Série', tr: 'Seri', bn: 'স্ট্রিক' },
-      share: { en: 'Share', ar: 'مشاركة', ta: 'பகிர்', ml: 'പങ്കിടുക', ur: 'شیئر', hi: 'शेयर', id: 'Bagikan', fr: 'Partager', tr: 'Paylaş', bn: 'শেয়ার' },
     };
     return translations[key]?.[lang] || translations[key]?.['en'] || key;
   };
@@ -253,6 +260,7 @@ const App: React.FC = () => {
     const isBookmarked = bookmarks.includes(dua.id);
     const count = counters[dua.id] || 0;
     const target = dua.repeat || 1;
+    const hasSchedule = notificationSchedules.some(s => s.duaId === dua.id);
 
     return (
       <div key={dua.id} className={`${cardClasses[theme]} rounded-2xl p-4 mb-3 transition-all duration-200`}>
@@ -260,18 +268,18 @@ const App: React.FC = () => {
           <span className="text-xs font-bold px-2 py-1 rounded-full" style={{ backgroundColor: accentColor + '20', color: accentColor }}>
             #{index + 1}
           </span>
-          <div className="flex gap-1">
+          <div className="flex gap-1 flex-wrap justify-end">
             <button onClick={() => speakArabic(dua.arabic, dua.id)} className="p-2 rounded-full hover:bg-white/10 text-sm" title="Listen">
               {currentAudioId === dua.id && isPlaying ? '⏸️' : '🔊'}
             </button>
             <button onClick={() => toggleBookmark(dua.id)} className="p-2 rounded-full hover:bg-white/10 text-sm">
               {isBookmarked ? '⭐' : '☆'}
             </button>
-            <button onClick={() => shareDua(dua)} className="p-2 rounded-full hover:bg-white/10 text-sm" title="Share">
-              📤
-            </button>
-            <button onClick={() => { setSelectedDuaForNotif(dua); setCurrentView('per-dua-notif'); }} className="p-2 rounded-full hover:bg-white/10 text-sm" title="Schedule">
+            <button onClick={() => shareDua(dua)} className="p-2 rounded-full hover:bg-white/10 text-sm" title="Share">📤</button>
+            <button onClick={() => { setSelectedDuaForNotif(dua); setCurrentView('per-dua-notif'); }} 
+              className={`p-2 rounded-full hover:bg-white/10 text-sm relative`} title="Schedule">
               🔔
+              {hasSchedule && <span className="absolute top-0 right-0 w-2 h-2 rounded-full bg-green-500"></span>}
             </button>
             <button onClick={() => copyToClipboard(dua.arabic + '\n' + dua.transliteration + '\n' + getTranslation(dua.translations), dua.id)} className="p-2 rounded-full hover:bg-white/10 text-sm">
               {copiedId === dua.id ? '✅' : '📋'}
@@ -299,7 +307,6 @@ const App: React.FC = () => {
 
   const renderHome = () => (
     <div className="space-y-4">
-      {/* Streak Banner */}
       {streak > 0 && (
         <div className={`${cardClasses[theme]} rounded-xl p-3 flex items-center justify-between`}>
           <div className="flex items-center gap-2">
@@ -310,7 +317,7 @@ const App: React.FC = () => {
             </div>
           </div>
           <button onClick={() => setCurrentView('streaks')} className="text-xs px-3 py-1 rounded-full" style={{ backgroundColor: accentColor + '20', color: accentColor }}>
-            View Stats
+            Stats
           </button>
         </div>
       )}
@@ -341,24 +348,22 @@ const App: React.FC = () => {
         ))}
       </div>
 
-      {/* Quick Actions */}
-      <div className="grid grid-cols-3 gap-2">
-        <button onClick={() => setCurrentView('qibla')} className={`${cardClasses[theme]} rounded-xl p-3 text-center`}>
-          <span className="text-2xl block">🧭</span>
-          <span className="text-xs font-medium">{t('qibla')}</span>
-        </button>
-        <button onClick={() => setCurrentView('prayer-times')} className={`${cardClasses[theme]} rounded-xl p-3 text-center`}>
-          <span className="text-2xl block">🕐</span>
-          <span className="text-xs font-medium">{t('prayerTimes')}</span>
+      <div className="grid grid-cols-2 gap-2">
+        <button onClick={() => setCurrentView('schedule-manager')} className={`${cardClasses[theme]} rounded-xl p-3 text-center`}>
+          <span className="text-2xl block">🔔</span>
+          <span className="text-xs font-medium">{t('scheduleManager')}</span>
+          {notificationSchedules.length > 0 && (
+            <span className="text-[10px] opacity-60">{notificationSchedules.length} active</span>
+          )}
         </button>
         <button onClick={() => setCurrentView('streaks')} className={`${cardClasses[theme]} rounded-xl p-3 text-center`}>
           <span className="text-2xl block">🔥</span>
-          <span className="text-xs font-medium">{t('streak')}</span>
+          <span className="text-xs font-medium">{t('streak')} & Stats</span>
         </button>
       </div>
 
       <div>
-        <h2 className="text-sm font-bold mb-3 flex items-center gap-2"><span style={{ color: accentColor }}>📂</span> {t('categories')}</h2>
+        <h2 className="text-sm font-bold mb-3 flex items-center gap-2"><span style={{ color: accentColor }}>📂</span> {t('categories')} ({categories.length})</h2>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
           {filteredCategories.map((cat) => (
             <button key={cat.id} onClick={() => { setSelectedCategory(cat); setCurrentView('category'); }}
@@ -372,6 +377,249 @@ const App: React.FC = () => {
       </div>
     </div>
   );
+
+  const renderPerDuaNotif = () => {
+    if (!selectedDuaForNotif) return null;
+    const existingSchedules = notificationSchedules.filter(s => s.duaId === selectedDuaForNotif.id);
+    const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    
+    const addNewSchedule = () => {
+      if (notifPermission !== 'granted') {
+        if ('Notification' in window) {
+          Notification.requestPermission().then(p => {
+            setNotifPermission(p);
+            if (p !== 'granted') {
+              alert('Please allow notifications to set reminders');
+              return;
+            }
+          });
+        }
+        return;
+      }
+      
+      const newSchedule: NotificationSchedule = {
+        id: `notif-${Date.now()}`,
+        duaId: selectedDuaForNotif.id,
+        duaArabic: selectedDuaForNotif.arabic,
+        duaTranslation: getTranslation(selectedDuaForNotif.translations),
+        times: [...newTimes],
+        days: [...newDays],
+        enabled: true,
+        repeat: newRepeat,
+      };
+      setNotificationSchedules(prev => [...prev, newSchedule]);
+      setNewTimes(['06:00']);
+      setNewDays([0,1,2,3,4,5,6]);
+      alert('✅ Reminder scheduled successfully!');
+    };
+    
+    const deleteSchedule = (id: string) => {
+      setNotificationSchedules(prev => prev.filter(s => s.id !== id));
+    };
+    
+    const toggleSchedule = (id: string) => {
+      setNotificationSchedules(prev => prev.map(s => s.id === id ? {...s, enabled: !s.enabled} : s));
+    };
+    
+    const addTime = () => {
+      const lastTime = newTimes[newTimes.length - 1] || '06:00';
+      setNewTimes([...newTimes, lastTime]);
+    };
+    
+    const removeTime = (index: number) => {
+      if (newTimes.length > 1) {
+        setNewTimes(newTimes.filter((_, i) => i !== index));
+      }
+    };
+    
+    const updateTime = (index: number, value: string) => {
+      const updated = [...newTimes];
+      updated[index] = value;
+      setNewTimes(updated);
+    };
+    
+    const toggleDay = (day: number) => {
+      if (newDays.includes(day)) {
+        setNewDays(newDays.filter(d => d !== day));
+      } else {
+        setNewDays([...newDays, day].sort());
+      }
+    };
+
+    return (
+      <div>
+        <button onClick={() => { setCurrentView('home'); setSelectedDuaForNotif(null); }} className="mb-3 text-sm opacity-70">← Back</button>
+        <h2 className="text-lg font-bold mb-4" style={{ color: accentColor }}>🔔 Schedule Reminders</h2>
+        
+        <div className={`${cardClasses[theme]} rounded-xl p-4 mb-4`}>
+          <p className="arabic-font text-base text-right mb-2" dir="rtl">{selectedDuaForNotif.arabic}</p>
+          <p className="text-xs opacity-70">{getTranslation(selectedDuaForNotif.translations)}</p>
+        </div>
+        
+        {/* Existing Schedules */}
+        {existingSchedules.length > 0 && (
+          <div className="mb-4">
+            <h3 className="text-sm font-bold mb-2">Active Reminders ({existingSchedules.length})</h3>
+            {existingSchedules.map(schedule => (
+              <div key={schedule.id} className={`${cardClasses[theme]} rounded-xl p-3 mb-2 ${!schedule.enabled ? 'opacity-50' : ''}`}>
+                <div className="flex justify-between items-start">
+                  <div className="flex-1">
+                    <div className="flex flex-wrap gap-1 mb-1">
+                      {schedule.times.map(time => (
+                        <span key={time} className="text-xs px-2 py-0.5 rounded-full" style={{ backgroundColor: accentColor + '30', color: accentColor }}>
+                          🕐 {time}
+                        </span>
+                      ))}
+                    </div>
+                    <div className="flex flex-wrap gap-1">
+                      {schedule.days.map(day => (
+                        <span key={day} className="text-[10px] px-1.5 py-0.5 rounded bg-white/10">
+                          {dayNames[day]}
+                        </span>
+                      ))}
+                    </div>
+                    <p className="text-[10px] opacity-50 mt-1">
+                      {schedule.repeat ? '🔁 Repeats' : '⏰ One-time'}
+                    </p>
+                  </div>
+                  <div className="flex flex-col gap-1">
+                    <button onClick={() => toggleSchedule(schedule.id)} className="text-xs px-2 py-1 rounded" style={{ backgroundColor: schedule.enabled ? '#4CAF50' : '#666', color: '#fff' }}>
+                      {schedule.enabled ? 'ON' : 'OFF'}
+                    </button>
+                    <button onClick={() => deleteSchedule(schedule.id)} className="text-xs px-2 py-1 rounded bg-red-500/20 text-red-500">
+                      🗑️
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+        
+        {/* New Schedule Form */}
+        <div className={`${cardClasses[theme]} rounded-xl p-4`}>
+          <h3 className="text-sm font-bold mb-3">➕ Add New Reminder</h3>
+          
+          <div className="mb-3">
+            <label className="text-xs opacity-60 block mb-1">Times (add multiple)</label>
+            {newTimes.map((time, i) => (
+              <div key={i} className="flex gap-2 mb-1">
+                <input type="time" value={time} onChange={e => updateTime(i, e.target.value)}
+                  className="flex-1 px-3 py-1.5 rounded-lg text-sm outline-none" 
+                  style={{ backgroundColor: theme === 'dark' ? '#003D2B' : '#f3f4f6', border: `1px solid ${accentColor}30` }} />
+                {newTimes.length > 1 && (
+                  <button onClick={() => removeTime(i)} className="px-2 text-red-500">×</button>
+                )}
+              </div>
+            ))}
+            <button onClick={addTime} className="text-xs px-3 py-1 rounded-full mt-1" style={{ backgroundColor: accentColor + '20', color: accentColor }}>
+              + Add Time
+            </button>
+          </div>
+          
+          <div className="mb-3">
+            <label className="text-xs opacity-60 block mb-1">Days</label>
+            <div className="flex flex-wrap gap-1">
+              {dayNames.map((name, i) => (
+                <button key={i} onClick={() => toggleDay(i)}
+                  className={`px-2 py-1 rounded text-xs transition-all ${newDays.includes(i) ? 'font-bold' : 'opacity-40'}`}
+                  style={{ backgroundColor: newDays.includes(i) ? accentColor : 'transparent', color: newDays.includes(i) ? '#00160D' : 'inherit' }}>
+                  {name}
+                </button>
+              ))}
+            </div>
+            <div className="flex gap-2 mt-2">
+              <button onClick={() => setNewDays([0,1,2,3,4,5,6])} className="text-xs px-2 py-1 rounded bg-white/10">All Days</button>
+              <button onClick={() => setNewDays([1,2,3,4,5])} className="text-xs px-2 py-1 rounded bg-white/10">Weekdays</button>
+              <button onClick={() => setNewDays([0,6])} className="text-xs px-2 py-1 rounded bg-white/10">Weekends</button>
+            </div>
+          </div>
+          
+          <div className="mb-3">
+            <label className="flex items-center gap-2 text-sm">
+              <input type="checkbox" checked={newRepeat} onChange={e => setNewRepeat(e.target.checked)} />
+              <span>Repeat weekly</span>
+            </label>
+          </div>
+          
+          <button onClick={addNewSchedule} 
+            className="w-full py-2 rounded-lg font-bold text-sm" 
+            style={{ backgroundColor: accentColor, color: '#00160D' }}>
+            ✅ Schedule Reminder
+          </button>
+          
+          {notifPermission !== 'granted' && (
+            <p className="text-xs text-center mt-2 opacity-60">
+              ⚠️ Please allow notifications in browser settings
+            </p>
+          )}
+        </div>
+      </div>
+    );
+  };
+
+  const renderScheduleManager = () => {
+    const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    
+    return (
+      <div>
+        <button onClick={() => setCurrentView('home')} className="mb-3 text-sm opacity-70">← {t('home')}</button>
+        <h2 className="text-lg font-bold mb-4" style={{ color: accentColor }}>🔔 {t('scheduleManager')}</h2>
+        
+        {notificationSchedules.length === 0 ? (
+          <div className={`${cardClasses[theme]} rounded-xl p-8 text-center`}>
+            <span className="text-4xl block mb-3">🔔</span>
+            <p className="text-sm opacity-60">No reminders scheduled yet</p>
+            <p className="text-xs opacity-40 mt-1">Go to any dua and tap 🔔 to schedule</p>
+          </div>
+        ) : (
+          <div className="space-y-3">
+            {notificationSchedules.map(schedule => {
+              const dua = allDuas.find(d => d.id === schedule.duaId);
+              return (
+                <div key={schedule.id} className={`${cardClasses[theme]} rounded-xl p-3 ${!schedule.enabled ? 'opacity-50' : ''}`}>
+                  <div className="flex justify-between items-start mb-2">
+                    <div className="flex-1">
+                      <p className="arabic-font text-sm text-right mb-1" dir="rtl">{schedule.duaArabic.substring(0, 80)}...</p>
+                      <div className="flex flex-wrap gap-1 mb-1">
+                        {schedule.times.map(time => (
+                          <span key={time} className="text-xs px-2 py-0.5 rounded-full" style={{ backgroundColor: accentColor + '30', color: accentColor }}>
+                            🕐 {time}
+                          </span>
+                        ))}
+                      </div>
+                      <div className="flex flex-wrap gap-1">
+                        {schedule.days.map(day => (
+                          <span key={day} className="text-[10px] px-1.5 py-0.5 rounded bg-white/10">
+                            {dayNames[day]}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="flex flex-col gap-1">
+                      <button onClick={() => setNotificationSchedules(prev => prev.map(s => s.id === schedule.id ? {...s, enabled: !s.enabled} : s))} 
+                        className="text-xs px-2 py-1 rounded" style={{ backgroundColor: schedule.enabled ? '#4CAF50' : '#666', color: '#fff' }}>
+                        {schedule.enabled ? 'ON' : 'OFF'}
+                      </button>
+                      <button onClick={() => {
+                        if (dua) { setSelectedDuaForNotif(dua); setCurrentView('per-dua-notif'); }
+                      }} className="text-xs px-2 py-1 rounded bg-white/10">
+                        ✏️
+                      </button>
+                      <button onClick={() => setNotificationSchedules(prev => prev.filter(s => s.id !== schedule.id))} 
+                        className="text-xs px-2 py-1 rounded bg-red-500/20 text-red-500">
+                        🗑️
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </div>
+    );
+  };
 
   const renderYaseen = () => (
     <div>
@@ -396,70 +644,12 @@ const App: React.FC = () => {
     </div>
   );
 
-  const renderQibla = () => (
-    <div className="flex flex-col items-center justify-center min-h-[60vh]">
-      <button onClick={() => setCurrentView('home')} className="mb-6 text-sm opacity-70 self-start">← {t('home')}</button>
-      <h2 className="text-xl font-bold mb-6" style={{ color: accentColor }}>🧭 {t('qibla')}</h2>
-      
-      <div className="relative w-64 h-64 rounded-full border-4 flex items-center justify-center" style={{ borderColor: accentColor, backgroundColor: accentColor + '10' }}>
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="text-4xl" style={{ transform: `rotate(${qiblaAngle}deg)`, transition: 'transform 0.5s' }}>
-            🕋
-          </div>
-        </div>
-        <div className="absolute top-2 text-xs font-bold">N</div>
-        <div className="absolute bottom-2 text-xs font-bold">S</div>
-        <div className="absolute left-2 text-xs font-bold">W</div>
-        <div className="absolute right-2 text-xs font-bold">E</div>
-      </div>
-      
-      <div className="mt-6 text-center">
-        <p className="text-lg font-bold" style={{ color: accentColor }}>{Math.round(qiblaAngle)}°</p>
-        <p className="text-sm opacity-60">Direction to Mecca</p>
-      </div>
-    </div>
-  );
-
-  const renderPrayerTimes = () => {
-    // Simplified prayer times (would use API in production)
-    const times = [
-      { name: 'Fajr', time: '05:30', icon: '🌅' },
-      { name: 'Dhuhr', time: '12:30', icon: '☀️' },
-      { name: 'Asr', time: '15:45', icon: '🌤️' },
-      { name: 'Maghrib', time: '18:20', icon: '🌇' },
-      { name: 'Isha', time: '19:45', icon: '🌙' },
-    ];
-
-    return (
-      <div>
-        <button onClick={() => setCurrentView('home')} className="mb-3 text-sm opacity-70">← {t('home')}</button>
-        <h2 className="text-xl font-bold mb-6" style={{ color: accentColor }}>🕐 {t('prayerTimes')}</h2>
-        
-        <div className="space-y-3">
-          {times.map((prayer) => (
-            <div key={prayer.name} className={`${cardClasses[theme]} rounded-xl p-4 flex items-center justify-between`}>
-              <div className="flex items-center gap-3">
-                <span className="text-2xl">{prayer.icon}</span>
-                <span className="font-bold">{prayer.name}</span>
-              </div>
-              <span className="text-lg font-mono" style={{ color: accentColor }}>{prayer.time}</span>
-            </div>
-          ))}
-        </div>
-        
-        <p className="text-xs text-center opacity-50 mt-4">* Approximate times - use local mosque schedule</p>
-      </div>
-    );
-  };
-
   const renderStreaks = () => {
     const totalDuas = Object.values(counters).reduce((a, b) => a + b, 0);
-    
     return (
       <div>
         <button onClick={() => setCurrentView('home')} className="mb-3 text-sm opacity-70">← {t('home')}</button>
-        <h2 className="text-xl font-bold mb-6" style={{ color: accentColor }}>🔥 {t('streak')} & Stats</h2>
-        
+        <h2 className="text-xl font-bold mb-6" style={{ color: accentColor }}>🔥 Stats & Achievements</h2>
         <div className="grid grid-cols-2 gap-3 mb-6">
           <div className={`${cardClasses[theme]} rounded-xl p-4 text-center`}>
             <span className="text-3xl block mb-2">🔥</span>
@@ -469,7 +659,7 @@ const App: React.FC = () => {
           <div className={`${cardClasses[theme]} rounded-xl p-4 text-center`}>
             <span className="text-3xl block mb-2">📿</span>
             <p className="text-2xl font-bold" style={{ color: accentColor }}>{totalDuas}</p>
-            <p className="text-xs opacity-60">Total Recitations</p>
+            <p className="text-xs opacity-60">Recitations</p>
           </div>
           <div className={`${cardClasses[theme]} rounded-xl p-4 text-center`}>
             <span className="text-3xl block mb-2">⭐</span>
@@ -477,12 +667,11 @@ const App: React.FC = () => {
             <p className="text-xs opacity-60">Bookmarks</p>
           </div>
           <div className={`${cardClasses[theme]} rounded-xl p-4 text-center`}>
-            <span className="text-3xl block mb-2">📖</span>
-            <p className="text-2xl font-bold" style={{ color: accentColor }}>{allDuas.length}</p>
-            <p className="text-xs opacity-60">Available Duas</p>
+            <span className="text-3xl block mb-2">🔔</span>
+            <p className="text-2xl font-bold" style={{ color: accentColor }}>{notificationSchedules.length}</p>
+            <p className="text-xs opacity-60">Reminders</p>
           </div>
         </div>
-        
         <div className={`${cardClasses[theme]} rounded-xl p-4`}>
           <h3 className="text-sm font-bold mb-3">Achievements</h3>
           <div className="space-y-2">
@@ -492,6 +681,7 @@ const App: React.FC = () => {
               { name: '100 Recitations', icon: '💯', unlocked: totalDuas >= 100 },
               { name: '7 Day Streak', icon: '🔥', unlocked: streak >= 7 },
               { name: '30 Day Streak', icon: '🏆', unlocked: streak >= 30 },
+              { name: 'First Reminder', icon: '🔔', unlocked: notificationSchedules.length >= 1 },
             ].map((ach, i) => (
               <div key={i} className={`flex items-center justify-between p-2 rounded-lg ${ach.unlocked ? '' : 'opacity-30'}`} style={{ backgroundColor: ach.unlocked ? accentColor + '20' : 'transparent' }}>
                 <div className="flex items-center gap-2">
@@ -506,46 +696,6 @@ const App: React.FC = () => {
       </div>
     );
   };
-
-  const renderPerDuaNotif = () => {
-    if (!selectedDuaForNotif) return null;
-    
-    return (
-      <div>
-        <button onClick={() => { setCurrentView('home'); setSelectedDuaForNotif(null); }} className="mb-3 text-sm opacity-70">← Back</button>
-        <h2 className="text-lg font-bold mb-4" style={{ color: accentColor }}>🔔 Schedule Notification</h2>
-        
-        <div className={`${cardClasses[theme]} rounded-xl p-4 mb-4`}>
-          <p className="arabic-font text-lg text-right mb-2" dir="rtl">{selectedDuaForNotif.arabic}</p>
-          <p className="text-xs opacity-70">{getTranslation(selectedDuaForNotif.translations)}</p>
-        </div>
-        
-        <div className={`${cardClasses[theme]} rounded-xl p-4`}>
-          <h3 className="text-sm font-bold mb-3">Set Reminder Time</h3>
-          <div className="space-y-3">
-            {['06:00', '12:00', '18:00', '21:00'].map(time => (
-              <button
-                key={time}
-                onClick={() => {
-                  setPerDuaNotifs(prev => ({ ...prev, [selectedDuaForNotif.id]: time }));
-                  alert(`Notification set for ${time}`);
-                }}
-                className={`w-full px-4 py-2 rounded-lg text-sm text-left transition-all ${
-                  perDuaNotifs[selectedDuaForNotif.id] === time ? 'font-bold' : 'opacity-60'
-                }`}
-                style={{ backgroundColor: perDuaNotifs[selectedDuaForNotif.id] === time ? accentColor + '30' : 'transparent', color: perDuaNotifs[selectedDuaForNotif.id] === time ? accentColor : 'inherit', border: `1px solid ${perDuaNotifs[selectedDuaForNotif.id] === time ? accentColor : 'transparent'}` }}
-              >
-                🕐 {time}
-              </button>
-            ))}
-          </div>
-        </div>
-      </div>
-    );
-  };
-
-  // ... (rest of the render functions similar to before, but with new features)
-  // Due to space, I'll create a simplified version that includes all key features
 
   return (
     <div className={`min-h-screen ${themeClasses[theme]} transition-colors duration-300`}>
@@ -582,7 +732,7 @@ const App: React.FC = () => {
             { icon: '🏠', label: t('home'), view: 'home' as View },
             { icon: '📖', label: t('yaseen'), view: 'yaseen' as View },
             { icon: '📿', label: t('tasbeeh'), view: 'tasbeeh' as View },
-            { icon: '🧭', label: t('qibla'), view: 'qibla' as View },
+            { icon: '🔔', label: t('scheduleManager'), view: 'schedule-manager' as View },
             { icon: '⚙️', label: t('settings'), view: 'settings' as View },
           ].map(item => (
             <button key={item.view} onClick={() => setCurrentView(item.view)}
@@ -801,7 +951,7 @@ const App: React.FC = () => {
               </div>
             </div>
 
-            <div className={`${cardClasses[theme]} rounded-xl p-4 mb-3`}>
+            <div className={`${cardClasses[theme]} rounded-xl p-4`}>
               <h3 className="text-sm font-bold mb-2">🔊 Audio Speed</h3>
               <div className="flex gap-2">
                 {[0.5, 0.75, 1.0, 1.25, 1.5].map(speed => (
@@ -812,36 +962,12 @@ const App: React.FC = () => {
                 ))}
               </div>
             </div>
-
-            <div className={`${cardClasses[theme]} rounded-xl p-4`}>
-              <h3 className="text-sm font-bold mb-2">🔔 Notifications</h3>
-              <div className="flex items-center justify-between">
-                <span className="text-sm">Enable Daily Dua</span>
-                <button onClick={() => {
-                  if (!notifEnabled && 'Notification' in window) {
-                    Notification.requestPermission().then(p => {
-                      setNotifPermission(p);
-                      if (p === 'granted') setNotifEnabled(true);
-                    });
-                  } else {
-                    setNotifEnabled(!notifEnabled);
-                  }
-                }} className={`w-12 h-6 rounded-full transition-all ${notifEnabled ? '' : 'opacity-30'}`} style={{ backgroundColor: notifEnabled ? accentColor : '#666' }}>
-                  <div className={`w-5 h-5 rounded-full bg-white transition-transform ${notifEnabled ? 'translate-x-6' : 'translate-x-0.5'}`} />
-                </button>
-              </div>
-              {notifEnabled && (
-                <input type="time" value={notifTime} onChange={e => setNotifTime(e.target.value)}
-                  className="w-full mt-2 px-3 py-2 rounded-lg text-sm outline-none" style={{ backgroundColor: theme === 'dark' ? '#003D2B' : '#f3f4f6', border: `1px solid ${accentColor}30` }} />
-              )}
-            </div>
           </div>
         )}
         {currentView === 'yaseen' && renderYaseen()}
-        {currentView === 'qibla' && renderQibla()}
-        {currentView === 'prayer-times' && renderPrayerTimes()}
-        {currentView === 'streaks' && renderStreaks()}
+        {currentView === 'schedule-manager' && renderScheduleManager()}
         {currentView === 'per-dua-notif' && renderPerDuaNotif()}
+        {currentView === 'streaks' && renderStreaks()}
       </main>
     </div>
   );
